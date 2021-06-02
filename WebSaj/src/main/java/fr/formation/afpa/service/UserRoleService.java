@@ -15,7 +15,7 @@ import fr.formation.afpa.dao.IUserDao;
 import fr.formation.afpa.domain.AppRole;
 import fr.formation.afpa.domain.UserProfile;
 @Service
-public class UserRoleService implements UserDetailsService {
+public class UserRoleService implements UserDetailsService,IRoleService {
     @Autowired
     private IUserDao userDao;
     @Autowired
@@ -46,5 +46,8 @@ public class UserRoleService implements UserDetailsService {
         UserDetails userDetails = (UserDetails) new User(appUser.getLogin(), //
                 appUser.getPassword(), grantList);
         return userDetails;
+    }
+    public Set<AppRole> findByRoleId(Long id){
+    	return iroleDao.findByRoleId(id);
     }
 }

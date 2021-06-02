@@ -20,12 +20,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import fr.formation.afpa.domain.AppRole;
 import fr.formation.afpa.domain.CodingLanguage;
 import fr.formation.afpa.domain.Tickets;
 import fr.formation.afpa.domain.UserProfile;
 import fr.formation.afpa.service.CodingLanguageService;
 import fr.formation.afpa.service.LanguageLibraryService;
 import fr.formation.afpa.service.TicketService;
+import fr.formation.afpa.service.UserRoleService;
 import fr.formation.afpa.service.UserService;
 import fr.formation.afpa.utils.EncrytedPasswordUtils;
 import fr.formation.afpa.utils.WebUtils;
@@ -36,16 +39,26 @@ public class LoginController {
     UserService userService;
     LanguageLibraryService languageLibraryService;
     TicketService ticketService;
+    UserRoleService  userRoleService;
+    
     String statutOuvert = "O";
     String statutEnCours = "E";
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
+  
     public LoginController() {
     }
+    @Autowired
+    public LoginController(UserService userService, LanguageLibraryService languageLibraryService,
+            CodingLanguageService codingLanguageService, TicketService ticketService, UserRoleService  userRoleService) {
+        this.userService = userService;
+        this.languageLibraryService = languageLibraryService;
+        this.ticketService = ticketService;
+        this.codingLanguageService = codingLanguageService;
+        this.userRoleService  = userRoleService;
+    }
+    
+    
+   
+    
     /*
      * redirection Creation profil USER avec ajout de list de langages
      */
@@ -66,14 +79,16 @@ public class LoginController {
         String passw = user.getPassword();
         user.setPassword(EncrytedPasswordUtils.encrytePassword(passw));
         user.setEnabled(true);
+        Set<AppRole> roles = userRoleService.findByRoleId(1L);
         if (user.getTitle().equals("A")) {
+        	
+        		user.setRoles(roles);
+        
+        	
             userService.save(user);
         } else {
             user.setCodingLanguage(listLang);
-//          User userFake =  userService.findTopByOrderByIdDesc();
-//          Integer idFake = userFake.getId();
-//          idFake += 1;
-//          user.setId(idFake);
+            user.setRoles(roles);
             userService.save(user);
         }
         return "index";
@@ -82,14 +97,7 @@ public class LoginController {
     public String qsm() {
         return "qsm";
     }
-    @Autowired
-    public LoginController(UserService userService, LanguageLibraryService languageLibraryService,
-            CodingLanguageService codingLanguageService, TicketService ticketService) {
-        this.userService = userService;
-        this.languageLibraryService = languageLibraryService;
-        this.ticketService = ticketService;
-        this.codingLanguageService = codingLanguageService;
-    }
+  
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String listEmp(Model model) {
         return "index";
@@ -161,5 +169,11 @@ public class LoginController {
             model.addAttribute("message", message);
         }
         return "403Page";
+    }
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }
