@@ -123,33 +123,23 @@ public class AspirantController {
 	}
 	
 	/* Accepter l'offre */
-	@RequestMapping(path = "/AccepterOffre", method = RequestMethod.GET)
-	public String AccepterOffre(Model m, HttpServletRequest request, @RequestParam String idTicketIntervenant,
-			@RequestParam String idTicket,  Principal principal) {
-		HttpSession httpSession = request.getSession();
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        
-        String userName = loginedUser.getUsername();
-        UserProfile loginUser = userService.findByLogin(userName);
-        Integer id = loginUser.getId();
-        System.err.println(id);
-		List<Tickets> listOffres = ticketService.findByAspirantIdLikeAndStatutLike(id, statutOuvert);
-		System.out.println("=============================listTickets OUVERT======================");
-		System.out.println(id);
-		System.out.println(listOffres);
-		m.addAttribute("listOffres", listOffres);
-
-		Integer idIntervenant = Integer.parseInt(idTicketIntervenant);
-		Integer idTick = Integer.parseInt(idTicket);
-
-		Tickets ticket = ticketService.findById(idTick).orElse(null);
-
-		ticket.setIntervenantId(idIntervenant);
-
+	@RequestMapping(path = "/accepterOffre", method = RequestMethod.POST)
+	public String AccepterOffre(Model m, HttpServletRequest request, @RequestParam String idIntervenant,
+			@RequestParam String idTicket) {
+		System.err.println("JE RENTRE ICI");
+		//Récupération du ticket et recherche du ticket
+		Integer id = Integer.parseInt(idTicket);	
+		Tickets ticket = ticketService.findById(id).orElse(null);
+		//Modification du statut du ticket à "en cours"
+		ticket.setStatut(statutEnCours);
+		//modification de l'id de l'intervenant validé sur le ticket 
+		Integer idInterv = Integer.parseInt(idIntervenant);
+		ticket.setIntervenantId(idInterv);
+		ticketService.save(ticket);
 		System.out.println("============================= Accepter Offre ============================");
 		System.out.println(ticket);
 
-		return "Offre";
+		return "redirect:/ticketsAspirant";
 
 	}
 	

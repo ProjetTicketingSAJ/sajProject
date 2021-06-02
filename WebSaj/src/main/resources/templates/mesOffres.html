@@ -108,7 +108,11 @@
 									<span class="montant" th:text="${list.montant}"></span> <span
 										class="montantEuro"> € </span>
 								</h5>
-								<a href="#" class="btn btn-outline-primary">valider</a>
+								<form action="accepterOffre" method="post">
+								<button type="submit" class="btn btn-outline-primary">valider</button>
+								<input type="hidden" name="idTicket" th:value="${list.tickets.id}">
+								<input type="hidden" name="idIntervenant" th:value="${list.intervenant.id}">
+								</form>
 							</div>
 						</div>
 
