@@ -93,6 +93,11 @@ public class LoginController {
 		return "qsm";
 	}
 
+	@RequestMapping("/notFound")
+	public String notFound() {
+		return "404Errorpage";
+	}
+
 	@Autowired
 	public LoginController(UserService userService, LanguageLibraryService languageLibraryService,
 			CodingLanguageService codingLanguageService, TicketService ticketService) {
