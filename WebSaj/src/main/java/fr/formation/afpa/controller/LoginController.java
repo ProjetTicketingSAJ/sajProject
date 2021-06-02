@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.controller;
 
 import java.security.Principal;
@@ -178,4 +179,5 @@ public class LoginController {
 		}
 		return "403Page";
 	}
+
 }

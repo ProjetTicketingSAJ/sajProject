@@ -125,23 +125,7 @@ public class IntervenantController {
 			files.add(f);
 		}
 		
-//		Integer idInterv = (Integer) httpSession.getAttribute("aspirantId");
-//		User user = userService.findById(idInterv).orElse(null);
-//		//Création d'une intervention si nulle, sinon en récupérer les infos
-//		 Intervention intervention = interventionService.findByTicketsAndUsers(tickets,user);
-//
-//		 if(intervention==null) {
-//			
-//			 Intervention inter = new Intervention();
-//			 LocalDateTime now = LocalDateTime.now();
-//			 Date date = convertToDateViaSqlTimestamp(now);
-//			 inter.setDateDebutIntervention(date);
-//			 inter.setTickets(tickets);
-//			 inter.setUsers(user);
-//			 interventionService.save(inter);
-//		 }
 
-		
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
 	

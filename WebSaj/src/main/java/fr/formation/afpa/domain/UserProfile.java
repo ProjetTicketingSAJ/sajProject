@@ -45,6 +45,7 @@ public class UserProfile implements java.io.Serializable {
     private boolean enabled;
     public UserProfile() {
     }
+    
     public UserProfile(String nom, String prenom, String telephone, Date dateNaiss, String email, String login,
             String password, Date dateCreation, Date dateDerniereConnexion, String title, String cv,
             String discriminator, Set<Note> notes, Set<Compte> comptes, Set<Tickets> tickets, Set<Message> messages,
