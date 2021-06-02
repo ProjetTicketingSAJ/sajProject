@@ -1,6 +1,7 @@
 package fr.formation.afpa.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -30,10 +33,12 @@ import fr.formation.afpa.domain.FileDb;
 import fr.formation.afpa.domain.LanguageLibrary;
 import fr.formation.afpa.domain.Offre;
 import fr.formation.afpa.domain.Tickets;
+import fr.formation.afpa.domain.UserProfile;
 import fr.formation.afpa.service.CodingLanguageService;
 import fr.formation.afpa.service.FileService;
 import fr.formation.afpa.service.LanguageLibraryService;
 import fr.formation.afpa.service.TicketService;
+import fr.formation.afpa.service.UserService;
 
 @Controller
 public class AspirantController {
@@ -41,7 +46,7 @@ public class AspirantController {
 	LanguageLibraryService languageLibraryService;
 	TicketService ticketService;
 	CodingLanguageService codingLanguageService;
-
+    UserService userService;
 	FileService fileService;
 
 	String statutOuvert = "O";
@@ -61,8 +66,8 @@ public class AspirantController {
 
 	@Autowired
 	public AspirantController(LanguageLibraryService languageLibraryService, TicketService ticketService,
-			CodingLanguageService codingLanguageService, FileService fileService) {
-
+			CodingLanguageService codingLanguageService, FileService fileService, UserService userService) {
+		this.userService =userService;
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
 		this.codingLanguageService = codingLanguageService;
@@ -89,15 +94,21 @@ public class AspirantController {
 
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(path="/VoirOffres", method = RequestMethod.GET)
-	public String VoirOffre(Model model,  HttpServletRequest request, @RequestParam Integer idTicket ) {
-		HttpSession httpSession = request.getSession();
-		Integer id = (Integer) httpSession.getAttribute("aspirantId");
-		
+	public String VoirOffre(Model model,  HttpServletRequest request, @RequestParam Integer idTicket,  Principal principal ) {
+	
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = loginedUser.getUsername();
+         
+        System.err.println("*******************> " + userInfo + " <*******************");
+        UserProfile user = userService.findByLogin(userInfo);
+        System.err.println("====================> " + user + " <====================");
+        Integer id = user.getId();
+        System.err.println("====================> " + id + " <====================");
+
 		/* trouver ticket par son ID  */
 		Tickets ticket = ticketService.findById(idTicket).orElse(null);
-		
+		System.err.println(ticket);
 		
 		/* Ajouter ticket à liste d'offres */
 		Set<Offre> offresTickets = ticket.getOffres();
@@ -114,10 +125,14 @@ public class AspirantController {
 	/* Accepter l'offre */
 	@RequestMapping(path = "/AccepterOffre", method = RequestMethod.GET)
 	public String AccepterOffre(Model m, HttpServletRequest request, @RequestParam String idTicketIntervenant,
-			@RequestParam String idTicket) {
+			@RequestParam String idTicket,  Principal principal) {
 		HttpSession httpSession = request.getSession();
-		Integer id = (Integer) httpSession.getAttribute("aspirantId");
-	
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        
+        String userName = loginedUser.getUsername();
+        UserProfile loginUser = userService.findByLogin(userName);
+        Integer id = loginUser.getId();
+        System.err.println(id);
 		List<Tickets> listOffres = ticketService.findByAspirantIdLikeAndStatutLike(id, statutOuvert);
 		System.out.println("=============================listTickets OUVERT======================");
 		System.out.println(id);

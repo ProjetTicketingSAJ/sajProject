@@ -1,58 +1,54 @@
-.navbar-custom {
-    display: flex;
-    background-color:#F9FAFF;
-    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-    height: 50%;
-  }
-  html body {
-    background-color:#F9FAFF;
-  }
-    
-  
-  .barCoteDroit{
-    display: flex;
-    justify-content: right;
-    margin-right: 4%;
-  }
-  .barCoteDroit .inter{
-    color:   #252a2e;
-    margin-right: 6px;
-    margin-top: 15px;
-    font-weight: bold;
-  }
-  .barCoteDroit .nom{
-  color:  #252a2e;
-  margin-right: 3px;
-  margin-top: 15px;
-  font-weight: bold;
-  }
-  .menu{
-    background-color:#252a2e;
-  
-  }
-  .menu .sousmenu{
-    color:  white;
-    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-  .logoflex{
-    display: flex;
-   /*  justify-content: space-evenly; */
-}
-.ticketList{
-    margin: 4%;
-    display: flex;
-    flex-direction: column;
-
+/* NAVBAR */
+.navbar {
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-
-
-
-   @media all and (max-device-width: 480px)
-{
-  .ticketList {
-   overflow: scroll;
-   height: 400px;
-   
-  }
+html body {
+	background-color: #F9FAFF;
 }
+
+.headerText {
+	color: #0080ff;
+	text-decoration: none;
+	display: inline-block;
+	position: relative;
+}
+
+.headerText:after {
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	position: absolute;
+	background: #0080ff;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
+}
+
+.headerText:hover:after {
+	width: 100%;
+	left: 0;
+}
+/* FOOTER */
+.content {
+	min-height: calc(100vh - 70px);
+	padding: 40px 40px 0 40px;
+}
+
+.footer {
+	height: 50px;
+}
+
+/* END FOOTER */
+
+/* TABLE */
+
+.title span {
+	color: #0080ff;
+	font-size: 45px;
+	font-weight: 700;
+}
+
+/* END TABLE */
