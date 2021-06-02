@@ -71,7 +71,7 @@
 
 			</form>
 
-			<form th:if="${session.title != null}" action="logout">
+			<form th:if="${session.title != null}" th:action="@{/logout}">
 				<button type="submit" class="btn btn-outline-danger">Logout</button>
 			</form>
 
