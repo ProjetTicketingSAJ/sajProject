@@ -1,0 +1,86 @@
+<html xmlns:th="http://www.thymeLeaf.org">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a href="/"> <img src="logo.png" alt="saj logo" class=""
+			height=110 width=120>
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<!-- mes tickets -->
+
+				
+   					<li class="nav-item active "><a class="nav-link headerText"
+					aria-current="page" href="qsm">Qui sommes-nous</a></li>
+			
+				<li th:if="${session.title == 'A'}" class="nav-item active"><a class="nav-link headerText"
+					aria-current="page" href="ticketsAspirant">Mes tickets</a></li>
+					
+
+				<!-- Creation tickets Aspirant -->
+				<li th:if="${session.title == 'A'}" class="nav-item active "><a
+					class="nav-link headerText" aria-current="page"
+					href="creationTicket">Création d'un ticket</a></li>
+				<!--  Zone Tickets Intervenant -->
+				<li th:if="${session.title == 'I'}" class="nav-item active "><a
+					class="nav-link headerText" aria-current="page" href="zoneTickets">ZoneTickets</a></li>
+					
+				<li th:if="${session.title == 'I'}" class="nav-item active"><a class="nav-link headerText"
+					aria-current="page" href="ticketsInervenant">Mes tickets</a></li>
+						
+
+			
+
+
+				<li class="nav-item"><a class="nav-link " aria-current="page"
+					href="?lang=fr"> 🇫🇷</a></li>
+				<li class="nav-item"><a class="nav-link " aria-current="page"
+					href="?lang=en"> 🇬🇧</a></li>
+			</ul>
+			<form class="d-flex">
+				<!-- UserName -->
+
+				<div class="dropdown" th:if="${session.title != null}">
+					<div class="mr-3" data-toggle="dropdown">
+						<i class="bi bi-person-circle"
+							style="font-size: 2rem; color: #0080ff"></i>
+					</div>
+
+					<ul class="dropdown-menu" style="margin-left: -45px;" role="menu"
+						aria-labelledby="imageDropdown">
+
+						<li><span class="nom justify-content-center" th:text="${session.login}"
+							style="display: grid; color: #0080ff; font-weight: bold;"></span></li>
+
+						    <li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item"
+							href="profilIntervenant">Profil</a></li>
+
+						<li>
+						<li><a class="dropdown-item" href="#">Configurations</a></li>
+					</ul>
+				</div>
+
+			</form>
+
+			<form th:if="${session.title != null}" action="logout">
+				<button type="submit" class="btn btn-outline-danger">Logout</button>
+			</form>
+
+			<!--  <form  action="login"> -->
+			<button th:if="${session.title == null}" type="submit"
+				class="btn btn-outline-primary" data-bs-toggle="modal"
+				data-bs-target="#loginBackdrop">Login</button>
+			<!-- </form> -->
+
+		</div>
+	</div>
+</nav>

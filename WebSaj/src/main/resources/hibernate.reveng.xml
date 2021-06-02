@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-schema="SAJ" match-name=".*"></table-filter>
+	<table-filter match-name="coding_language" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="compte" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="intervention" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="language_library" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="message" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="message_has_user" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="note" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="tickets" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="tickets_user" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="user" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="user_intervention" match-catalog="SAJ"></table-filter>
+	<table-filter match-name="tags" match-catalog="saj"></table-filter>
+	<table-filter match-name="ticket_has_tag" match-catalog="saj"></table-filter>
+</hibernate-reverse-engineering>

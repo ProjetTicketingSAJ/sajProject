@@ -1,0 +1,123 @@
+html body {
+    background-color:#F9FAFF;
+  }
+.barCoteDroit{
+    display: flex;
+
+    justify-content: right;
+}
+.barCoteDroit .inter{
+    color:   #252a2e;
+    margin-right: 6px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.barCoteDroit .nom{
+  color:  #252a2e;
+  margin-right: 3px;
+  margin-top: 15px;
+  font-weight: bold;
+}
+.searchFlex{
+    display: flex;
+    margin-left: 10%;
+}
+.menu{
+    background-color:#252a2e;
+  
+}
+.menu .sousmenu{
+    color:  white;
+}
+
+.menu .sousmenu:hover{
+    background-color :  blue;
+  }
+  
+  a:link 
+    { 
+ text-decoration:none; 
+    } 
+    .gauche12 .span12{
+        list-style-type:none; 
+        display: flex;
+      justify-content: center;
+      }
+    .sendBut{
+        display: flex;
+        justify-content: center;
+        margin-top: 1%;
+        margin-bottom: 1%;
+      }
+  .newSolu{
+      padding-top: 1%;
+    
+  }
+
+  .navbar-custom {
+    display: flex;
+    background-color:#F9FAFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 50%;
+  }
+  .logoflex{
+      display: flex;
+  }
+  
+
+  .statbtn{
+      margin-left: 3px;
+  }
+  .navScroll{
+    overflow: scroll;
+    height: 300px;
+  }
+  .newSolu .area{
+      height: 130px;
+     
+  }
+
+  .newSolu .sol{
+      color: white;
+      background-color: #252a2e;;
+  }
+  .card-one{
+      width: 60%;
+      margin-left: 20%;
+     
+  }
+  .gen{
+      width: 60%;
+      margin-left: 20%;
+  }
+  .infosTicket{
+      margin-left: 20%;
+      width: 60%;
+      background-color:  #252a2e;
+      margin-top: 2% ;
+      border-top-left-radius:15px;
+      border-top-right-radius:15px;
+  }
+  .infosTicket2{
+    margin-left: 20%;
+    width: 60%;
+    background-color: #252a2e;
+}
+.infosTicket .inf{
+    color: white;
+}
+.infosTicket2 .inf{
+    color: white;
+}
+.solu1 .btnSol{
+    background-color: #252a2e;
+   border: none;
+}
+.solu1{
+    border: solid 0.2px;
+   
+}
+.date{
+   margin-left: -2%;
+   
+}

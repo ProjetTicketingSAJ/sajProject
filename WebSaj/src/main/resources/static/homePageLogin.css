@@ -1,0 +1,155 @@
+
+.bar{
+    display: flex;
+    justify-content: space-between;
+    background-color: #F9FAFF;
+    margin: auto;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.bar span{
+    font-size: 30px;
+}
+.loginField{
+    width: 415px;
+    height: 46px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+}
+.passwordField{
+   
+    width: 415px;
+    height: 46px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+}
+.instructionLogin{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    color: #606E84;
+  
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.login-card{
+    position: absolute;
+    top: 20%;
+    left: 35.4%;
+    background-color: #F9FAFF;
+
+}
+
+.mb-3{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+   
+    
+}
+.hplog{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-top: 10%;
+    width: 351px;
+    height: 63px;
+    border-radius: 5%;
+ 
+    
+    background-color: black;
+    color: white;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    border-radius: 5em;
+    font-size: 36px;
+    line-height: 42px;
+    
+}
+.hplog:hover{
+    transition: 1s;
+    background-color:blue ;
+    box-shadow: 10px 5px 5px gray;
+
+}
+
+.btn-google {
+    
+    font-family: Roboto;
+    font-style: normal;
+    color: #545454;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 1px #ddd
+    
+    
+}
+.btn-Github{
+    background-color: black;
+    color: white;
+    
+}
+.btn-lg{
+    width: 70%;
+}
+.row{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 5%;
+    
+   
+}
+/* Popup container */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  /* The actual popup (appears on top) */
+  .popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+  }
+  
+  /* Popup arrow */
+  .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Toggle this class when clicking on the popup container (hide and show the popup) */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+  }
+  
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  } 

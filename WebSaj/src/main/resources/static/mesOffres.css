@@ -1,0 +1,86 @@
+/* NAVBAR */
+.navbar {
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+html body {
+	background-color: #F9FAFF;
+}
+
+.headerText {
+	color: #0080ff;
+	text-decoration: none;
+	display: inline-block;
+	position: relative;
+}
+
+.headerText:after {
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	position: absolute;
+	background: #0080ff;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
+}
+
+.headerText:hover:after {
+	width: 100%;
+	left: 0;
+}
+/* FOOTER */
+.content {
+	min-height: calc(100vh - 70px);
+	padding: 40px 40px 0 40px;
+}
+
+.footer {
+	height: 50px;
+}
+
+/* END FOOTER */
+
+/* CARDS */
+.card-header .loginSpan {
+	font-weight: bold;
+	color: #0080ff;
+}
+
+.card-header .nameSpan {
+	font-size: small;
+}
+
+.card-title {
+	font-size: large;
+	font-weight: bold;
+	color: #0080ff;
+}
+
+.dateCrea {
+	font-weight: bold;
+	margin-top: 15%;
+	font-size: xx-small;
+	color: dimgray;
+}
+
+.montantEuro {
+	font-weight: bold;
+	color: #0080ff;
+}
+
+.montant {
+	font-weight: bold;
+	color: #404040;
+}
+.cardOffres{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 1px;
+	
+}
+.card{
+		box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}

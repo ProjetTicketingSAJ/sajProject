@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="/ZoneTicketsCss.css" rel="stylesheet">
+
+<!-- ICONES BOOTSTRAP  -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<link href="/C:/Users/afpa/Documents/fontawesome/css/all.css"
+	rel="stylesheet">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css"
+	rel="stylesheet">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet"
+	href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+
+<title>Zone Tickets</title>
+
+</head>
+
+<body>
+	<!-- start page div -->
+	<div class="page">
+		<!--Navigation bar-->
+		<header th:insert="header.html"> </header>
+		<!--end of Navigation bar-->
+		<!-- 	start page div -->
+		<div class="content">
+
+			<!--Début tableau-->
+			<div class="card mainCard col-12">
+				<div class="card-body ticketCard col-12">
+
+
+					<div class="ticketList">
+						<div class="title">
+							<h2>
+								User's <span>Tickets </span>
+							</h2>
+						</div>
+						<table id="dtBasicExample"
+							class="table table-striped table-hover tab ticketTable"
+							data-toggle="table" data-search="true" data-pagination="true">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Titre</th>
+									<!-- <th scope="col">Langage utilisé</th> -->
+									<th scope="col">Date création</th>
+									<!-- <th scope="col">Temps restant</th> -->
+									<th scope="col">Statut</th>
+									<th class="colAction"><span class="action">Action</span></th>
+									<th scope="col" class="notif"><span class="action">Notification</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="ticket: ${listTickets}">
+									<th scope="row" th:text="${ticket.id}"></th>
+									<td th:text="${ticket.titre}"></td>
+									<!-- <td th:text="${ticket.languageLibrary.codingLanguage.name}"></td> -->
+									<td th:text="${ticket.dateCreation}"></td>
+									<!-- <td class="tempsrestant">36h</td> -->
+									<td th:text="${ticket.statut}"></td>
+
+									<td class="flexBtn">
+
+
+										<form action="monTicket" method="get" class="actionForm">
+											<input type="hidden" th:value="${ticket.id}" name="idTicket">
+											<button type="submit" class="btn btn-outline-primary eyeBtn"
+												data-toggle="tooltip" data-placement="top"
+												title="examiner ticket">
+
+												<svg xmlns="http://www.w3.org/2000/svg" width="35"
+													height="35" fill="currentColor" class="bi bi-eye"
+													viewBox="0 0 16 16">
+											  <path
+														d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+											  <path
+														d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+											  </svg>
+
+											</button>
+
+										</form> <a href="#myModal"
+										th:onclick="'javascript:showFunctionModal(\'' + ${ticket.id} +'\');'"
+										class="btn btn-outline-danger eyeBtn " aria-label="Close"
+										data-toggle="modal" data-placement="top"
+										title="se positionner"> <span aria-hidden="true"><svg
+													xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+													fill="currentColor" class="bi bi-plus-circle"
+													viewBox="0 0 16 16">
+  <path
+														d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+  <path
+														d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+</svg></span>
+									</a>
+									</td>
+
+									<td class="bell"><i class="fas fa-bell"></i></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<form action="envoiOffre" method="post">
+				<div id="myModal" class="modal fade">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title">Proposition</h1>
+							</div>
+							<div class="modal-body">
+								<input type="hidden" name="idTick" id="idTick" value="">
+								<div class="form-group">
+									<label class="control-label">Montant (€)</label>
+									<div>
+										<input type="number" min=0 class="form-control input-lg"
+											name="montant">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Date limite</label>
+									<div>
+										<input type="date" id="datefield"
+											class="form-control input-lg" name="dateLimite">
+									</div>
+								</div>
+
+								<br> <br>
+
+								<div class="row">
+									<div class="btnProp col-12 col-lg-5 ml-5">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Annuler</button>
+									</div>
+									<div class="btnProp col-12 col-lg-5">
+										<button type="submit" class="btn btn-primary">Soumettre</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
+			</form>
+
+
+
+
+
+			<script>
+				$('#ticketList').dataTable({
+					"scrollY" : "400px",
+					"scrollCollapse" : true,
+				});
+			</script>
+
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+				crossorigin="anonymous"></script>
+
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+			<script
+				src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+			<!-- END content div -->
+			<script src="script.js"></script>
+			<!-- END content div -->
+		</div>
+		<!--Navigation bar-->
+		<footer th:insert="footer.html"> </footer>
+		<!--end of Navigation bar-->
+		<!-- END page div -->
+	</div>
+	<script src="creationTicket.js"></script>
+	<script>
+		function showFunctionModal(id) {
+			$(document).ready(function() {
+				$('.myModal').modal();
+				$("#idTick").val(id);
+			});
+		}
+	</script>
+</body>
+
+</html>

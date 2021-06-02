@@ -1,0 +1,166 @@
+/* NAVBAR */
+.navbar {
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+html body {
+	background-color: #F9FAFF;
+}
+
+.headerText {
+	color: #0080ff;
+	text-decoration: none;
+	display: inline-block;
+	position: relative;
+}
+
+.headerText:after {
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	position: absolute;
+	background: #0080ff;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
+}
+
+.headerText:hover:after {
+	width: 100%;
+	left: 0;
+}
+/* FOOTER */
+.content {
+	min-height: calc(100vh - 70px);
+	padding: 40px 40px 0 40px;
+}
+
+.footer {
+	height: 50px;
+}
+
+/* END FOOTER */
+
+/* TABLE */
+.navFilter {
+	width: 89%;
+	margin-left: 5%;
+}
+
+.search {
+	
+	margin-top: -65px !important;
+}
+
+.eyeBtn {
+	decoration: none;
+	border: transparent !important;
+}
+
+.eyeBtn span {
+	font-size: 25px;
+}
+
+.tooltipTicket {
+	background-color: black;
+}
+
+.ticketList {
+	display: flex;
+	flex-direction: column;
+}
+
+.flexBtn {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.ticketList .action {
+	text-align: center;
+}
+
+.ticketList .bell {
+	text-align: center;
+}
+
+.colAction {
+	text-align: center;
+	width: 5%;
+}
+
+.ticketList .notif {
+	text-align: center;
+	width: 3%;
+}
+
+.ticketList .dateCrea {
+	text-align: center;
+	width: 7%;
+}
+
+.ticketList .statusTicket {
+	text-align: center;
+	width: 5%;
+}
+
+.ticketList .titreTicket {
+	text-align: center;
+	width: 13%;
+}
+
+.ticketList .idTicket {
+	text-align: center;
+	width: 3%;
+}
+
+.ticketCard {
+	margin: -4%
+}
+
+.mainCard {
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+	margin-bottom: 3%;
+	height: 90%;
+}
+
+.bootstrap-table .search-input {
+	width: 70% !important;
+	margin-left: 25% !important;
+}
+
+.title span {
+	color: #0080ff;
+	font-size: 45px;
+	font-weight: 700;
+}
+
+/* END TABLE */
+@media all and (max-device-width: 480px) {
+	.ticketList {
+		overflow: scroll;
+		height: 60%;
+		box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+		overflow: scroll;
+	}
+	.title {
+		margin-bottom: 0px;
+	}
+	.ticketList h2 {
+		margin-bottom: 60px;
+		font-size: 1.3em;
+	}
+	.ticketList h2 span {
+		font-size: 1.2em;
+	}
+	.search {
+		margin-top: 10% !important;
+		width: 300px !important;
+		display: flex !important;
+		justify-content: center !important;
+	}
+	.ticketTable {
+		margin-top: 5% !important;
+	}
+}

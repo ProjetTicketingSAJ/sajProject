@@ -1,0 +1,117 @@
+/*
+Navbar
+*/
+.navbar-custom {
+    display: flex;
+    background-color:#F9FAFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 50%;
+  }
+  .logoflex{
+    display: flex;
+} 
+a:link 
+    { 
+ text-decoration:none; 
+    } 
+  .barCoteDroit{
+    display: flex;
+    margin-right: 4%;
+    justify-content: right;
+  }
+  .barCoteDroit .inter{
+    color:   #252a2e;
+    margin-right: 6px;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  .barCoteDroit .nom{
+  color:  #252a2e;
+  margin-right: 3px;
+  margin-top: 15px;
+  font-weight: bold;
+  }
+  .searchFlex{
+       display: flex;
+       margin-left: 10%;
+   }
+  .statbtn{
+      margin-left: 3px;
+  }
+
+.rounded-circle{
+    margin-bottom: 30px;
+    width: 90px;
+    height: 80px;
+}
+
+
+.menu{
+    background-color:#252a2e;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .menu .sousmenu{
+    color:  white;
+  }
+/*
+end navbar
+*/
+
+/*liste ticket*/
+
+.ticket-list{
+height: 60%;
+box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.myticketspage{
+margin:2%;
+}
+
+    /*
+Icon statut
+*/ 
+.icongreen{
+    color: green;
+}
+.iconred{
+    color: red;
+}
+
+
+/* Tooltip */
+.icongreen .tooltip {
+    visibility: visible; 
+}
+
+.iconred .tooltip {
+    visibility: visible;
+}
+
+
+
+    /*
+Footer
+*/ 
+.page{
+    min-height:100vh; 
+	display:flex; 
+	flex-direction:column; 
+}
+.content{
+    flex-grow:1; 
+}
+.footer{
+    flex-shrink: 0;
+    }
+
+    
+  @media all and (max-device-width: 480px)
+  {
+    .ticket-list{
+    height: 60%;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    overflow: scroll;
+    }
+
+  }

@@ -1,0 +1,89 @@
+html body {
+	background-color: #F9FAFF;
+}
+/* NAVBAR */
+.navbar {
+	position: absolute;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.headerText {
+	color: #0080ff;
+	text-decoration: none;
+	display: inline-block;
+	position: relative;
+}
+
+.headerText:after {
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	position: absolute;
+	background: #0080ff;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
+}
+
+.headerText:hover:after {
+	width: 100%;
+	left: 0;
+}
+
+/* FOOTER */
+.content {
+	min-height: calc(100vh - 70px);
+	padding: 40px 40px 0 40px;
+}
+
+.footer {
+	height: 50px;
+}
+
+/* END FOOTER */
+
+/* TITLE  */
+.headTitle span {
+	color: #0080ff;
+	font-size: 45px;
+	font-weight: 700;
+}
+
+/* DORPDOWN DOWNLOAD */
+.dropdownButton .dropDownload {
+	padding-left: 5% !important;
+	padding-right: 5% !important;
+	margin-bottom: 2%;
+}
+
+/* INFOCARDS */
+.infoCards {
+	margin-left: 5%;
+	margin-bottom: 2%;
+	margin-top: 3% !important;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+	height: 80%;
+
+}
+
+.cardTicket {
+	margin-top: 2% !important;
+	height: 60% !important;
+	margin-bottom: 3%;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+	margin-left:2%;
+	magin-right:2%;
+}
+
+@media all and (max-device-width: 480px) {
+	.infoCards {
+		margin-left: 0%;
+		margin-bottom: 0%;
+		margin-bottom: 10%;
+	}
+}
+.solution{
+	display:flex;
+}

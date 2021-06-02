@@ -1,0 +1,132 @@
+html body {
+  background-color:#F9FAFF;
+}
+
+.navbar-custom {
+    display: flex;
+    background-color:#F9FAFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 50%;
+  }
+  .barCoteDroit{
+    display: flex;
+    margin-right: 4%;
+    justify-content: right;
+  }
+  .barCoteDroit .inter{
+    color:   #252a2e;
+    margin-right: 6px;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  .barCoteDroit .nom{
+  color:  #252a2e;
+  margin-right: 3px;
+  margin-top: 15px;
+  font-weight: bold;
+  }
+  .searchFlex{
+       display: flex;
+       margin-left: 10%;
+   }
+   .logoflex{
+    display: flex;
+}
+.menu{
+  background-color:#252a2e;
+
+}
+.menu .sousmenu{
+  color:  white;
+}
+.menu .sousmenu:hover{
+  background-color :  blue;
+}
+
+
+.probleme .text1{
+  font-size: 22px;
+  margin-left: 13%;
+  }
+  .exception .text2{
+    font-size: 22px;
+    margin-left: 13%;
+  
+    }
+
+
+.area1{
+
+  width: 330px;
+  height: 350px;
+  border: solid 1px transparent;
+  overflow: scroll;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+  
+}
+.area2{
+ 
+  width: 330px;
+  height: 350px;
+  border: solid 1px transparent;
+  overflow: scroll;
+  color: red;
+  box-shadow:  2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.tags .tag{
+  border: solid 1px; 
+  margin-top: 14%;
+}
+.tag2{
+  width: 100%;
+}
+.tags .titreTag{
+  margin-left: 25%;
+  margin-top: 10%;
+  font-size: 20px;
+}
+
+.generale{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 3%;
+}
+.tags{
+  display: flex;
+  flex-direction: column;
+}
+.probleme{
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  
+}
+.exception{
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+}
+.chatSolution{
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+  margin-left: 5%;
+}
+.tag2{
+  margin-top: 2%;
+}
+.chatSolution .tag2:hover{
+background-color: blue;
+}
+.chatSolution .tag:hover{
+  background-color: blue;
+  }
+
+ 

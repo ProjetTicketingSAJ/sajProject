@@ -1,0 +1,137 @@
+/* NAVBAR */
+.navbar {
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+html body {
+	background-color: #F9FAFF;
+}
+
+/* FOOTER */
+.content {
+	min-height: calc(100vh - 70px);
+	padding: 40px 40px 0 40px;
+}
+
+.footer {
+	height: 50px;
+}
+
+/* END FOOTER */
+
+/* TABLE */
+.eyeBtn {
+	decoration: none;
+	border: transparent !important;
+}
+
+.eyeBtn span {
+	font-size: 25px;
+}
+
+.tooltipTicket {
+	background-color: black;
+}
+
+.ticketList {
+}
+
+.green {
+	color: green;
+}
+
+.green .tooltiptext {
+	visibility: visible;
+}
+
+.flexBtn {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.ticketList .flexBtn .actionForm {
+	background-color: transparent !important;
+	border: transparent !important;
+}
+
+.ticketTable {
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+a:link {
+	text-decoration: none;
+}
+
+.ticketList .action {
+	text-align: center;
+}
+
+.ticketList .bell {
+	text-align: center;
+}
+
+.colAction {
+	width: 5%;
+}
+
+.ticketList .notif {
+	width: 5%;
+}
+
+.ticketCard {
+/* 	margin: -4% */
+}
+
+.mainCard {
+	margin-bottom: 1%;
+}
+
+.title {
+margin-bottom: -60px;}
+
+.title span {
+	color: #0080ff;
+	font-size: 45px;
+	font-weight: 700;
+}
+/* END TABLE */
+.searchFlex {
+	display: flex;
+	margin-left: 10%;
+}
+
+.tempsrestantbas {
+	color: crimson;
+}
+
+.tempsrestanthaut {
+	color: green;
+}
+
+.
+btnProp {
+	display: flex !important;
+	justify-content: end !important;
+}
+.modal-title{
+	color: #0080ff;
+}
+@media all and (max-device-width: 480px) {
+	.ticketList {
+		overflow: scroll;
+		height: 60%;
+		box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+		overflow: scroll;
+	}
+	.ticketList h2 {
+		font-size: 1.3em;
+	}
+	.ticketList h2 span {
+		font-size: 1.2em;
+	}
+	.ticketList{
+	margin: -21px;
+	}
+	.title{
+	margin-bottom: 3%;}
+}

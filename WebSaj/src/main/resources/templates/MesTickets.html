@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ICONES BOOTSTRAP  -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" href="/MesTicketsAspirantCss.css">
+
+<title>Mes tickets</title>
+
+<!-- Font awesome -->
+<link href="\C:\Users\afpa\Documents\fontawesome/css/all.css"
+	rel="stylesheet">
+<!--load all styles -->
+
+<!-- MDBootstrap Datatables CSS  -->
+<link href="css/addons/datatables.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+
+
+<!-- MDBootstrap Datatables JS  -->
+<script type="text/javascript" src="js/addons/datatables.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+<!-- SCRIPT FOR HEADER IMPORT -->
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+
+<link href="/C:/Users/afpa/Documents/fontawesome/css/all.css"
+	rel="stylesheet">
+
+<link
+	href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css"
+	rel="stylesheet">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet"
+	href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+
+</head>
+<body>
+	<!-- start page div -->
+	<div class="page">
+		<!--Navigation bar-->
+		<header th:insert="header.html"> </header>
+		<!--end of Navigation bar-->
+		<!-- 	start page div -->
+		<div class="content">
+
+			<div class="row justify-content-center">
+				<div class="card mainCard col-12 col-lg-10">
+					<div class="card-body ticketCard">
+
+
+						<div class="ticketList">
+							<div class="title ">
+								<h2 class="col-12">
+									User's <span>Tickets </span>
+								</h2>
+							</div>
+							<table id="dtBasicExample"
+								class="table table-striped table-hover tab ticketTable"
+								data-toggle="table" data-search="true" data-show-columns="false"
+								data-pagination="true">
+								<thead>
+									<tr>
+										<th scope="col" class="idTicket">#</th>
+										<th scope="col" class="titreTicket">Titre</th>
+										<!-- <th scope="col">Langage utilisé</th> -->
+										<th scope="col" class="dateCrea">Date création</th>
+										<!-- <th scope="col">Temps restant</th> -->
+										<th scope="col" class="statusTicket">Statut</th>
+										<th class="colAction"><span class="action">Action</span></th>
+										<th scope="col" class="notif"><span class="action">Notification</span></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="ticket: ${listTickets}">
+										<th scope="row" th:text="${ticket.id}"></th>
+										<td th:text="${ticket.titre}"></td>
+										<!-- <td th:text="${ticket.languageLibrary.codingLanguage.name}"></td> -->
+										<td th:text="${ticket.dateCreation}"></td>
+										<!-- <td class="tempsrestant">36h</td> -->
+										<!-- <td th:text="${ticket.statut}"> -->
+										<td><svg xmlns="http://www.w3.org/2000/svg" width="35"
+												height="35" fill="green" class="bi bi-circle-fill"
+												viewBox="0 0 16 16">
+  <circle cx="8" cy="8" r="8" />
+</svg></td>
+
+										<td class="flexBtn">
+
+
+
+										<form action="monTicketintervenant" method="post" class="actionForm">
+											<input type="hidden" th:value="${ticket.id}" name="idTicket">
+											<button type="submit" class="btn btn-outline-primary eyeBtn"
+												data-toggle="tooltip" data-placement="top"
+												title="examiner ticket">
+
+
+													<svg xmlns="http://www.w3.org/2000/svg" width="35"
+														height="35" fill="currentColor" class="bi bi-eye"
+														viewBox="0 0 16 16">
+											  <path
+															d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+											  <path
+															d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+											  </svg>
+
+												</button>
+
+											</form>
+
+											<button type="button" class="btn btn-outline-danger eyeBtn"
+												aria-label="Close" data-toggle="tooltip"
+												data-placement="top" title="clôturer le ticket">
+												<svg xmlns="http://www.w3.org/2000/svg" width="35"
+													height="35" fill="currentColor" class="bi bi-x-square"
+													viewBox="0 0 16 16">
+  <path
+														d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+  <path
+														d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+</svg>
+											</button>
+
+
+										</td>
+
+										<td class="bell"><i class="fas fa-bell"></i></td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- SCRIPTS  -->
+			<!-- tooltip Script -->
+			<script type="text/javascript">
+				$(function() {
+					$('[data-toggle="tooltip"]').tooltip()
+				})
+			</script>
+
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#dtBasicExample').DataTable();
+					$('.dataTables_length').addClass('bs-select');
+				});
+			</script>
+			<script src="/jsImports.js"></script>
+
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+				crossorigin="anonymous"></script>
+
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+			<script
+				src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+			<!-- END content div -->
+
+			<!-- END content div -->
+		</div>
+
+		<!--Navigation bar-->
+		<footer th:insert="footer.html"> </footer>
+		<!--end of Navigation bar-->
+		<!-- END page div -->
+	</div>
+
+</body>
+</html>

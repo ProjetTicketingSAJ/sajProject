@@ -1,0 +1,58 @@
+.navbar-custom {
+    display: flex;
+    background-color:#F9FAFF;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 50%;
+  }
+  html body {
+    background-color:#F9FAFF;
+  }
+    
+  
+  .barCoteDroit{
+    display: flex;
+    justify-content: right;
+    margin-right: 4%;
+  }
+  .barCoteDroit .inter{
+    color:   #252a2e;
+    margin-right: 6px;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  .barCoteDroit .nom{
+  color:  #252a2e;
+  margin-right: 3px;
+  margin-top: 15px;
+  font-weight: bold;
+  }
+  .menu{
+    background-color:#252a2e;
+  
+  }
+  .menu .sousmenu{
+    color:  white;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .logoflex{
+    display: flex;
+   /*  justify-content: space-evenly; */
+}
+.ticketList{
+    margin: 4%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+
+   @media all and (max-device-width: 480px)
+{
+  .ticketList {
+   overflow: scroll;
+   height: 400px;
+   
+  }
+}

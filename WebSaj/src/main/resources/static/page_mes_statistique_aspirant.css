@@ -1,0 +1,131 @@
+/*
+Navbar
+*/
+.navbar-custom {
+  display: flex;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.logoflex{
+    display: flex;
+}
+
+.barCoteDroit{
+    display: flex;
+    justify-content: right;
+}
+
+.statbtn{
+    margin-left: 3px;
+}
+
+.rounded-circle{
+  margin-bottom: 30px;
+  width: 90px;
+  height: 80px;
+}
+
+.menu{
+  background-color:#252a2e;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.menu .sousmenu{
+  color:  white;
+}
+/*
+end navbar
+*/
+
+
+/*
+statistic-cards
+*/
+.statistic-cards{
+  margin: 2%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-stat{
+  margin: 1%;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card-nps-info{
+width: 100%;
+height: 82%;
+}
+
+
+.modal_disp{
+margin-left: 30%;
+  width: 35% !important;
+  height: 70%;
+}
+
+.ticket-card{
+  height: 100%;
+}
+
+/*
+class card graphique ticket  
+          +
+boutton progression ticket
+*/
+.card_graph{
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+boutton progression ticket
+*/
+.boutton_prog{
+  margin-top: 3%;
+  width: 100%;
+  }
+
+
+    /*
+Footer
+*/ 
+.page{
+  min-height:100vh; 
+display:flex; 
+flex-direction:column; 
+}
+.content{
+  flex-grow:1; 
+}
+.footer{
+  flex-shrink: 0;
+  }
+
+  @media all and (max-device-width: 480px)
+{
+  .statistic-cards{
+    margin: 2%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media all and (max-device-width: 768px)
+{
+  .statistic-cards{
+    margin: 2%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media all and (max-device-width: 1024px)
+{
+  .statistic-cards{
+    margin: 2%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
