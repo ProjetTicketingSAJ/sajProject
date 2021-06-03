@@ -45,10 +45,53 @@ html body {
 
 /* TABLE */
 
+.ticketList .action {
+	text-align: center;
+}
+
+.ticketList .bell {
+	text-align: center;
+}
+
+.colAction {
+	text-align: center;
+	width: 5%;
+}
+
+.ticketList .notif {
+	text-align: center;
+	width: 3%;
+}
+
+.ticketList .dateCrea {
+	text-align: center;
+	width: 7%;
+}
+
+.ticketList .statusTicket {
+	text-align: center;
+	width: 5%;
+}
+
+.ticketList .titreTicket {
+	text-align: center;
+	width: 13%;
+}
+
+.ticketList .idTicket {
+	text-align: center;
+	width: 3%;
+}
+
+
 .title span {
 	color: #0080ff;
 	font-size: 45px;
 	font-weight: 700;
+}
+.actionTd{
+	display: flex;
+justify-content: space-around;
 }
 
 /* END TABLE */

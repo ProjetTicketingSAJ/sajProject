@@ -85,13 +85,16 @@ public class AspirantController {
 				"++++++++++++++++++++++++++++++++++++++++++ ticketsAspirant +++++++++++++++++++++++++++++++++++++++++++++++");
 		HttpSession httpSession = request.getSession();
 		Integer id = (Integer) httpSession.getAttribute("aspirantId");
-
+		
 		List<Tickets> listOffresOuverte = ticketService.findByAspirantIdLikeAndStatutLike(id, statutOuvert);
 		List<Tickets> listOffresEnCours = ticketService.findByAspirantIdLikeAndStatutLike(id, statutEnCours);
 		System.out.println("=============================listTickets OUVERT======================");
 		System.out.println(listOffresOuverte);
 		System.out.println("=============================listTickets EN COURS ======================");
 		System.out.println(listOffresEnCours);
+		UserProfile user = userService.findById(id).orElse(null);
+
+		m.addAttribute("user", user);
 		m.addAttribute("listOffresOuverte", listOffresOuverte);
 		m.addAttribute("listOffresEnCours", listOffresEnCours);
 		return "MesTicketAspirant";
