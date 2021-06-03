@@ -216,5 +216,9 @@ public class IntervenantController {
 
   }
   
+  @RequestMapping("/chatRoom")
+  public String chatRoom() {
+	  return "chatRoom";
+  }
 }
 
