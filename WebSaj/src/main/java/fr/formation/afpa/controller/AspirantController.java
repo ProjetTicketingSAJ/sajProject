@@ -30,12 +30,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.afpa.domain.CodingLanguage;
 import fr.formation.afpa.domain.FileDb;
+import fr.formation.afpa.domain.Intervention;
 import fr.formation.afpa.domain.LanguageLibrary;
 import fr.formation.afpa.domain.Offre;
 import fr.formation.afpa.domain.Tickets;
 import fr.formation.afpa.domain.UserProfile;
 import fr.formation.afpa.service.CodingLanguageService;
 import fr.formation.afpa.service.FileService;
+import fr.formation.afpa.service.InterventionService;
 import fr.formation.afpa.service.LanguageLibraryService;
 import fr.formation.afpa.service.TicketService;
 import fr.formation.afpa.service.UserService;
@@ -48,6 +50,7 @@ public class AspirantController {
 	CodingLanguageService codingLanguageService;
     UserService userService;
 	FileService fileService;
+	InterventionService interventionService;
 
 	String statutOuvert = "O";
 
@@ -66,12 +69,13 @@ public class AspirantController {
 
 	@Autowired
 	public AspirantController(LanguageLibraryService languageLibraryService, TicketService ticketService,
-			CodingLanguageService codingLanguageService, FileService fileService, UserService userService) {
+			CodingLanguageService codingLanguageService, FileService fileService, UserService userService,InterventionService interventionService) {
 		this.userService =userService;
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
 		this.codingLanguageService = codingLanguageService;
 		this.fileService = fileService;
+		this.interventionService =  interventionService;
 	}
 
 	/* Atterrissage sur la page des tickets aspirant */
@@ -127,14 +131,27 @@ public class AspirantController {
 	public String AccepterOffre(Model m, HttpServletRequest request, @RequestParam String idIntervenant,
 			@RequestParam String idTicket) {
 		System.err.println("JE RENTRE ICI");
+		
 		//Récupération du ticket et recherche du ticket
 		Integer id = Integer.parseInt(idTicket);	
 		Tickets ticket = ticketService.findById(id).orElse(null);
+		
 		//Modification du statut du ticket à "en cours"
 		ticket.setStatut(statutEnCours);
+		
 		//modification de l'id de l'intervenant validé sur le ticket 
 		Integer idInterv = Integer.parseInt(idIntervenant);
 		ticket.setIntervenantId(idInterv);
+		
+		//Création de l'intervention sur le ticket
+		LocalDateTime now = LocalDateTime.now();
+		Date date = convertToDateViaSqlTimestamp(now);
+		UserProfile user = userService.findById(idInterv).orElse(null);
+		Intervention intervention = new Intervention();
+		intervention.setDateDebutIntervention(date);
+		intervention.setTickets(ticket);
+		intervention.setUsers(user);
+		interventionService.save(intervention);
 		ticketService.save(ticket);
 		System.out.println("============================= Accepter Offre ============================");
 		System.out.println(ticket);
