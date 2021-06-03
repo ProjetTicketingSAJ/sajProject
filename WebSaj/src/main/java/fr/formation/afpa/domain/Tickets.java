@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,6 +45,7 @@ public class Tickets implements java.io.Serializable {
 	private Set<Intervention> intervention = new HashSet<Intervention>(0);
 
 	private Integer codingLanguage;
+	private String solutionTicket;
 
 	private Set<FileDb> file = new HashSet<FileDb>(0);
 
@@ -55,9 +57,10 @@ public class Tickets implements java.io.Serializable {
 
 	}
 
-
-	public Tickets(Integer id, String titre,String expoProblematique, String exceptionConsole, Date dateCreation, Date dateCloture, String commentInterv, String commentAppren,
-			String statut, Set<UserProfile> users, Set<LanguageLibrary> languageLibrary,Integer aspirantId,Integer intervenantId,Set<Offre> offres,Integer codingLanguage,Set<FileDb> file,Set<Intervention>intervention) {
+	public Tickets(Integer id, String titre, String expoProblematique, String exceptionConsole, Date dateCreation,
+			Date dateCloture, String commentInterv, String commentAppren, String statut, Set<UserProfile> users,
+			Set<LanguageLibrary> languageLibrary, Integer aspirantId, Integer intervenantId, Set<Offre> offres,
+			Integer codingLanguage, Set<FileDb> file, Set<Intervention> intervention, String solutionTicket) {
 
 		this.id = id;
 		this.titre = titre;
@@ -76,6 +79,7 @@ public class Tickets implements java.io.Serializable {
 		this.codingLanguage = codingLanguage;
 		this.file = file;
 		this.intervention = intervention;
+		this.solutionTicket = solutionTicket;
 	}
 
 	@Id
@@ -153,7 +157,7 @@ public class Tickets implements java.io.Serializable {
 	public void setCommentInterv(String commentInterv) {
 		this.commentInterv = commentInterv;
 	}
- 
+
 	@Column(name = "CommentAppren")
 	public String getCommentAppren() {
 		return this.commentAppren;
@@ -196,7 +200,6 @@ public class Tickets implements java.io.Serializable {
 		this.languageLibrary = languageLibrary;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Tickets [id=" + id + ", titre=" + titre + ", expoProblematique=" + expoProblematique
@@ -205,7 +208,6 @@ public class Tickets implements java.io.Serializable {
 				+ statut + ", languageLibrary=" + languageLibrary + ", aspirantId=" + aspirantId + ", intervenantId="
 				+ intervenantId + "]";
 	}
-
 
 	@Column(name = "aspirant_id")
 	public Integer getAspirantId() {
@@ -242,8 +244,8 @@ public class Tickets implements java.io.Serializable {
 	public void setCodingLanguage(Integer codingLanguage) {
 		this.codingLanguage = codingLanguage;
 	}
-	
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=FileDb.class, mappedBy = "tickets")
+
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = FileDb.class, mappedBy = "tickets", cascade = { CascadeType.ALL })
 	public Set<FileDb> getFile() {
 		return file;
 	}
@@ -252,7 +254,8 @@ public class Tickets implements java.io.Serializable {
 		this.file = file;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=Intervention.class, mappedBy = "tickets")
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = Intervention.class, mappedBy = "tickets", cascade = {
+			CascadeType.ALL })
 	public Set<Intervention> getIntervention() {
 		return intervention;
 	}
@@ -260,8 +263,14 @@ public class Tickets implements java.io.Serializable {
 	public void setIntervention(Set<Intervention> intervention) {
 		this.intervention = intervention;
 	}
-	
 
+	@Column(name = "solution_ticket")
+	public String getSolutionTicket() {
+		return solutionTicket;
+	}
 
+	public void setSolutionTicket(String solutionTicket) {
+		this.solutionTicket = solutionTicket;
+	}
 
 }

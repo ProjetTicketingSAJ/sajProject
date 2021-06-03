@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/zoneTickets").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 		// For ADMIN only.
 		http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
-		// When the user has logged in as XX. 
+		// When the user has logged in as XX.
 		// But access a page that requires role YY,
 		// AccessDeniedException will be thrown.
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");

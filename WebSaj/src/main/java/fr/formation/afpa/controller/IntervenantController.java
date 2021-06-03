@@ -3,6 +3,7 @@ package fr.formation.afpa.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeTypeUtils;
@@ -50,7 +51,7 @@ public class IntervenantController {
 	OffreService offreService;
 	UserService userService;
 	FileService fileService;
-	InterventionService interventionService ;
+	InterventionService interventionService;
 	String statut = "O";
 
 	public IntervenantController() {
@@ -59,14 +60,15 @@ public class IntervenantController {
 	@Autowired
 
 	public IntervenantController(LanguageLibraryService languageLibraryService, TicketService ticketService,
-			OffreService offreService, UserService userService,FileService fileService,InterventionService interventionService) {
+			OffreService offreService, UserService userService, FileService fileService,
+			InterventionService interventionService) {
 
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
 		this.offreService = offreService;
 		this.userService = userService;
 		this.fileService = fileService;
-		this.interventionService  =interventionService;
+		this.interventionService = interventionService;
 	}
 
 	/* Atterrissage sur la page zone tickets intervenant */
@@ -77,7 +79,7 @@ public class IntervenantController {
 
 		m.addAttribute("listTickets", listTickets);
 
-		return "ZoneTickets"; 
+		return "ZoneTickets";
 
 	}
 
@@ -103,31 +105,81 @@ public class IntervenantController {
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);
-	
-		//Récupération des Tags du ticket
+
+		// Récupération des Tags du ticket
 		Set<LanguageLibrary> libraryTicket = ticket.get().getLanguageLibrary();
-		
+
 		List<String> listLibrary = new ArrayList<String>();
-		//Ajout des noms des tags du ticket à une liste de noms
+		// Ajout des noms des tags du ticket à une liste de noms
 		for (LanguageLibrary l : libraryTicket) {
 			listLibrary.add(l.getNom());
 			System.out.println(l.getNom());
 		}
-		
+
 		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
-		
-		//Recherche et envoi des fichiers liés qu ticket
+
+		// Recherche et envoi des fichiers liés qu ticket
 		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
-		List <FileDb> files = new ArrayList<>();
-		for(FileDb f : tickets.getFile()) {
-	
+		List<FileDb> files = new ArrayList<>();
+		for (FileDb f : tickets.getFile()) {
+
 			files.add(f);
 		}
-		
 
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
-	
+
+		return "monTicketIntervenant";
+
+	}
+
+	/*
+	 * Proposition d'une soluce
+	 */
+	@RequestMapping(path = "/envoiSoluce", method = RequestMethod.POST)
+	public String envoiSoluce(Model m, @RequestParam String solution, Principal principal,
+			@RequestParam String idTicket) {
+		System.out.println(idTicket);
+		Integer id = Integer.parseInt(idTicket);
+		Optional<Tickets> ticket = ticketService.findById(id);
+		Tickets ticketSoluce = ticketService.findById(id).orElse(null);
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		String userInfo = loginedUser.getUsername();
+		UserProfile user = userService.findByLogin(userInfo);
+
+		Intervention intervention = new Intervention();
+		intervention = interventionService.findByTicketsAndUsers(ticketSoluce, user);
+		System.out.println("*******************intervention******************* : " + ticketSoluce);
+		System.out.println("*******************intervention******************* : " + user);
+		System.out.println("*******************intervention******************* : " + intervention);
+
+		intervention.setSolution(solution);
+
+		interventionService.save(intervention);
+		// envoi des données pour la page d'après
+
+		// Récupération des Tags du ticket
+		Set<LanguageLibrary> libraryTicket = ticket.get().getLanguageLibrary();
+
+		List<String> listLibrary = new ArrayList<String>();
+		// Ajout des noms des tags du ticket à une liste de noms
+		for (LanguageLibrary l : libraryTicket) {
+			listLibrary.add(l.getNom());
+			System.out.println(l.getNom());
+		}
+
+		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
+
+		// Recherche et envoi des fichiers liés qu ticket
+		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
+		List<FileDb> files = new ArrayList<>();
+		for (FileDb f : tickets.getFile()) {
+
+			files.add(f);
+		}
+
+		m.addAttribute("listLibrary", listLibrary);
+		m.addAttribute("files", files);
 
 		return "monTicketIntervenant";
 
@@ -181,20 +233,21 @@ public class IntervenantController {
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
-  
-  	/* Profil Intervenant */
-  @RequestMapping(path = "profilIntervenant", method = RequestMethod.GET)
+
+	/* Profil Intervenant */
+	@RequestMapping(path = "profilIntervenant", method = RequestMethod.GET)
 	public String profilIntervenant(Model model, HttpServletRequest request) {
 		HttpSession httpSession = request.getSession();
 		Integer idIntervenant = (Integer) httpSession.getAttribute("aspirantId");
 		System.err.println(idIntervenant);
-		
+
 		UserProfile user = userService.findById(idIntervenant).orElse(null);
 		System.err.println(user.getCodingLanguage());
 		model.addAttribute("userLang", user.getCodingLanguage());
 		model.addAttribute("user", user);
 		return "profilIntervenant";
 	}
+
   /*Lecture et téléchargement du fichier*/
   @GetMapping("/file/{id}")
   public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
@@ -222,3 +275,26 @@ public class IntervenantController {
   }
 }
 
+
+	/* Lecture et téléchargement du fichier */
+	@GetMapping("/file/{id}")
+	public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
+
+		FileDb dbFile = fileService.getFile(id);
+
+		byte[] byteArray = dbFile.getFichier(); // read the byteArray
+
+		resp.setContentType(MimeTypeUtils.APPLICATION_OCTET_STREAM.getType());
+		resp.setHeader("Content-Disposition", "attachment; filename=" + dbFile.getName());
+		resp.setContentLength(byteArray.length);
+
+		OutputStream os = resp.getOutputStream();
+		try {
+			os.write(byteArray, 0, byteArray.length);
+		} finally {
+			os.close();
+		}
+
+	}
+
+}

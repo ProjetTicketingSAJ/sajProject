@@ -48,34 +48,34 @@ public class AspirantController {
 	LanguageLibraryService languageLibraryService;
 	TicketService ticketService;
 	CodingLanguageService codingLanguageService;
-    UserService userService;
+	UserService userService;
 	FileService fileService;
 	InterventionService interventionService;
 
 	String statutOuvert = "O";
 
 	String statutEnCours = "E";
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
-	
-	
+
 	public AspirantController() {
 	}
 
 	@Autowired
 	public AspirantController(LanguageLibraryService languageLibraryService, TicketService ticketService,
-			CodingLanguageService codingLanguageService, FileService fileService, UserService userService,InterventionService interventionService) {
-		this.userService =userService;
+			CodingLanguageService codingLanguageService, FileService fileService, UserService userService,
+			InterventionService interventionService) {
+		this.userService = userService;
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
 		this.codingLanguageService = codingLanguageService;
 		this.fileService = fileService;
-		this.interventionService =  interventionService;
+		this.interventionService = interventionService;
 	}
 
 	/* Atterrissage sur la page des tickets aspirant */
@@ -85,7 +85,7 @@ public class AspirantController {
 				"++++++++++++++++++++++++++++++++++++++++++ ticketsAspirant +++++++++++++++++++++++++++++++++++++++++++++++");
 		HttpSession httpSession = request.getSession();
 		Integer id = (Integer) httpSession.getAttribute("aspirantId");
-		
+
 		List<Tickets> listOffresOuverte = ticketService.findByAspirantIdLikeAndStatutLike(id, statutOuvert);
 		List<Tickets> listOffresEnCours = ticketService.findByAspirantIdLikeAndStatutLike(id, statutEnCours);
 		System.out.println("=============================listTickets OUVERT======================");
@@ -100,53 +100,53 @@ public class AspirantController {
 		return "MesTicketAspirant";
 
 	}
-	
-	@RequestMapping(path="/VoirOffres", method = RequestMethod.GET)
-	public String VoirOffre(Model model,  HttpServletRequest request, @RequestParam Integer idTicket,  Principal principal ) {
-	
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = loginedUser.getUsername();
-         
-        System.err.println("*******************> " + userInfo + " <*******************");
-        UserProfile user = userService.findByLogin(userInfo);
-        System.err.println("====================> " + user + " <====================");
-        Integer id = user.getId();
-        System.err.println("====================> " + id + " <====================");
 
-		/* trouver ticket par son ID  */
+	// Vois les offres faites pour mon ticket
+	@RequestMapping(path = "/VoirOffres", method = RequestMethod.GET)
+	public String VoirOffre(Model model, HttpServletRequest request, @RequestParam Integer idTicket,
+			Principal principal) {
+
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		String userInfo = loginedUser.getUsername();
+
+		System.err.println("*******************> " + userInfo + " <*******************");
+		UserProfile user = userService.findByLogin(userInfo);
+		System.err.println("====================> " + user + " <====================");
+		Integer id = user.getId();
+		System.err.println("====================> " + id + " <====================");
+
+		/* trouver ticket par son ID */
 		Tickets ticket = ticketService.findById(idTicket).orElse(null);
 		System.err.println(ticket);
-		
+
 		/* Ajouter ticket à liste d'offres */
 		Set<Offre> offresTickets = ticket.getOffres();
 
-		
 		System.err.println(offresTickets);
-		
-				
+
 		model.addAttribute("offresTickets", offresTickets);
-		
+
 		return "mesOffres";
 	}
-	
+
 	/* Accepter l'offre */
 	@RequestMapping(path = "/accepterOffre", method = RequestMethod.POST)
 	public String AccepterOffre(Model m, HttpServletRequest request, @RequestParam String idIntervenant,
 			@RequestParam String idTicket) {
 		System.err.println("JE RENTRE ICI");
-		
-		//Récupération du ticket et recherche du ticket
-		Integer id = Integer.parseInt(idTicket);	
+
+		// Récupération du ticket et recherche du ticket
+		Integer id = Integer.parseInt(idTicket);
 		Tickets ticket = ticketService.findById(id).orElse(null);
-		
-		//Modification du statut du ticket à "en cours"
+
+		// Modification du statut du ticket à "en cours"
 		ticket.setStatut(statutEnCours);
-		
-		//modification de l'id de l'intervenant validé sur le ticket 
+
+		// modification de l'id de l'intervenant validé sur le ticket
 		Integer idInterv = Integer.parseInt(idIntervenant);
 		ticket.setIntervenantId(idInterv);
-		
-		//Création de l'intervention sur le ticket
+
+		// Création de l'intervention sur le ticket
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);
 		UserProfile user = userService.findById(idInterv).orElse(null);
@@ -162,7 +162,7 @@ public class AspirantController {
 		return "redirect:/ticketsAspirant";
 
 	}
-	
+
 	/* Atterrissage sur la création du ticket aspirant */
 	@RequestMapping(path = "/creationTicket", method = RequestMethod.GET)
 	public String creationTicket(Model m) {
@@ -250,16 +250,15 @@ public class AspirantController {
 		return "redirect:/ticketsAspirant";
 	}
 
-
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
 	@RequestMapping(path = "/monTicket", method = RequestMethod.GET)
 	public String monTicket(Model m, @RequestParam String idTicket) {
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
-		//Recherche du ticket à afficher
+		// Recherche du ticket à afficher
 		Optional<Tickets> ticket = ticketService.findById(id);
 
-		//ajout des tags du tickets à une liste de noms pour les afficher
+		// ajout des tags du tickets à une liste de noms pour les afficher
 		List<String> listLibrary = new ArrayList<String>();
 		for (LanguageLibrary l : ticket.get().getLanguageLibrary()) {
 			listLibrary.add(l.getNom());
@@ -268,10 +267,9 @@ public class AspirantController {
 		System.out.println(listLibrary);
 		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
 
-		
-		List <FileDb> files = new ArrayList<>();
-		for(FileDb f : ticket.get().getFile()) {
-	
+		List<FileDb> files = new ArrayList<>();
+		for (FileDb f : ticket.get().getFile()) {
+
 			files.add(f);
 		}
 
@@ -304,4 +302,3 @@ public class AspirantController {
 	}
 
 }
-

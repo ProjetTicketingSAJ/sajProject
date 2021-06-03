@@ -171,8 +171,10 @@
 				<!-- END MAIN CARD -->
 
 
-				
-					
+											<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+							  Launch static backdrop modal
+							</button>
 					
 				
 				<!-- END content div -->
@@ -184,5 +186,34 @@
 			<!-- END page div -->
 		</div>
 	</div>
+	
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+       <form action="envoiSoluce" method="post">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"><span class="badge rounded-pill bg-primary" th:text="${ticket.id}"></span></h5>
+        <input type="hidden" th:value="${ticket.id}" name="idTicket">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+     
+	      <div class="modal-body">
+	      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Entrer votre identifiant" name="solution">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+	        <button type="submit" class="btn btn-primary">Envoyer</button>
+	      </div>
+       </form>
+    </div>
+  </div>
+</div>
+
+	
+	
+	
 </body>
 </html>
