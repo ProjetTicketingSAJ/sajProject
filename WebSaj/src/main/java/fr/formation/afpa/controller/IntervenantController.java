@@ -99,8 +99,7 @@ public class IntervenantController {
 
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
 	@RequestMapping(path = "/monTicketintervenant", method = RequestMethod.POST)
-	public String monTicket(Model m, @RequestParam String idTicket,HttpServletRequest request) {
-		HttpSession httpSession = request.getSession();
+	public String monTicket(Model m, @RequestParam String idTicket) {
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);
