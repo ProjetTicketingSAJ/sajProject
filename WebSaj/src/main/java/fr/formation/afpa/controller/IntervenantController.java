@@ -86,11 +86,11 @@ public class IntervenantController {
 	public String ticketsInervenant(Model m, HttpServletRequest request) {
 		HttpSession httpSession = request.getSession();
 		Integer interId = (Integer) httpSession.getAttribute("aspirantId");
-
+		UserProfile user = userService.findById(interId).orElse(null);
 		System.out.println(
 				"===================+++++++++++IntervenantId+++++++++++++++++++++++++++++++++++++++" + interId);
 		List<Tickets> listTickets = ticketService.findByIntervenantIdLike(interId);
-
+		m.addAttribute("user", user);
 		m.addAttribute("listTickets", listTickets);
 
 		return "MesTickets";

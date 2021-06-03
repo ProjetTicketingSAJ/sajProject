@@ -73,8 +73,8 @@
 
 						<div class="ticketList">
 							<div class="title ">
-								<h2 class="col-12">
-									User's <span>Tickets </span>
+								<h2 class="col-12" th:object="${user}">
+									<span th:text="${user.prenom}"> </span>'s tickets
 								</h2>
 							</div>
 							<table id="dtBasicExample"
@@ -107,7 +107,7 @@
   <circle cx="8" cy="8" r="8" />
 </svg></td>
 
-										<td class="flexBtn">
+										<td class="actionTd">
 
 
 
