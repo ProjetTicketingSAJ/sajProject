@@ -39,6 +39,7 @@ import fr.formation.afpa.service.CodingLanguageService;
 import fr.formation.afpa.service.FileService;
 import fr.formation.afpa.service.InterventionService;
 import fr.formation.afpa.service.LanguageLibraryService;
+import fr.formation.afpa.service.OffreService;
 import fr.formation.afpa.service.TicketService;
 import fr.formation.afpa.service.UserService;
 
@@ -51,7 +52,7 @@ public class AspirantController {
 	UserService userService;
 	FileService fileService;
 	InterventionService interventionService;
-
+	OffreService offreService;
 	String statutOuvert = "O";
 
 	String statutEnCours = "E";
@@ -71,13 +72,14 @@ public class AspirantController {
 	@Autowired
 	public AspirantController(LanguageLibraryService languageLibraryService, TicketService ticketService,
 			CodingLanguageService codingLanguageService, FileService fileService, UserService userService,
-			InterventionService interventionService) {
+			InterventionService interventionService, OffreService offreService) {
 		this.userService = userService;
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
 		this.codingLanguageService = codingLanguageService;
 		this.fileService = fileService;
 		this.interventionService = interventionService;
+		this.offreService = offreService;
 	}
 
 	/* Atterrissage sur la page des tickets aspirant */
@@ -126,6 +128,12 @@ public class AspirantController {
 
 		System.err.println(offresTickets);
 
+		List<Offre> listOffres = offreService.findByTickets(ticket);
+		for(Offre o : listOffres) {
+			o.setTicketVu(true);
+			offreService.save(o);
+			}
+		
 		model.addAttribute("offresTickets", offresTickets);
 
 		return "mesOffres";
