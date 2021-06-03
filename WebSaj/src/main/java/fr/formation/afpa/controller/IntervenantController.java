@@ -248,6 +248,7 @@ public class IntervenantController {
 		return "profilIntervenant";
 	}
 
+
   /*Lecture et téléchargement du fichier*/
   @GetMapping("/file/{id}")
   public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
@@ -274,8 +275,4 @@ public class IntervenantController {
 	  return "chatRoom";
   }
 }
-
-
-	
-
 
