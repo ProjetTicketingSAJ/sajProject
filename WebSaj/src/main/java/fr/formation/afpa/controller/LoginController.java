@@ -152,6 +152,7 @@ public class LoginController {
 				System.out.println(listOffresOuverte);
 				System.out.println("=============================listTickets EN COURS ======================");
 				System.out.println(listOffresEnCours);
+				m.addAttribute("user", user);
 				m.addAttribute("listOffresOuverte", listOffresOuverte);
 				m.addAttribute("listOffresEnCours", listOffresEnCours);
 				return "MesTicketAspirant";
@@ -184,5 +185,5 @@ public class LoginController {
 		}
 		return "403Page";
 	}
- 
+
 }
