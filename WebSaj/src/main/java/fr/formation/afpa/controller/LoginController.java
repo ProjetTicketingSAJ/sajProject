@@ -30,6 +30,7 @@ import fr.formation.afpa.domain.Tickets;
 import fr.formation.afpa.domain.UserProfile;
 import fr.formation.afpa.service.CodingLanguageService;
 import fr.formation.afpa.service.LanguageLibraryService;
+import fr.formation.afpa.service.OffreService;
 import fr.formation.afpa.service.TicketService;
 import fr.formation.afpa.service.UserService;
 import fr.formation.afpa.utils.EncrytedPasswordUtils;
@@ -42,6 +43,7 @@ public class LoginController {
 	UserService userService;
 	LanguageLibraryService languageLibraryService;
 	TicketService ticketService;
+	OffreService offreService;
 	String statutOuvert = "O";
 	String statutEnCours = "E";
 
@@ -101,11 +103,12 @@ public class LoginController {
 
 	@Autowired
 	public LoginController(UserService userService, LanguageLibraryService languageLibraryService,
-			CodingLanguageService codingLanguageService, TicketService ticketService) {
+			CodingLanguageService codingLanguageService, TicketService ticketService,OffreService offreService) {
 		this.userService = userService;
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
 		this.codingLanguageService = codingLanguageService;
+		this.offreService = offreService;
 	}
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
@@ -152,10 +155,19 @@ public class LoginController {
 				System.out.println(listOffresOuverte);
 				System.out.println("=============================listTickets EN COURS ======================");
 				System.out.println(listOffresEnCours);
+				
+				//Liste des offres qui ont été faites pour pour un ticket
+				for(Tickets t : listOffresOuverte) {
+					Integer nbOffres = offreService.findNbOffres(t.getId());
+					t.setNbOffres(nbOffres);
+					ticketService.save(t);
+					System.err.println(nbOffres);
+				}
+				
 				m.addAttribute("user", user);
 				m.addAttribute("listOffresOuverte", listOffresOuverte);
 				m.addAttribute("listOffresEnCours", listOffresEnCours);
-				return "MesTicketAspirant";
+				return "MesTicketAspirant"; 
 			}
 		} catch (NoResultException nre) {
 			System.out.println("je suis nulle");

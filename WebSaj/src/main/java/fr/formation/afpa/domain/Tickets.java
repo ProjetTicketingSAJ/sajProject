@@ -43,9 +43,9 @@ public class Tickets implements java.io.Serializable {
 	private Integer intervenantId;
 	private Set<Offre> offres = new HashSet<Offre>(0);
 	private Set<Intervention> intervention = new HashSet<Intervention>(0);
-
 	private Integer codingLanguage;
 	private String solutionTicket;
+	private Integer nbOffres;
 
 	private Set<FileDb> file = new HashSet<FileDb>(0);
 
@@ -60,7 +60,7 @@ public class Tickets implements java.io.Serializable {
 	public Tickets(Integer id, String titre, String expoProblematique, String exceptionConsole, Date dateCreation,
 			Date dateCloture, String commentInterv, String commentAppren, String statut, Set<UserProfile> users,
 			Set<LanguageLibrary> languageLibrary, Integer aspirantId, Integer intervenantId, Set<Offre> offres,
-			Integer codingLanguage, Set<FileDb> file, Set<Intervention> intervention, String solutionTicket) {
+			Integer codingLanguage, Set<FileDb> file, Set<Intervention> intervention, String solutionTicket,Integer nbOffres) {
 
 		this.id = id;
 		this.titre = titre;
@@ -80,6 +80,8 @@ public class Tickets implements java.io.Serializable {
 		this.file = file;
 		this.intervention = intervention;
 		this.solutionTicket = solutionTicket;
+		this.nbOffres = nbOffres;
+
 	}
 
 	@Id
@@ -272,5 +274,17 @@ public class Tickets implements java.io.Serializable {
 	public void setSolutionTicket(String solutionTicket) {
 		this.solutionTicket = solutionTicket;
 	}
+	
+	
+	@Column(name = "nb_offres")
+	public Integer getNbOffres() {
+		return nbOffres;
+	}
 
+	public void setNbOffres(Integer nbOffres) {
+		this.nbOffres = nbOffres;
+	}
+
+
+	
 }
