@@ -56,6 +56,8 @@ public class AspirantController {
 
 	String statutEnCours = "E";
 
+	String statutFermer = "F";
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -281,14 +283,65 @@ public class AspirantController {
 
 	}
 
-	/* Atterrissage sur la page des offres pour l'aspirant */
-	@RequestMapping(path = "/offre", method = RequestMethod.GET)
-	public String offre(Model m) {
-		List<Tickets> listTickets = ticketService.findAll();
+	/* Visualisation d'un ticket avec la soluce */
+	@RequestMapping(path = "/VoirSoluce", method = RequestMethod.GET)
+	public String VoirSoluce(Model m, @RequestParam String idTicket) {
+		System.out.println(idTicket);
+		Integer id = Integer.parseInt(idTicket);
+		// Recherche du ticket à afficher
+		Optional<Tickets> ticket = ticketService.findById(id);
 
-		m.addAttribute("listTickets", listTickets);
+		// On recup l'id de l'intervenant qui s'occupe du ticket grace au ticket pour
+		// trouver son profiluser qui nous servira a trouver la derniere soluce
+		// proposé
+		Tickets ticketSoluce = ticketService.findById(id).orElse(null);
+		Integer intervId = ticketSoluce.getIntervenantId();
+		UserProfile userpro = userService.findById(intervId).orElse(null);
+		Intervention intervention = interventionService.findByTicketsAndUsers(ticketSoluce, userpro);
+		// ajout des tags du tickets à une liste de noms pour les afficher
+		List<String> listLibrary = new ArrayList<String>();
+		for (LanguageLibrary l : ticket.get().getLanguageLibrary()) {
+			listLibrary.add(l.getNom());
+			System.out.println(l.getNom());
+		}
+		System.out.println(listLibrary);
+		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
+		m.addAttribute("intervention", intervention);
+		List<FileDb> files = new ArrayList<>();
+		for (FileDb f : ticket.get().getFile()) {
 
-		return "Offre";
+			files.add(f);
+		}
+
+		m.addAttribute("files", files);
+		m.addAttribute("listLibrary", listLibrary);
+		System.out.println(ticket);
+
+		return "solution";
+
+	}
+
+	// Validation de la réponse
+	@RequestMapping(path = "/validationSoluce", method = RequestMethod.GET)
+	public String validationSoluce(Model m, @RequestParam String idIntervention, @RequestParam String idTicket) {
+		Integer id = Integer.parseInt(idTicket);
+		Integer idInter = Integer.parseInt(idIntervention);
+		Tickets ticketo = ticketService.findById(id).orElse(null);
+		UserProfile userPro = userService.findById(ticketo.getIntervenantId()).orElse(null);
+		Intervention intervention = interventionService.findByTicketsAndUsers(ticketo, userPro);
+		intervention.setDateClotureIntervention(new Date());
+		ticketo.setSolutionTicket(intervention.getSolution());
+		ticketo.setStatut(statutFermer);
+		ticketService.save(ticketo);
+		return "redirect:/ticketsAspirant";
+
+	}
+
+	// Pas la bonne réponse
+	@RequestMapping(path = "/pasLaReponse", method = RequestMethod.GET)
+	public String pasLaReponse() {
+
+		return "redirect:/ticketsAspirant";
 
 	}
 
