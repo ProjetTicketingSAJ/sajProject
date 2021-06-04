@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.afpa.domain.Tickets;
@@ -26,5 +27,7 @@ public interface ITicketService {
 
 	public List<Tickets> findByAspirantIdLikeAndStatutLike(Integer intervenantid, String statut);
 
-
+	public List<Tickets> findListToDisplayInPool(@Param("idIntervenant")Integer idIntervenant);
+	
+	public Tickets findByStatut(String statut);
 }

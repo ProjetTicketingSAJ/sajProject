@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,9 @@ public interface ITicketsDao extends JpaRepository<Tickets, Integer> {
 
 	public List<Tickets> findByAspirantIdLikeAndStatutLike(Integer intervenantid, String statut);
 	
+	@Query(value="select * from tickets inner join offre on tickets.id = offre.id_ticket where offre.offre_deja_faite = 1 and id_intervenant = :idIntervenant group by tickets.ID",nativeQuery=true)
+	public List<Tickets> findListToDisplayInPool(@Param("idIntervenant")Integer idIntervenant);
 
-
+	public Tickets findByStatut(String statut);
+	
 }

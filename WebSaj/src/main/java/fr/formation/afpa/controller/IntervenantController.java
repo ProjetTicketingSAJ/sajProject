@@ -73,11 +73,18 @@ public class IntervenantController {
 
 	/* Atterrissage sur la page zone tickets intervenant */
 	@RequestMapping(path = "/zoneTickets", method = RequestMethod.GET)
-	public String zoneTickets(Model m) {
+	public String zoneTickets(Model m,Principal principal) {
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		String userInfo = loginedUser.getUsername();
+		UserProfile user = userService.findByLogin(userInfo);
+		List<Tickets> listTickets = ticketService.findListToDisplayInPool(user.getId());
+		
+		//Tickets ouverts
+		List<Tickets> listTicketsOuverts = ticketService.findByStatutLike(statut);
+		//suppression des tickets sur lesquels l'intervenant est déjà positionné de la liste globale
+		listTicketsOuverts.removeAll(listTickets);
 
-		List<Tickets> listTickets = ticketService.findByStatutLike(statut);
-
-		m.addAttribute("listTickets", listTickets);
+		m.addAttribute("listTickets", listTicketsOuverts);
 
 		return "ZoneTickets";
 
@@ -208,13 +215,14 @@ public class IntervenantController {
 
 		System.out.println("Le ticket : " + ticket);
 		// Création de l'offre
-
+ 
 		Offre offre = new Offre();
 		offre.setDateCreation(date);
 		offre.setTickets(ticket.get());
 		offre.setDateLimiteSoluce(dateLimite);
 		offre.setMontant(montant);
 		offre.setIntervenant(intervenant.get());
+		offre.setOffreDejaFaite(true);
 		System.out.println(offre);
 
 		offreService.save(offre);

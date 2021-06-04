@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,5 +65,16 @@ public class TicketService implements ITicketService {
 		return dao.findByAspirantIdLikeAndStatutLike(intervenantid, statut);
 	}
 
+	@Override
+	public List<Tickets> findListToDisplayInPool(Integer idIntervenant) {
+		return dao.findListToDisplayInPool(idIntervenant);
+	}
+
+	@Override
+	public Tickets findByStatut(String statut) {
+		return dao.findByStatut(statut);
+	}
+
+	
 
 }
