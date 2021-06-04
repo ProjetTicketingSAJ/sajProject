@@ -275,4 +275,3 @@ public class IntervenantController {
 	  return "chatRoom";
   }
 }
-

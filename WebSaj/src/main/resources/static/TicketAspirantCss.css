@@ -59,13 +59,32 @@ html body {
 }
 
 /* INFOCARDS */
-.infoCards {
-	margin-left: 5%;
+.mainInfoTickets {
+	display: flex;
+	justify-content: space-around;
+}
+
+.probleme {
 	margin-bottom: 2%;
 	margin-top: 3% !important;
 	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-	height: 80%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.btnDownloadFile {
+	background: transparent !important;
+	color: #007bff !important;
+	border: transparent !important;
+}
 
+.exception {
+	margin-bottom: 2%; margin-top : 3% !important;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: column;
+	height: 100% !important;
+	margin-top: 3% !important
 }
 
 .cardTicket {
@@ -73,8 +92,6 @@ html body {
 	height: 60% !important;
 	margin-bottom: 3%;
 	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-	margin-left:2%;
-	magin-right:2%;
 }
 
 @media all and (max-device-width: 480px) {

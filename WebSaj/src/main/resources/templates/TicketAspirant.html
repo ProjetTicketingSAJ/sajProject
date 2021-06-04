@@ -12,24 +12,13 @@
 	crossorigin="anonymous">
 <link href="\C:\Users\afpa\Documents\fontawesome/css/all.css"
 	rel="stylesheet">
-	
-	
-	<!-- ICONES BOOTSTRAP  -->
+
+
+<!-- ICONES BOOTSTRAP  -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-	<!-- MDBootstrap Datatables CSS  -->
-<link href="css/addons/datatables.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
 
-
-<!-- MDBootstrap Datatables JS  -->
-<script type="text/javascript" src="js/addons/datatables.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
-<script
-	src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
 <!-- SCRIPT FOR HEADER IMPORT -->
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
@@ -49,8 +38,8 @@
 	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
-	
-	
+
+
 <!--load all styles -->
 <title>Ticket</title>
 </head>
@@ -63,7 +52,7 @@
 		<!-- 	start page div -->
 		<div class="content">
 
-			<div class="row row justify-content-center">
+			<div class="row justify-content-center">
 				<!-- START MAIN CARD -->
 				<div class="card cardTicket col-12 col-lg-10 ">
 					<div class="card-body">
@@ -73,46 +62,52 @@
 
 						<div class="row">
 							<!-- TICKET ID  -->
-							<div class="col-12 col-lg-4">
+							<div class="col-12 col-lg-6">
 								<h2>
 									Ticket n° <span class="badge rounded-pill bg-primary"
 										th:text="${ticket.id}"></span>
 								</h2>
 							</div>
 							<!-- TICKET Title -->
-							<div class="mt-7 col-12 col-lg-4">
+							<div class="col-12 col-lg-6">
 								<h2>
 									Title: <span class="badge bg-primary" th:text="${ticket.titre}"></span>
 								</h2>
 							</div>
 							<!-- TICKET FILE DOWNLAOD  -->
-							<div  class="dropdown show">
-							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-   							 aria-haspopup="true" aria-expanded="false">
-    						Pièces jointes
-							</a>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							  <div th:each="file : ${files}">
-								<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
-								<span th:text="${file.name}"></span> 
+							<div class="dropdown show">
+								<a class="btn btn-secondary dropdown-toggle btnDownloadFile"  href="#"
+									role="button" id="dropdownMenuLink" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false"> <svg
+										xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+										fill="currentColor" class="bi bi-journal-arrow-down"
+										viewBox="0
+									0 16 16"> <path fill-rule="evenodd"
+											d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
+									<path
+											d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+									<path
+											d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+									</svg>
 								</a>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<div th:each="file : ${files}">
+										<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
+											<span th:text="${file.name}"></span>
+										</a>
+									</div>
 								</div>
 							</div>
-							
-						
-							
-							<!-- END TICKET FILE DOWNLAOD  -->
-						
 
 							<!-- END CLASS ROW  -->
 						</div>
 
 
 						<!-- INFO TICKETS / DESCRIPTION & EXCEPTION  -->
-						<div class="" th:object="${ticket}">
-							<div class="row justify-content-center">
+						<div th:object="${ticket}">
+							<div class="row mainInfoTickets">
 								<!-- DESCRIPTION  -->
-								<div class="card infoCards col-12 col-lg-4">
+								<div class="card probleme col-12 col-lg-5">
 									<div class="card-header">Description du problème</div>
 									<div class="card-body">
 										<p class="card-text"
@@ -120,9 +115,8 @@
 									</div>
 								</div>
 
-
 								<!-- EXCEPTION  -->
-								<div class="card infoCards col-12  col-lg-4">
+								<div class="card exception col-12  col-lg-5">
 									<div class="card-header">Exception dans la console</div>
 									<div class="card-body">
 										<p class="card-text"
@@ -135,18 +129,18 @@
 
 
 
-<!-- 						<div class="card"> -->
-<!-- 							<div class="card-body"> -->
+						<!-- 						<div class="card"> -->
+						<!-- 							<div class="card-body"> -->
 
-								<!-- BADGES LANGUAGE TAGS -->
-								<div class="row m-3">
-									<h3>
-										<span class="badge bg-primary" style="margin: 2%;"
-											th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
-									</h3>
-								</div>
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<!-- BADGES LANGUAGE TAGS -->
+						<div class="row m-3">
+							<h3>
+								<span class="badge bg-primary" style="margin: 2%;"
+									th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
+							</h3>
+						</div>
+						<!-- 							</div> -->
+						<!-- 						</div> -->
 						<!-- END  BADGES LANGUAGE TAGS -->
 					</div>
 					<!-- END MAIN ROW -->

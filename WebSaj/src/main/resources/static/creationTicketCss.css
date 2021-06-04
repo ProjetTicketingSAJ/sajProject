@@ -93,7 +93,7 @@ html body {
 .probleme {
 	display: flex;
 	flex-direction: column;
-	margin-left: 5%;
+
 	height: 100%;
 }
 
@@ -112,7 +112,6 @@ html body {
 .exception {
 	display: flex;
 	flex-direction: column;
-	margin-left: 5%;
 }
 
 /* TITLE */
@@ -173,16 +172,19 @@ html body {
 }
 
 .tagsInput {
-	border: 1px solid #ced4da;
-	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
+
+	border: transparent;
 }
 
 .tagsInput  .tag {
 	height: 50px;
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
 }
-
+.main-input{
+		box-shadow: 2px 2px 2px 1px rgba(0.1, 0.1, 0.1, .2) !important;
+}
 .inputFile {
+background: transparent !important;
 	margin-top: 20%;
 	margin-left: 20%;
 }
