@@ -129,11 +129,11 @@ public class AspirantController {
 		System.err.println(offresTickets);
 
 		List<Offre> listOffres = offreService.findByTickets(ticket);
-		for(Offre o : listOffres) {
+		for (Offre o : listOffres) {
 			o.setTicketVu(true);
 			offreService.save(o);
-			}
-		
+		}
+
 		model.addAttribute("offresTickets", offresTickets);
 
 		return "mesOffres";
@@ -243,6 +243,7 @@ public class AspirantController {
 		System.out.println(tickets);
 
 		// enregistrement du ticket
+
 		ticketService.save(tickets);
 
 		// enregistrement des fichiers joints
@@ -257,7 +258,42 @@ public class AspirantController {
 			return "redirect:/creationTicket";
 		}
 
-		return "redirect:/ticketsAspirant";
+		// --------------------recherche de solution par tag
+
+		// Recherche du ticket que l'on vient de save
+		Tickets ticketTags = ticketService.lastCreatedTicket(id);
+
+		List<Tickets> getTage = ticketService.findByLanguageLibraryIn(ticketTags.getLanguageLibrary());
+		List<Tickets> getTageTopLikes = ticketService
+				.findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(ticketTags.getLanguageLibrary());
+		System.err.println("ØØØØØØØØØØØØØØØØØØØØØØØØØØfindByLanguageLibraryInØØØØØØØØØØØØØØØØØØØØØØØØØØØ");
+		System.out.println("+++++Toutes+++++" + ticketTags.getLanguageLibrary());
+		for (Tickets tt : getTage) {
+			System.out.println("getTage" + tt.getTitre());
+
+		}
+		System.err.println(
+				"ØØØØØØØØØØØØØØØØØØØØØØØØØØfindByLanguageLibraryIn ORDER BY TOP 3 ØØØØØØØØØØØØØØØØØØØØØØØØØØØ");
+		for (Tickets tt : getTageTopLikes) {
+			System.out.println("getTageTopLikes" + tt.getTitre());
+
+		}
+		m.addAttribute("getTage", getTage);
+		m.addAttribute("getTageTopLikes", getTageTopLikes);
+
+		return "propositionSoluce";
+	}
+
+	// Faire proposition a l'aspirant a la création de ticket
+	@RequestMapping(path = "/voirPropositions", method = RequestMethod.GET)
+	public String voirPropositions(Model model, HttpServletRequest request, @RequestParam Integer idTicket,
+			Principal principal) {
+
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		String userInfo = loginedUser.getUsername();
+
+		return userInfo;
+
 	}
 
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
@@ -291,10 +327,44 @@ public class AspirantController {
 
 	}
 
+	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
+	@RequestMapping(path = "/voirReponse", method = RequestMethod.GET)
+	public String voirReponse(Model m, @RequestParam String idTicket) {
+		System.out.println(idTicket);
+		Integer id = Integer.parseInt(idTicket);
+		// Recherche du ticket à afficher
+		Optional<Tickets> ticket = ticketService.findById(id);
+		Tickets ticketSoluce = ticketService.findById(id).orElse(null);
+		// ajout des tags du tickets à une liste de noms pour les afficher
+		List<String> listLibrary = new ArrayList<String>();
+		for (LanguageLibrary l : ticket.get().getLanguageLibrary()) {
+			listLibrary.add(l.getNom());
+			System.out.println(l.getNom());
+		}
+		System.out.println(listLibrary);
+		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
+
+		List<FileDb> files = new ArrayList<>();
+		for (FileDb f : ticket.get().getFile()) {
+
+			files.add(f);
+		}
+		// Incrémentation de la colonne nb-likes dans la db
+		ticketSoluce.setLikes(ticketSoluce.getLikes() + 1);
+		System.err.println("ticketSoluce.getLikes()--------------------------------- : " + ticketSoluce.getLikes());
+		ticketService.save(ticketSoluce);
+		m.addAttribute("files", files);
+		m.addAttribute("listLibrary", listLibrary);
+		System.out.println(ticket);
+
+		return "reponseTicketAspirant";
+
+	}
+
 	/* Visualisation d'un ticket avec la soluce */
 	@RequestMapping(path = "/VoirSoluce", method = RequestMethod.GET)
 	public String VoirSoluce(Model m, @RequestParam String idTicket) {
-		System.out.println(idTicket);
+
 		Integer id = Integer.parseInt(idTicket);
 		// Recherche du ticket à afficher
 		Optional<Tickets> ticket = ticketService.findById(id);
@@ -312,8 +382,9 @@ public class AspirantController {
 			listLibrary.add(l.getNom());
 			System.out.println(l.getNom());
 		}
-		System.out.println(listLibrary);
+
 		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
+
 		m.addAttribute("intervention", intervention);
 		List<FileDb> files = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
