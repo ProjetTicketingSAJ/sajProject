@@ -60,7 +60,6 @@ html body {
 
 /* INFOCARDS */
 .infoCards {
-	margin-left: 5%;
 	margin-bottom: 2%;
 	margin-top: 3% !important;
 	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
@@ -90,13 +89,18 @@ html body {
 	border: transparent !important;
 }
 
-.dropFile span{
-font-weight: bolder !important;
+.ticketTitle h2 {
+		font-weight: bold;
 }
 
-.modal-header h5{
+.dropFile span {
 	font-weight: bolder !important;
 }
+
+.modal-header h5 {
+	font-weight: bolder !important;
+}
+
 @media all and (max-device-width: 480px) {
 	.infoCards {
 		margin-left: 0%;
@@ -104,20 +108,22 @@ font-weight: bolder !important;
 		margin-bottom: 10%;
 	}
 	.ticketTitle h2 {
-		font-weight: bold;
+		font-weight: bold !important;
 	}
-}
-
-.ticketTitle span {
-	font-size: large !important;
+	.btnDownloadFile {
+		background: transparent !important;
+		color: #007bff !important;
+		border: transparent !important;
+		margin-left: -26px;
+	}
+	.tags h3 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 2px;
+	}
 }
 
 .ticketNum h2 {
 	font-size: 40px;
 	font-weight: bold;
-}
-
-.btnDownloadFile {
-	
-}
 }

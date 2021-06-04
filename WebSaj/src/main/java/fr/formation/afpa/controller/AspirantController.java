@@ -129,11 +129,11 @@ public class AspirantController {
 		System.err.println(offresTickets);
 
 		List<Offre> listOffres = offreService.findByTickets(ticket);
-		for(Offre o : listOffres) {
+		for (Offre o : listOffres) {
 			o.setTicketVu(true);
 			offreService.save(o);
-			}
-		
+		}
+
 		model.addAttribute("offresTickets", offresTickets);
 
 		return "mesOffres";
@@ -279,8 +279,9 @@ public class AspirantController {
 
 		List<FileDb> files = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
-
-			files.add(f);
+			if (f.getFichier().length > 0) {
+				files.add(f);
+			}
 		}
 
 		m.addAttribute("files", files);
