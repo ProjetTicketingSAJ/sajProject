@@ -12,13 +12,13 @@ import fr.formation.afpa.domain.UserProfile;
 
 @Service
 @Transactional
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
 	@Autowired
 	private IUserDao dao;
-	
+
 	public UserService() {
-		
+
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class UserService implements IUserService{
 
 	@Override
 	public void save(UserProfile user) {
-		dao.save(user);		
+		dao.save(user);
 	}
 
 	@Override
@@ -42,7 +42,6 @@ public class UserService implements IUserService{
 
 		return dao.findTopByOrderByIdDesc();
 	}
-	
 
 	public UserProfile findByLogin(String login) {
 		return dao.findByLogin(login);

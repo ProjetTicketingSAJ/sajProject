@@ -22,17 +22,19 @@ public class Offre implements java.io.Serializable{
 	private Double montant;
 	private Tickets tickets;
 	private UserProfile intervenant;
+	private boolean ticketVu;
 	
 	public Offre() {
 	}
 	
-	public Offre(Integer id,Date dateCreation,Date dateLimiteSoluce,Double montant,Tickets tickets,UserProfile intervenant) {
+	public Offre(Integer id,Date dateCreation,Date dateLimiteSoluce,Double montant,Tickets tickets,UserProfile intervenant,boolean ticketVu) {
 		this.id = id;
 		this.dateCreation = dateCreation;
 		this.dateLimiteSoluce = dateLimiteSoluce;
 		this.montant = montant;
 		this.tickets = tickets;
 		this.intervenant = intervenant;
+		this.ticketVu = ticketVu;
 	}
 	
 	@Id
@@ -94,6 +96,16 @@ public class Offre implements java.io.Serializable{
 		return "Offre [id=" + id + ", dateCreation=" + dateCreation + ", dateLimiteSoluce=" + dateLimiteSoluce
 				+ ", montant=" + montant + ", tickets=" + tickets + ", intervenant=" + intervenant + "]";
 	}
+
+	@Column(name = "ticket_vu")
+	public boolean isTicketVu() {
+		return ticketVu;
+	}
+
+	public void setTicketVu(boolean ticketVu) {
+		this.ticketVu = ticketVu;
+	}
+	
 	
 	
 //	@Override
