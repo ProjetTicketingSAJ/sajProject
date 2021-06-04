@@ -1,18 +1,16 @@
 package fr.formation.afpa.service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.afpa.dao.ITicketsDao;
-import fr.formation.afpa.domain.FileDb;
+import fr.formation.afpa.domain.LanguageLibrary;
 import fr.formation.afpa.domain.Tickets;
 
 @Service
@@ -58,11 +56,23 @@ public class TicketService implements ITicketService {
 		return dao.findTopByOrderByIdDesc();
 	}
 
-
-
 	public List<Tickets> findByAspirantIdLikeAndStatutLike(Integer intervenantid, String statut) {
 		return dao.findByAspirantIdLikeAndStatutLike(intervenantid, statut);
 	}
 
+	@Override
+	public List<Tickets> findByLanguageLibraryIn(Set<LanguageLibrary> languageLibrary) {
+		return dao.findByLanguageLibraryIn(languageLibrary);
+	}
+
+	@Override
+	public Tickets lastCreatedTicket(Integer idAspirant) {
+		return dao.lastCreatedTicket(idAspirant);
+	}
+
+	@Override
+	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary) {
+		return dao.findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(languageLibrary);
+	}
 
 }
