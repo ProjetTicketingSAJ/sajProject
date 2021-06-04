@@ -277,24 +277,24 @@ public class IntervenantController {
 
 
 	/* Lecture et téléchargement du fichier */
-	@GetMapping("/file/{id}")
-	public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
+//	@GetMapping("/file/{id}")
+//	public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
+//
+//		FileDb dbFile = fileService.getFile(id);
+//
+//		byte[] byteArray = dbFile.getFichier(); // read the byteArray
+//
+//		resp.setContentType(MimeTypeUtils.APPLICATION_OCTET_STREAM.getType());
+//		resp.setHeader("Content-Disposition", "attachment; filename=" + dbFile.getName());
+//		resp.setContentLength(byteArray.length);
+//
+//		OutputStream os = resp.getOutputStream();
+//		try {
+//			os.write(byteArray, 0, byteArray.length);
+//		} finally {
+//			os.close();
+//		}
+//
+//	}
 
-		FileDb dbFile = fileService.getFile(id);
-
-		byte[] byteArray = dbFile.getFichier(); // read the byteArray
-
-		resp.setContentType(MimeTypeUtils.APPLICATION_OCTET_STREAM.getType());
-		resp.setHeader("Content-Disposition", "attachment; filename=" + dbFile.getName());
-		resp.setContentLength(byteArray.length);
-
-		OutputStream os = resp.getOutputStream();
-		try {
-			os.write(byteArray, 0, byteArray.length);
-		} finally {
-			os.close();
-		}
-
-	}
-
-}
+//}

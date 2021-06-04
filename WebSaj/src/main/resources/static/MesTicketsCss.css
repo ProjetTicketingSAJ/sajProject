@@ -94,4 +94,7 @@ html body {
 justify-content: space-around;
 }
 
+.eyeBtn{
+	border: transparent !important;
+}
 /* END TABLE */
