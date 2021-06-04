@@ -97,7 +97,13 @@ public class AspirantController {
 		System.out.println("=============================listTickets EN COURS ======================");
 		System.out.println(listOffresEnCours);
 		UserProfile user = userService.findById(id).orElse(null);
-
+		//Liste des offres qui ont été faites pour pour un ticket
+		for(Tickets t : listOffresOuverte) {
+			Integer nbOffres = offreService.findNbOffres(t.getId());
+			t.setNbOffres(nbOffres);
+			ticketService.save(t);
+			System.err.println(nbOffres);
+		}
 		m.addAttribute("user", user);
 		m.addAttribute("listOffresOuverte", listOffresOuverte);
 		m.addAttribute("listOffresEnCours", listOffresEnCours);
@@ -192,7 +198,7 @@ public class AspirantController {
 
 	@RequestMapping(path = "/createTicket", method = RequestMethod.POST)
 	public String createTicket(Model m, HttpServletRequest request, @ModelAttribute Tickets tickets,
-			@RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput) {
+			@RequestParam (required = false) Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput) {
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);
@@ -433,5 +439,17 @@ public class AspirantController {
 	public String profil() {
 		return "profilIntervenant";
 	}
-
+	
+	//Méthode pour clôturer un ticket avant même qu'il ait été pris en charge
+	@RequestMapping(path = "/closeTicket", method = RequestMethod.POST)
+	public String cloturerTicket(@RequestParam String idTicket) {
+		Integer id = Integer.parseInt(idTicket);
+		// Recherche du ticket à clôturer
+		Optional<Tickets> ticket = ticketService.findById(id);
+		//Changement du statut du ticket
+		ticket.get().setStatut(statutFermer);
+		ticketService.save(ticket.get());
+		
+		return "redirect:/ticketsAspirant";
+	}
 }
