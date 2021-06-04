@@ -205,8 +205,8 @@ public class AspirantController {
 		for (String element : tagsinput) {
 			// Si l'élément n'est pas présent dans la nvelle liste
 			// alors l'ajouter
-			if (!newList.contains(element)) {
-				newList.add(element);
+			if (!newList.contains(element.toLowerCase())) {
+				newList.add(element.toLowerCase());
 			}
 		}
 
@@ -218,15 +218,15 @@ public class AspirantController {
 		 */
 		for (String l : newList) {
 			LanguageLibrary ll = languageLibraryService.findByNom(l);
-			if (ll != null && l.equals(ll.getNom())) {
+			if (ll != null && l.toLowerCase().equals(ll.getNom().toLowerCase())) {
 
 				LanguageLibrary lan = languageLibraryService.findByNom(l);
 				set.add(lan);
 
 			} else {
-				LanguageLibrary langu = new LanguageLibrary(l);
+				LanguageLibrary langu = new LanguageLibrary(l.toLowerCase());
 				languageLibraryService.save(langu);
-				LanguageLibrary lan = languageLibraryService.findByNom(l);
+				LanguageLibrary lan = languageLibraryService.findByNom(l.toLowerCase());
 				set.add(lan);
 
 				tickets.setLanguageLibrary(set);
