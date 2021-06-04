@@ -44,7 +44,7 @@ html body {
 /* END FOOTER */
 .hero-bg {
 	background: linear-gradient(170deg, #0080ff 64%, #ffffff 30%);
-	width: 105%;
+	width: 106%;
 	margin-left: -3%;
 	margin-right: -6%;
 	margin-top: -3%;
@@ -68,4 +68,21 @@ html body {
 .textTitle span {
 	font-weight: bold;
 	color: #0080ff;
+}
+
+.wrongPass h6 {
+	color: red;
+	margin: 2%;
+	font-weight: bold;
+}
+
+.alertIndex{
+	margin-bottom: 7px !important;
+	display: flex;
+justify-content: center;
+}
+.alertModal{
+	display: flex;
+justify-content: center;
+	margin-bottom: -10px !important;
 }
