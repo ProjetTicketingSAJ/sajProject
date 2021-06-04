@@ -1,8 +1,10 @@
 
 package fr.formation.afpa.controller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -121,9 +124,11 @@ public class IntervenantController {
 		// Recherche et envoi des fichiers liés qu ticket
 		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
 		List<FileDb> files = new ArrayList<>();
-		for (FileDb f : tickets.getFile()) {
 
-			files.add(f);
+		for (FileDb f : tickets.getFile()) {
+			if (f.getFichier().length > 0) {
+				files.add(f);
+			}
 		}
 
 		m.addAttribute("listLibrary", listLibrary);
@@ -248,30 +253,31 @@ public class IntervenantController {
 		return "profilIntervenant";
 	}
 
+	/* Lecture et téléchargement du fichier */
+	@GetMapping("/file/{id}")
+	public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
 
-  /*Lecture et téléchargement du fichier*/
-  @GetMapping("/file/{id}")
-  public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
+		FileDb dbFile = fileService.getFile(id);
+		byte[] byteArray = dbFile.getFichier(); // read the byteArray
 
-      FileDb dbFile = fileService.getFile(id);
- 
-      byte[] byteArray =  dbFile.getFichier(); // read the byteArray
+//		if (byteArray != null && byteArray.length > 0) {
 
-      resp.setContentType(MimeTypeUtils.APPLICATION_OCTET_STREAM.getType()); 
-      resp.setHeader("Content-Disposition", "attachment; filename=" + dbFile.getName());
-      resp.setContentLength(byteArray.length);
+		resp.setContentType(MimeTypeUtils.APPLICATION_OCTET_STREAM.getType());
+		resp.setHeader("Content-Disposition", "attachment; filename=" + dbFile.getName());
+		resp.setContentLength(byteArray.length);
 
-      OutputStream os = resp.getOutputStream();
-      try {
-          os.write(byteArray, 0, byteArray.length);
-      } finally {
-          os.close();
-      } 
+		OutputStream os = resp.getOutputStream();
 
-  }
-  
-  @RequestMapping("/chatRoom")
-  public String chatRoom() {
-	  return "chatRoom";
-  }
+		try {
+			os.write(byteArray, 0, byteArray.length);
+		} finally {
+			os.close();
+		}
+
+	}
+
+	@RequestMapping("/chatRoom")
+	public String chatRoom() {
+		return "chatRoom";
+	}
 }

@@ -315,8 +315,9 @@ public class AspirantController {
 
 		List<FileDb> files = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
-
-			files.add(f);
+			if (f.getFichier().length > 0) {
+				files.add(f);
+			}
 		}
 
 		m.addAttribute("files", files);

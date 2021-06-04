@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeLeaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="TicketAspirantCss.css" rel="stylesheet">
@@ -44,6 +45,7 @@
 <title>Ticket</title>
 </head>
 <body>
+
 	<!-- start page div -->
 	<div class="page">
 		<!--Navigation bar-->
@@ -62,53 +64,54 @@
 
 						<div class="row">
 							<!-- TICKET ID  -->
-							<div class="col-12 col-lg-6">
+							<div class="col-12 col-lg-4">
 								<h2>
 									Ticket n° <span class="badge rounded-pill bg-primary"
 										th:text="${ticket.id}"></span>
 								</h2>
 							</div>
 							<!-- TICKET Title -->
-							<div class="col-12 col-lg-6">
+							<div class="col-12 col-lg-8">
 								<h2>
 									Title: <span class="badge bg-primary" th:text="${ticket.titre}"></span>
 								</h2>
 							</div>
-							<!-- TICKET FILE DOWNLAOD  -->
-							<div class="dropdown show">
-								<a class="btn btn-secondary dropdown-toggle btnDownloadFile"  href="#"
-									role="button" id="dropdownMenuLink" data-toggle="dropdown"
-									aria-haspopup="true" aria-expanded="false"> <svg
-										xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-										fill="currentColor" class="bi bi-journal-arrow-down"
-										viewBox="0
-									0 16 16"> <path fill-rule="evenodd"
-											d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
-									<path
-											d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
-									<path
-											d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
-									</svg>
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<div th:each="file : ${files}">
-										<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
-											<span th:text="${file.name}"></span>
-										</a>
-									</div>
-								</div>
-							</div>
+
 
 							<!-- END CLASS ROW  -->
 						</div>
-
+						<!-- TICKET FILE DOWNLAOD  -->
+						<div class="dropdown show col-lg-2">
+							<a class="btn btn-secondary dropdown-toggle btnDownloadFile"
+								href="#" role="button" id="dropdownMenuLink"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false">Télécharger fichiers <svg
+									xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+									fill="currentColor" class="bi bi-journal-arrow-down"
+									viewBox="0
+									0 16 16"> <path fill-rule="evenodd"
+										d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
+									<path
+										d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+									<path
+										d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+									</svg>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<div th:each="file : ${files}">
+									<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
+										<span th:text="${file.name}"></span>
+									</a>
+								</div>
+							</div>
+						</div>
 
 						<!-- INFO TICKETS / DESCRIPTION & EXCEPTION  -->
 						<div th:object="${ticket}">
 							<div class="row mainInfoTickets">
 								<!-- DESCRIPTION  -->
 								<div class="card probleme col-12 col-lg-5">
-									<div class="card-header">Description du problème</div>
+									<div class="card-header">Description</div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
@@ -116,8 +119,8 @@
 								</div>
 
 								<!-- EXCEPTION  -->
-								<div class="card exception col-12  col-lg-5">
-									<div class="card-header">Exception dans la console</div>
+								<div class="card exception col-12  col-lg-6">
+									<div class="card-header">Exception console</div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>

@@ -1,132 +1,78 @@
 html body {
-    background-color:#F9FAFF;
-  }
-.barCoteDroit{
-    display: flex;
-    margin-right: 4%;
-    justify-content: right;
+	background-color: #F9FAFF;
 }
-.barCoteDroit .inter{
-    color:   #252a2e;
-    margin-right: 6px;
-    margin-top: 15px;
-    font-weight: bold;
-}
-.barCoteDroit .nom{
-  color:  #252a2e;
-  margin-right: 3px;
-  margin-top: 15px;
-  font-weight: bold;
-}
-.searchFlex{
-    display: flex;
-    margin-left: 10%;
-}
-.menu{
-    background-color:#252a2e;
-  
-}
-.menu .sousmenu{
-    color:  white;
+/* NAVBAR */
+.navbar {
+	position: absolute;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.menu .sousmenu:hover{
-    background-color :  blue;
-  }
-  
-  a:link 
-    { 
- text-decoration:none; 
-    } 
-    .gauche12 .span12{
-        list-style-type:none; 
-        display: flex;
-      justify-content: center;
-      }
-    .sendBut{
-        display: flex;
-        justify-content: center;
-        margin-top: 1%;
-        margin-bottom: 1%;
-      }
-  .newSolu{
-      padding-top: 1%;
-    
-  }
+.headerText {
+	color: #0080ff;
+	text-decoration: none;
+	display: inline-block;
+	position: relative;
+}
 
-  .navbar-custom {
-    display: flex;
-    background-color:#F9FAFF;
-    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-    height: 50%;
-  }
-  .logoflex{
-      display: flex;
-  }
-  
+.headerText:after {
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	position: absolute;
+	background: #0080ff;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
+}
 
-  .statbtn{
-      margin-left: 3px;
-  }
-  .navScroll{
-    overflow: scroll;
-    height: 300px;
-  }
-  .newSolu .area{
-      height: 130px;
-     
-  }
+.headerText:hover:after {
+	width: 100%;
+	left: 0;
+}
 
-  .newSolu .sol{
-      color: white;
-      background-color: #252a2e;;
-  }
-  .card-one{
-      width: 60%;
-      margin-left: 20%;
-     
-  }
-  .gen{
-      width: 60%;
-      margin-left: 20%;
-  }
-  .infosTicket{
-      margin-left: 20%;
-      width: 60%;
-      background-color:  #252a2e;
-      margin-top: 2% ;
-      border-top-left-radius:15px;
-      border-top-right-radius:15px;
-  }
-  .infosTicket2{
-    margin-left: 20%;
-    width: 60%;
-    background-color: #252a2e;
+/* FOOTER */
+.content {
+	min-height: calc(100vh - 70px);
+	padding: 40px 40px 0 40px;
 }
-.infosTicket .inf{
-    color: white;
-}
-.infosTicket2 .inf{
-    color: white;
-}
-.solu1 .btnSol{
-    background-color: #252a2e;
-   border: none;
-}
-.solu1{
-    border: solid 0.2px;
-   
-}
-.date{
-   margin-left: -2%;
-   
-}
-@media all and (max-device-width: 480px)
-{
-  .ticketList {
-  margin: 2%;
 
-   overflow: scroll;
-   height: 60%;
-  }
+.footer {
+	height: 50px;
+}
+
+/* END FOOTER */
+.cardTicket {
+	margin-top: 2% !important;
+	height: 60% !important;
+	margin-bottom: 3%;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.infoCards {
+	margin-bottom: 2%;
+	margin-top: 3% !important;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.btnDownloadFile {
+	background: transparent !important;
+	color: #007bff !important;
+	border: transparent !important;
+}
+
+.validateSolutionFooter {
+	display: flex;
+	justify-content: space-around;
+}
+
+.mainCardInfo{
+	display: flex;
+justify-content: space-around;
+}
+
+.dropFile span{
+font-weight: bolder !important;
 }
