@@ -46,7 +46,7 @@ public class Tickets implements java.io.Serializable {
 	private Integer codingLanguage;
 	private String solutionTicket;
 	private Integer nbOffres;
-
+	private Integer likes;
 	private Set<FileDb> file = new HashSet<FileDb>(0);
 
 	public Tickets() {
@@ -60,7 +60,8 @@ public class Tickets implements java.io.Serializable {
 	public Tickets(Integer id, String titre, String expoProblematique, String exceptionConsole, Date dateCreation,
 			Date dateCloture, String commentInterv, String commentAppren, String statut, Set<UserProfile> users,
 			Set<LanguageLibrary> languageLibrary, Integer aspirantId, Integer intervenantId, Set<Offre> offres,
-			Integer codingLanguage, Set<FileDb> file, Set<Intervention> intervention, String solutionTicket,Integer nbOffres) {
+			Integer codingLanguage, Set<FileDb> file, Set<Intervention> intervention, String solutionTicket,
+			Integer nbOffres, Integer likes) {
 
 		this.id = id;
 		this.titre = titre;
@@ -81,6 +82,7 @@ public class Tickets implements java.io.Serializable {
 		this.intervention = intervention;
 		this.solutionTicket = solutionTicket;
 		this.nbOffres = nbOffres;
+		this.likes = likes;
 
 	}
 
@@ -274,8 +276,7 @@ public class Tickets implements java.io.Serializable {
 	public void setSolutionTicket(String solutionTicket) {
 		this.solutionTicket = solutionTicket;
 	}
-	
-	
+
 	@Column(name = "nb_offres")
 	public Integer getNbOffres() {
 		return nbOffres;
@@ -285,6 +286,13 @@ public class Tickets implements java.io.Serializable {
 		this.nbOffres = nbOffres;
 	}
 
+	@Column(name = "nb_likes")
+	public Integer getLikes() {
+		return likes;
+	}
 
-	
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
+
 }

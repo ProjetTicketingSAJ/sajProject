@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 <!-- ICONES BOOTSTRAP  -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -55,6 +55,9 @@
 		<header th:insert="header.html"> </header>
 		<!--end of Navigation bar-->
 
+		<div class="alert alert-danger alertIndex" role="alert" th:if="${loginError}">
+			<h6>Erreur login et/ou mot de passe</h6>
+		</div>
 
 		<div class="about-section">
 			<h1 data-aos="fade-up" data-aos-duration="800">Mais alors, qui
@@ -126,9 +129,12 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+							<h5 class="modal-title" id="staticBackdropLabel">Se connecter</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
+						</div>
+						<div class="alert alert-danger alertModal" role="alert" th:if="${loginError}">
+							<h6>Erreur login et/ou mot de passe</h6>
 						</div>
 						<form th:action="@{/j_spring_security_check}" method="post">
 						<div class="modal-body">

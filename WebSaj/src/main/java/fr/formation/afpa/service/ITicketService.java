@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.service;
 
 import java.io.IOException;
@@ -30,4 +31,10 @@ public interface ITicketService {
 	public List<Tickets> findListToDisplayInPool(@Param("idIntervenant")Integer idIntervenant);
 	
 	public Tickets findByStatut(String statut);
+  
+  List<Tickets> findByLanguageLibraryIn(Set<LanguageLibrary> languageLibrary);
+
+	public Tickets lastCreatedTicket(@Param("idAspirant") Integer idAspirant);
+
+	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary);
 }

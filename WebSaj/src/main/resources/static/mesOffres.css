@@ -75,12 +75,28 @@ html body {
 	font-weight: bold;
 	color: #404040;
 }
-.cardOffres{
+
+.cardOffres {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-gap: 1px;
-	
 }
-.card{
-		box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+
+.card {
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-device-width: 480px) {
+	.cardOffres {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-gap: 1px;
+	}
+}
+@media (min-device-width: 700px) and (max-device-width: 1400px) {
+	.cardOffres {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 5px;
+	}
 }

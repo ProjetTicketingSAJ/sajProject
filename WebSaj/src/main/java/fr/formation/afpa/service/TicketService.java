@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.service;
 
 import java.io.IOException;
@@ -74,7 +75,23 @@ public class TicketService implements ITicketService {
 	public Tickets findByStatut(String statut) {
 		return dao.findByStatut(statut);
 	}
+@Override
+	public List<Tickets> findByLanguageLibraryIn(Set<LanguageLibrary> languageLibrary) {
+		return dao.findByLanguageLibraryIn(languageLibrary);
+	}
+
+	@Override
+	public Tickets lastCreatedTicket(Integer idAspirant) {
+		return dao.lastCreatedTicket(idAspirant);
+	}
+
+	@Override
+	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary) {
+		return dao.findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(languageLibrary);
+	}
 
 	
 
 }
+
+

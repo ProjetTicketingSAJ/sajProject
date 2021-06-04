@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.dao;
 
 import java.io.IOException;
@@ -36,5 +37,12 @@ public interface ITicketsDao extends JpaRepository<Tickets, Integer> {
 	public List<Tickets> findListToDisplayInPool(@Param("idIntervenant")Integer idIntervenant);
 
 	public Tickets findByStatut(String statut);
+  
+  @Query(value = "SELECT * FROM tickets where tickets.aspirant_id = :idAspirant ORDER BY ID DESC LIMIT 1", nativeQuery = true)
+	public Tickets lastCreatedTicket(@Param("idAspirant") Integer idAspirant);
+
+	public List<Tickets> findByLanguageLibraryIn(Set languageLibrary);
+
+	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary);
 	
 }

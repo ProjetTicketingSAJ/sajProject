@@ -28,7 +28,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.util.ArrayUtils;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import fr.formation.afpa.domain.CodingLanguage;
 import fr.formation.afpa.domain.Offre;
@@ -184,13 +186,23 @@ public class LoginController {
 				return "MesTicketAspirant"; 
 			}
 		} catch (NoResultException nre) {
-			System.out.println("je suis nulle");
+			System.err.println("je suis nulle");
 			httpSession.setAttribute("error", "**Login et/ou mot de passe incorrect(s)**");
 			return "index";
 		}
 		return "index";
 	}
 
+	  // Login form with error
+	  @RequestMapping("/login-error.html")
+	  public String loginError(Model model, RedirectAttributes redirAttrs) {
+		  redirAttrs.addFlashAttribute("message", "Wrong login or password");
+		  model.addAttribute("loginError", true);
+	    return "index";
+	  }
+
+	
+	
 	/* Logout method */
 	@RequestMapping(path = "/logoutSuccessful", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
