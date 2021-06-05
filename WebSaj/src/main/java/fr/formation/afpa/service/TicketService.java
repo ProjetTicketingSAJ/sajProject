@@ -1,20 +1,17 @@
 
 package fr.formation.afpa.service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.afpa.dao.ITicketsDao;
-import fr.formation.afpa.domain.FileDb;
+import fr.formation.afpa.domain.LanguageLibrary;
 import fr.formation.afpa.domain.Tickets;
 
 @Service
@@ -60,8 +57,6 @@ public class TicketService implements ITicketService {
 		return dao.findTopByOrderByIdDesc();
 	}
 
-
-
 	public List<Tickets> findByAspirantIdLikeAndStatutLike(Integer intervenantid, String statut) {
 		return dao.findByAspirantIdLikeAndStatutLike(intervenantid, statut);
 	}
@@ -75,7 +70,8 @@ public class TicketService implements ITicketService {
 	public Tickets findByStatut(String statut) {
 		return dao.findByStatut(statut);
 	}
-@Override
+
+	@Override
 	public List<Tickets> findByLanguageLibraryIn(Set<LanguageLibrary> languageLibrary) {
 		return dao.findByLanguageLibraryIn(languageLibrary);
 	}
@@ -90,8 +86,16 @@ public class TicketService implements ITicketService {
 		return dao.findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(languageLibrary);
 	}
 
-	
+	@Override
+	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary) {
+
+		return dao.findByStatutLikeAndLanguageLibraryIn(statut, languageLibrary);
+	}
+
+	@Override
+	public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
+			Set languageLibrary) {
+		return dao.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(statut, languageLibrary);
+	}
 
 }
-
-

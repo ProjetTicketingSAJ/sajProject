@@ -3,6 +3,7 @@ package fr.formation.afpa.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,28 +23,29 @@ import javax.persistence.Table;
 @Table(name = "language_library", catalog = "SAJ")
 public class LanguageLibrary implements java.io.Serializable {
 
-
 	private int id;
-	//private CodingLanguage codingLanguage;
+	// private CodingLanguage codingLanguage;
 	private String nom;
 	private Set<Tickets> ticketses = new HashSet<Tickets>(0);
 	private Set<Tickets> tickets = new HashSet<Tickets>(0);
 
 	public LanguageLibrary() {
 	}
+
 	public LanguageLibrary(String nom) {
 		this.nom = nom;
 
 	}
+
 	public LanguageLibrary(int id, String nom) {
 		this.id = id;
 		this.nom = nom;
-	//	this.codingLanguage = codingLanguage;
+		// this.codingLanguage = codingLanguage;
 	}
 
 	public LanguageLibrary(int id, String nom, Set<Tickets> ticketses, Set<Tickets> tickets) {
 		this.id = id;
-	//	this.codingLanguage = codingLanguage;
+		// this.codingLanguage = codingLanguage;
 		this.nom = nom;
 		this.ticketses = ticketses;
 		this.tickets = tickets;
@@ -71,7 +72,7 @@ public class LanguageLibrary implements java.io.Serializable {
 //		this.codingLanguage = codingLanguage;
 //	}
 
-	@Column(name = "nom",unique = true, length = 45)
+	@Column(name = "nom", unique = true, length = 45)
 	public String getNom() {
 		return this.nom;
 	}
@@ -88,8 +89,7 @@ public class LanguageLibrary implements java.io.Serializable {
 	public void setTicketses(Set<Tickets> ticketses) {
 		this.ticketses = ticketses;
 	}
-	
-	
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "ticket_has_tag", catalog = "SAJ", joinColumns = {
 			@JoinColumn(name = "id_tag", nullable = false, updatable = false) }, inverseJoinColumns = {
@@ -104,7 +104,7 @@ public class LanguageLibrary implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "LanguageLibrary [id=" + id + ", nom=" + nom + "]";
+		return "LanguageLibrary , nom=" + nom;
 	}
 
 }

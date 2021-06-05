@@ -32,14 +32,11 @@ public class LogginAspect {
 
 	@Before("pointcut1()")
 	public void adviceBefore() {
-		System.out.println("===================================== BEFORE ===========================================");
 
 	}
 
 	@After("pointcut1()")
 	public void adviceAfter(JoinPoint jeanpaul) {
-		System.out.println("===================================== AFTER ===========================================");
-		System.out.println("===============" + jeanpaul);
 		for (Object arg : jeanpaul.getArgs()) {
 			System.out.println("//////////////ARG = ///////////////" + arg);
 		}
@@ -48,22 +45,15 @@ public class LogginAspect {
 
 	@AfterReturning(value = "pointcut1() && pointcut2()", returning = "result")
 	public void adviceAfterReturning(JoinPoint jeanpaul, Object result) {
-		System.out.println(
-				"===================================== AFTERRETURNING ===========================================");
 		if (result instanceof UserProfile) {
-			System.out.println("==================== return = " + ((UserProfile) result).getPrenom());
+			System.out.println("=======UserProfile============ return = " + ((UserProfile) result).getPrenom());
 		}
 		System.out.println("result = " + result);
 	}
 
 	@Around(value = "pointcut1() && pointcut2()")
 	public Object adviceAround(ProceedingJoinPoint jeanpaul) throws Throwable {
-		System.out.println("===================================== AROUND ===========================================");
-		System.out.println("============================================START===================================="
-				+ jeanpaul.getSignature().getName());
 		Object result = jeanpaul.proceed();
-		System.out.println("============================================EXIT===================================="
-				+ jeanpaul.getSignature().getName() + result);
 		return result;
 	}
 
