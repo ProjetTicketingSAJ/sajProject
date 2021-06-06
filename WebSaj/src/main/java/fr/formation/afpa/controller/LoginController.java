@@ -127,7 +127,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model m, Principal principal) {
 		return "redirect:/accueil";
-	}
+	} 
 
 	/*
 	 * Méthode validation Login qui donne accès à l'accueil
@@ -151,11 +151,14 @@ public class LoginController {
 				//suppression des tickets sur lesquels l'intervenant est déjà positionné de la liste globale
 				listTicketsOuverts.removeAll(listTickets);
 								
+				//Tickets positionnés dont l'intervenant voudrait modifier l'offre
+				List<Tickets> listTicketsAModifier = ticketService.findTicketsToModifierOffer(user.getId());
 				
 				httpSession.setAttribute("title", user.getTitle());
 				httpSession.setAttribute("login", user.getLogin());
 				httpSession.setAttribute("aspirantId", user.getId());
 				m.addAttribute("listTickets", listTicketsOuverts);
+				m.addAttribute("listTicketsAModifier", listTicketsAModifier);
 				return "ZoneTickets";
 			} else if (user.getTitle().equals("A")) {
 				List<Tickets> listTickets = ticketService.findAll();

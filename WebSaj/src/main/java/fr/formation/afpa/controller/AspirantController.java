@@ -104,6 +104,7 @@ public class AspirantController {
 			ticketService.save(t);
 			System.err.println(nbOffres);
 		}
+	
 		m.addAttribute("user", user);
 		m.addAttribute("listOffresOuverte", listOffresOuverte);
 		m.addAttribute("listOffresEnCours", listOffresEnCours);
@@ -398,11 +399,13 @@ public class AspirantController {
 
 			files.add(f);
 		}
+		intervention.setSolutionRecue(false);
+		interventionService.save(intervention);
 
 		m.addAttribute("files", files);
 		m.addAttribute("listLibrary", listLibrary);
 		System.out.println(ticket);
-
+		
 		return "solution";
 
 	}

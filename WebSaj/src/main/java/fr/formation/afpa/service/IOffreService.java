@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import fr.formation.afpa.domain.Offre;
 import fr.formation.afpa.domain.Tickets;
+import fr.formation.afpa.domain.UserProfile;
 
 public interface IOffreService {
 	public Offre save(Offre offre);
@@ -14,5 +15,7 @@ public interface IOffreService {
 	
 	List<Offre> findByTickets(Tickets ticket);
 
-
+	Offre findByTicketsAndIntervenant(Tickets ticket,UserProfile intervenant);
+	
+	public void delete(Offre offre);
 }
