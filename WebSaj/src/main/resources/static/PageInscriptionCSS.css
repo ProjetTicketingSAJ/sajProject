@@ -114,6 +114,10 @@ input[type=date]:focus {
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
 }
 
+.titlespan{
+		color: #000000 !important; 
+	font-weight: normal !important;
+}
 .registerCard span {
 	color: #0080ff;
 }
