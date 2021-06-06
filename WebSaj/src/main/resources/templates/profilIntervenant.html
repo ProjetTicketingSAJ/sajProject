@@ -162,7 +162,7 @@
 								<div class="card-body">
 									<div class="row">
 										<div class="col-sm-3">
-											<h6 class="mb-0">Nom</h6>
+											<h6 class="mb-0" th:text="#{inscription.nom}"></h6>
 										</div>
 										<div class="col-sm-9 text-secondary" th:text="${user.nom}">
 
@@ -171,7 +171,7 @@
 									<hr>
 									<div class="row">
 										<div class="col-sm-3">
-											<h6 class="mb-0">prénom</h6>
+											<h6 class="mb-0" th:text="#{inscription.prenom}"></h6>
 										</div>
 										<div class="col-sm-9 text-secondary" th:text="${user.prenom}">
 										</div>
@@ -187,7 +187,7 @@
 									<hr>
 									<div class="row">
 										<div class="col-sm-3">
-											<h6 class="mb-0">Téléphone</h6>
+											<h6 class="mb-0" th:text="#{inscription.telephone}"></h6>
 										</div>
 										<div class="col-sm-9 text-secondary"
 											th:text="${user.telephone}"></div>
@@ -195,7 +195,7 @@
 									<hr>
 									<div class="row">
 										<div class="col-sm-3">
-											<h6 class="mb-0">Date de naissance</h6>
+											<h6 class="mb-0" th:text="#{inscription.ddn}"></h6>
 										</div>
 										<div class="col-sm-9 text-secondary"
 											th:text="${user.dateNaiss}"></div>
@@ -208,7 +208,7 @@
 									<div class="card h-100">
 										<div class="card-body">
 											<h6 class="d-flex align-items-center mb-3">
-												<i class="material-icons text-info mr-2">Langages</i>
+												<i class="material-icons text-info mr-2" th:text="#{inscription.language}"></i>
 											</h6>
 
 											<div th:each="list : ${userLang}">
@@ -224,7 +224,7 @@
 									<div class="card h-100">
 										<div class="card-body">
 											<h6 class="d-flex align-items-center mb-3">
-												<i class="material-icons text-info mr-2">Technos</i>utilisées
+												<i class="material-icons text-info mr-2" th:text="#{profil.techno}"></i>
 											</h6>
 											<small>Spring</small>
 											<div class="progress mb-3" style="height: 5px">

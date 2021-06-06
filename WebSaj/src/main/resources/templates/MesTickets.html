@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org">
 <head>
@@ -85,13 +86,13 @@
 								<thead>
 									<tr>
 										<th scope="col" class="idTicket">#</th>
-										<th scope="col" class="titreTicket">Titre</th>
+										<th scope="col" class="titreTicket" th:text="#{tableau.titre}"></th>
 										<!-- <th scope="col">Langage utilisé</th> -->
-										<th scope="col" class="dateCrea">Date création</th>
+										<th scope="col" class="dateCrea" th:text="#{tableau.ddc}"></th>
 										<!-- <th scope="col">Temps restant</th> -->
-										<th scope="col" class="statusTicket">Statut</th>
-										<th class="colAction"><span class="action">Action</span></th>
-										<th scope="col" class="notif"><span class="action">Notification</span></th>
+										<th scope="col" class="statusTicket" th:text="#{tableau.statut}"></th>
+										<th class="colAction"><span class="action" >Action</span></th>
+										<th scope="col" class="notif"><span class="action" th:text="#{tableau.notification}"></span></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -105,18 +106,18 @@
 										<td><svg xmlns="http://www.w3.org/2000/svg" width="35"
 												height="35" fill="green" class="bi bi-circle-fill"
 												viewBox="0 0 16 16">
-  										<circle cx="8" cy="8" r="8" />
-										</svg>
-										</td>
+  <circle cx="8" cy="8" r="8" />
+</svg></td>
 
 										<td class="actionTd">
 
 
-										 <form action="monTicketintervenant" method="post" class="actionForm">
+
+										<form action="monTicketintervenant" method="post" class="actionForm">
 											<input type="hidden" th:value="${ticket.id}" name="idTicket">
-											<button type="submit" class="btn btn-outline-primary eyeBtn" 
+											<button type="submit" class="btn btn-outline-primary eyeBtn"
 												data-toggle="tooltip" data-placement="top"
-												title="Examiner ticket">
+												title="examiner ticket">
 
 
 													<svg xmlns="http://www.w3.org/2000/svg" width="35"
@@ -130,22 +131,21 @@
 
 												</button>
 
-											</form> 
-											<form action="detachement" method="post">
-											<input type="hidden" th:value="${ticket.id}" name="idTick">
-											<button onclick="return onButtonDetachement();" type="submit" class="btn btn-outline-danger eyeBtn"
+											</form>
+
+											<button type="button" class="btn btn-outline-danger eyeBtn"
 												aria-label="Close" data-toggle="tooltip"
-												data-placement="top" title="Se détacher du ticket">
+												data-placement="top" title="clôturer le ticket">
 												<svg xmlns="http://www.w3.org/2000/svg" width="35"
 													height="35" fill="currentColor" class="bi bi-x-square"
 													viewBox="0 0 16 16">
-  													<path
+  <path
 														d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
- 												    <path
+  <path
 														d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-													</svg>
+</svg>
 											</button>
-											</form>
+
 
 										</td>
 
@@ -172,7 +172,6 @@
 					$('.dataTables_length').addClass('bs-select');
 				});
 			</script>
-	
 			<script src="/jsImports.js"></script>
 
 			<script
@@ -203,4 +202,5 @@
 	</div>
 
 </body>
+
 </html>

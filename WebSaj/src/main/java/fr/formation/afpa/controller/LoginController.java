@@ -1,19 +1,16 @@
 
+
 package fr.formation.afpa.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -21,8 +18,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,11 +25,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.formation.afpa.domain.CodingLanguage;
-import fr.formation.afpa.domain.Offre;
 import fr.formation.afpa.domain.Tickets;
 import fr.formation.afpa.domain.UserProfile;
 import fr.formation.afpa.service.CodingLanguageService;
@@ -82,14 +75,8 @@ public class LoginController {
 	 * Creation profil USER
 	 */
 	@PostMapping(path = "/inscription")
-	public String creationUser(@Valid @ModelAttribute("user") UserProfile user, BindingResult result, Model model,
+	public String creationUser(@ModelAttribute UserProfile user, Model model,
 			@RequestParam(value = "idChecked", required = false) Set<CodingLanguage> listLang) {
-		if (result.hasErrors()) {
-			System.err.println("BINDING RESULT ERROR" + result);
-			return "pageInscription";
-		}
-		System.err.println("NO BINDING RESULT ERROR");
-
 		String passw = user.getPassword();
 		user.setPassword(EncrytedPasswordUtils.encrytePassword(passw));
 		user.setEnabled(true);
@@ -134,7 +121,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model m, Principal principal) {
 		return "redirect:/accueil";
-	} 
+	}
 
 	/*
 	 * Méthode validation Login qui donne accès à l'accueil
@@ -159,15 +146,10 @@ public class LoginController {
 				// liste globale
 				listTicketsOuverts.removeAll(listTickets);
 
-				//Tickets positionnés dont l'intervenant voudrait modifier l'offre
-				List<Tickets> listTicketsAModifier = ticketService.findTicketsToModifierOffer(user.getId());
-				
-
 				httpSession.setAttribute("title", user.getTitle());
 				httpSession.setAttribute("login", user.getLogin());
 				httpSession.setAttribute("aspirantId", user.getId());
 				m.addAttribute("listTickets", listTicketsOuverts);
-				m.addAttribute("listTicketsAModifier", listTicketsAModifier);
 				return "ZoneTickets";
 			} else if (user.getTitle().equals("A")) {
 				List<Tickets> listTickets = ticketService.findAll();
@@ -233,5 +215,6 @@ public class LoginController {
 		}
 		return "403Page";
 	}
+
 
 }

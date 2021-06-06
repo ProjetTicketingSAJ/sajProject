@@ -88,14 +88,13 @@
 									<button class="nav-link active" id="actifticket-tab"
 										data-bs-toggle="tab" data-bs-target="#actiftab" type="button"
 										role="tab" aria-controls="actifstab" aria-selected="true"
-										aria-current="page">Ouverts</button>
+										aria-current="page" th:text="${tableau.ongletOuvert}"></button>
 								</li>
 								<!--tab tickets en cours de traitement -->
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="clotures-tab" data-bs-toggle="tab"
 										data-bs-target="#cloturestab" type="button" role="tab"
-										aria-controls="cloturestab" aria-selected="false">En
-										cours</button>
+										aria-controls="cloturestab" aria-selected="false" th:text="${tableau.ongletEncours}"></button>
 								</li>
 							</ul>
 						</div>
@@ -122,13 +121,13 @@
 											<thead>
 												<tr>
 													<th scope="col" class="idTicket">#</th>
-													<th scope="col" class="titreTicket">Titre</th>
+													<th scope="col" class="titreTicket" th:text="${tableau.titre}"></th>
 													<!-- <th scope="col">Langage utilisé</th> -->
-													<th scope="col" class="dateCrea">Date création</th>
+													<th scope="col" class="dateCrea" th:text="${tableau.ddc}"></th>
 													<!-- <th scope="col">Temps restant</th> -->
-													<th scope="col" class="statusTicket">Statut</th>
+													<th scope="col" class="statusTicket" th:text="${tableau.statut}"></th>
 													<th class="colAction"><span class="action">Action</span></th>
-													<th scope="col" class="notif"><span class="action">Offres</span></th>
+													<th scope="col" class="notif"><span class="action" th:text="${tableau.offre}"></span></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -234,13 +233,13 @@
 											<thead>
 												<tr>
 													<th scope="col" class="idTicket">#</th>
-													<th scope="col" class="titreTicket">Titre</th>
+													<th scope="col" class="titreTicket" th:text="${tableau.titre}"></th>
 													<!-- <th scope="col">Langage utilisé</th> -->
-													<th scope="col" class="dateCrea">Date création</th>
+													<th scope="col" class="dateCrea" th:text="${tableau.ddc}"></th>
 													<!-- <th scope="col">Temps restant</th> -->
-													<th scope="col" class="statusTicket">Statut</th>
+													<th scope="col" class="statusTicket" th:text="${tableau.statut}"></th>
 													<th class="colAction"><span class="action">Action</span></th>
-													<th scope="col" class="notif"><span class="action">Notification</span></th>
+													<th scope="col" class="notif"><span class="action" th:text="${tableau.notification}"></span></th>
 												</tr>
 											</thead>
 											<tbody>
