@@ -17,6 +17,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -26,6 +27,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeTypeUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.formation.afpa.domain.CodingLanguage;
 import fr.formation.afpa.domain.FileDb;
 import fr.formation.afpa.domain.Intervention;
 import fr.formation.afpa.domain.LanguageLibrary;
@@ -151,6 +154,8 @@ public class IntervenantController {
 	@RequestMapping(path = "/envoiSoluce", method = RequestMethod.POST)
 	public String envoiSoluce(Model m, @RequestParam String solution, Principal principal,
 			@RequestParam String idTicket) {
+
+
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);

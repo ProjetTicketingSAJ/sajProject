@@ -1,6 +1,7 @@
 package fr.formation.afpa.controller;
 
 import java.io.IOException;
+
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -20,6 +22,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -197,12 +201,24 @@ public class AspirantController {
 	/* Enregistrement ticket aspirant en bdd */
 
 	@RequestMapping(path = "/createTicket", method = RequestMethod.POST)
-	public String createTicket(Model m, HttpServletRequest request, @ModelAttribute Tickets tickets,
-			@RequestParam(required = false) Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput) {
+
+	public String createTicket(Model m, HttpServletRequest request, @Valid @ModelAttribute Tickets tickets, BindingResult result,
+			@RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput
+			) {
+		if (result.hasErrors()) {
+			List<CodingLanguage> languageList = codingLanguageService.findAll();
+			m.addAttribute("languageList", languageList);
+            System.err.println("BINDING RESULT ERROR" + result);
+			return "creationTicket";
+        }
+		System.err.println("NO BINDING RESULT ERROR");
+	
+
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);
 		Integer id = (Integer) httpSession.getAttribute("aspirantId");
+		
 
 		// Création nouvelle liste pour gérer
 		List<String> newList = new ArrayList<String>();
@@ -217,6 +233,9 @@ public class AspirantController {
 		}
 
 		Set<LanguageLibrary> set = new HashSet<>();
+		
+		
+	
 		/*
 		 * Boucle qui ajoute le(s) tag(s) en bdd s'il(s) n'existe(nt) pas et set le
 		 * ticket.library || set seulement le ticket.languageLibrary lorsque le tag
@@ -249,7 +268,6 @@ public class AspirantController {
 		System.out.println(tickets);
 
 		// enregistrement du ticket
-
 		ticketService.save(tickets);
 
 		// enregistrement des fichiers joints
@@ -288,7 +306,12 @@ public class AspirantController {
 		m.addAttribute("getTage", getTage);
 		m.addAttribute("getTageTopLikes", getTageTopLikes);
 
+		
+		
+		
+	
 		return "redirect:/creationTicket";
+
 	}
 
 	// Faire proposition a l'aspirant a la création de ticket
