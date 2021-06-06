@@ -56,10 +56,8 @@ public class TicketService implements ITicketService {
 		return dao.findTopByOrderByIdDesc();
 	}
 
-
-
-	public List<Tickets> findByAspirantIdLikeAndStatutLike(Integer aspirantid, String statut) {
-		return dao.findByAspirantIdLikeAndStatutLike(aspirantid, statut);
+	public List<Tickets> findByAspirantIdLikeAndStatutLike(Integer intervenantid, String statut) {
+		return dao.findByAspirantIdLikeAndStatutLike(intervenantid, statut);
 	}
 
 	@Override
@@ -71,7 +69,6 @@ public class TicketService implements ITicketService {
 	public Tickets findByStatut(String statut) {
 		return dao.findByStatut(statut);
 	}
-
 
 	@Override
 	public List<Tickets> findByLanguageLibraryIn(Set<LanguageLibrary> languageLibrary) {
@@ -89,6 +86,17 @@ public class TicketService implements ITicketService {
 	}
 
 	@Override
+	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary) {
+
+		return dao.findByStatutLikeAndLanguageLibraryIn(statut, languageLibrary);
+	}
+
+	@Override
+	public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
+			Set languageLibrary) {
+		return dao.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(statut, languageLibrary);
+	}
+  @Override
 	public List<Tickets> findTicketsToModifierOffer(Integer idIntervenant) {
 		return dao.findTicketsToModifierOffer(idIntervenant) ;
 	}
@@ -98,8 +106,4 @@ public class TicketService implements ITicketService {
 		return dao.findByIntervenantIdLikeAndStatutLike(intervenantid, statut);
 	}
 
-	
-
 }
-
-

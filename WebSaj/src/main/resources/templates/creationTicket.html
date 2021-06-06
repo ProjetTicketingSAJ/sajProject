@@ -36,7 +36,7 @@
 	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
-<link rel="shortcut icon" type="image/png" href="favicon.png"/>
+<link rel="shortcut icon" type="image/png" href="favicon.png" />
 <title>Création ticket</title>
 </head>
 <body>
@@ -64,7 +64,7 @@
 
 						<!-- Title FORM  -->
 						<form action="createTicket" th:object="${tickets}" method="post"
-							id="myform" enctype="multipart/form-data">
+							id="myform" enctype="multipart/form-data" class="needs-validation" novalidate>
 
 							<div class="row">
 
@@ -73,22 +73,35 @@
 									<input type="text" class="form-control mb-3"
 										id="formGroupExampleInput"
 										placeholder="Entrez le titre de votre ticket"
-										th:field="*{titre}">
+										th:field="*{titre}" required>
+
+									<div class="invalid-feedback">
+										<p style="color: red" th:if="${#fields.hasErrors('titre')}"
+											th:errors="*{titre}"></p>
+									</div>
 								</div>
+				
 
 								<!-- Language Select-->
 								<div class="col-12 col-lg-6">
 									<select th:field="*{codingLanguage}"
 										class="form-select form-select mb-3"
-										aria-label=".form-select example">
+										aria-label=".form-select example" required>
 										<option value="">Sélectionnez votre techno</option>
 										<option th:each="language : ${languageList}"
 											th:value="${language.id}" th:utext="${language.name}">Java</option>
 									</select>
+									<div class="invalid-feedback">
+										<p style="color: red"
+											th:if="${#fields.hasErrors('codingLanguage')}"
+											th:errors="*{codingLanguage}"></p>
+									</div>
+							
+
+
+
+
 								</div>
-
-
-
 							</div>
 
 
@@ -101,7 +114,13 @@
 											du problème</label>
 										<textarea th:field="*{expoProblematique}"
 											class="form-control col-12 col-lg-12"
-											id="exampleFormControlTextarea1" rows="3"></textarea>
+											id="exampleFormControlTextarea1" rows="3" required></textarea>
+
+										<div class="invalid-feedback">
+											<p th:if="${#fields.hasErrors('expoProblematique')}"
+												th:errors="*{expoProblematique}"></p>
+										</div>
+										
 									</div>
 								</div>
 
@@ -134,14 +153,12 @@
 								<!-- File Input -->
 								<div class="col-12 col-lg-4">
 
-							
-
-
-																		<div>
-																			<input class="form-control inputFile" type="file"
-																				name="fileUpload" id="fileUpload"
+							<div>
+							<input class="form-control inputFile" type="file"
+								name="fileUpload" id="fileUpload"
 																				accept=".doc,.docx,.pdf,.txt" multiple>
 																		</div>
+
 
 									<!-- BUTTON VALIDATE -->
 									<div class="row justify-content-center ">
@@ -152,14 +169,21 @@
 										</button>
 
 									</div>
-
+									
 								</div>
 							</div>
 
 
 						</form>
 						<!-- END FORM  -->
-
+						<!-- Voir les réponses  -->
+						<div class="col-6">
+							<form action="voirSoluce" method="post" target="_blank">
+								<button title="Propositions de solutions concernant mes tags" type="submit" class="btn btn-outline-primary btn-lg mt-3 col-7 col-lg-5">
+								Propositions
+								</button>
+							</form>
+						</div>
 
 
 
@@ -210,6 +234,8 @@
 		<!-- END page div -->
 	</div>
 	<script src="creationTicket.js"></script>
+
+
 </body>
 
 
