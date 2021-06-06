@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.Set; 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -85,7 +85,7 @@ public class AspirantController {
 		this.interventionService = interventionService;
 		this.offreService = offreService;
 	}
-
+ 
 	/* Atterrissage sur la page des tickets aspirant */
 	@RequestMapping(path = "/ticketsAspirant", method = RequestMethod.GET)
 	public String ticketsAspirant(Model m, HttpServletRequest request) {
