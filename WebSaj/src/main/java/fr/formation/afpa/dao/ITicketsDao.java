@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.dao;
 
 import java.util.List;
@@ -29,10 +30,21 @@ public interface ITicketsDao extends JpaRepository<Tickets, Integer> {
 
 	public List<Tickets> findByAspirantIdLikeAndStatutLike(Integer intervenantid, String statut);
 
+	@Query(value = "select * from tickets inner join offre on tickets.id = offre.id_ticket where offre.offre_deja_faite = 1 and id_intervenant = :idIntervenant group by tickets.ID", nativeQuery = true)
+	public List<Tickets> findListToDisplayInPool(@Param("idIntervenant") Integer idIntervenant);
+
+	public Tickets findByStatut(String statut);
+
 	@Query(value = "SELECT * FROM tickets where tickets.aspirant_id = :idAspirant ORDER BY ID DESC LIMIT 1", nativeQuery = true)
 	public Tickets lastCreatedTicket(@Param("idAspirant") Integer idAspirant);
 
 	public List<Tickets> findByLanguageLibraryIn(Set languageLibrary);
 
+	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
+
 	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary);
+
+	public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
+			Set languageLibrary);
+
 }

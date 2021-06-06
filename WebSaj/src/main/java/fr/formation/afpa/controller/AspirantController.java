@@ -101,7 +101,13 @@ public class AspirantController {
 		System.out.println("=============================listTickets EN COURS ======================");
 		System.out.println(listOffresEnCours);
 		UserProfile user = userService.findById(id).orElse(null);
-
+		// Liste des offres qui ont été faites pour pour un ticket
+		for (Tickets t : listOffresOuverte) {
+			Integer nbOffres = offreService.findNbOffres(t.getId());
+			t.setNbOffres(nbOffres);
+			ticketService.save(t);
+			System.err.println("////////=+=+=+=+=+=+=++=+=+=+=+=+=+=++=+=+=+=+=+=+=+=////////" + nbOffres);
+		}
 		m.addAttribute("user", user);
 		m.addAttribute("listOffresOuverte", listOffresOuverte);
 		m.addAttribute("listOffresEnCours", listOffresEnCours);
@@ -195,6 +201,7 @@ public class AspirantController {
 	/* Enregistrement ticket aspirant en bdd */
 
 	@RequestMapping(path = "/createTicket", method = RequestMethod.POST)
+
 	public String createTicket(Model m, HttpServletRequest request, @Valid @ModelAttribute Tickets tickets, BindingResult result,
 			@RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput
 			) {
@@ -206,6 +213,7 @@ public class AspirantController {
         }
 		System.err.println("NO BINDING RESULT ERROR");
 	
+
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);
@@ -279,9 +287,10 @@ public class AspirantController {
 		// Recherche du ticket que l'on vient de save
 		Tickets ticketTags = ticketService.lastCreatedTicket(id);
 
-		List<Tickets> getTage = ticketService.findByLanguageLibraryIn(ticketTags.getLanguageLibrary());
-		List<Tickets> getTageTopLikes = ticketService
-				.findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(ticketTags.getLanguageLibrary());
+		List<Tickets> getTage = ticketService.findByStatutLikeAndLanguageLibraryIn(statutFermer,
+				ticketTags.getLanguageLibrary());
+		List<Tickets> getTageTopLikes = ticketService.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(
+				statutFermer, ticketTags.getLanguageLibrary());
 		System.err.println("ØØØØØØØØØØØØØØØØØØØØØØØØØØfindByLanguageLibraryInØØØØØØØØØØØØØØØØØØØØØØØØØØØ");
 		System.out.println("+++++Toutes+++++" + ticketTags.getLanguageLibrary());
 		for (Tickets tt : getTage) {
@@ -296,11 +305,13 @@ public class AspirantController {
 		}
 		m.addAttribute("getTage", getTage);
 		m.addAttribute("getTageTopLikes", getTageTopLikes);
+
 		
 		
 		
-		
-		return "propositionSoluce";
+	
+		return "redirect:/creationTicket";
+
 	}
 
 	// Faire proposition a l'aspirant a la création de ticket
@@ -311,7 +322,7 @@ public class AspirantController {
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		String userInfo = loginedUser.getUsername();
 
-		return userInfo;
+		return "propositionSoluce";
 
 	}
 
@@ -379,6 +390,38 @@ public class AspirantController {
 
 		return "reponseTicketAspirant";
 
+	}
+
+	// Fermer l'inspection de l'un des tickets proposé
+	@RequestMapping(path = "/voirSoluce", method = RequestMethod.POST)
+	public String retoutEnArriere(Model m, HttpServletRequest request, @ModelAttribute Tickets tickets) {
+		HttpSession httpSession = request.getSession();
+		LocalDateTime now = LocalDateTime.now();
+		Date date = convertToDateViaSqlTimestamp(now);
+		Integer id = (Integer) httpSession.getAttribute("aspirantId");
+
+		// --------------------recherche de solution par tag
+
+		// Recherche du ticket que l'on vient de save
+		Tickets ticketTags = ticketService.lastCreatedTicket(id);
+
+		List<Tickets> getTage = ticketService.findByStatutLikeAndLanguageLibraryIn(statutFermer,
+				ticketTags.getLanguageLibrary());
+		List<Tickets> getTageTopLikes = ticketService.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(
+				statutFermer, ticketTags.getLanguageLibrary());
+		System.out.println("+++++Toutes+++++" + ticketTags.getLanguageLibrary());
+		for (Tickets tt : getTage) {
+			System.out.println("getTage" + tt.getTitre());
+
+		}
+		for (Tickets tt : getTageTopLikes) {
+			System.out.println("getTageTopLikes" + tt.getTitre());
+
+		}
+		m.addAttribute("getTage", getTage);
+		m.addAttribute("getTageTopLikes", getTageTopLikes);
+
+		return "propositionSoluce";
 	}
 
 	/* Visualisation d'un ticket avec la soluce */
@@ -453,4 +496,16 @@ public class AspirantController {
 		return "profilIntervenant";
 	}
 
+	// Méthode pour clôturer un ticket avant même qu'il ait été pris en charge
+	@RequestMapping(path = "/closeTicket", method = RequestMethod.POST)
+	public String cloturerTicket(@RequestParam String idTicket) {
+		Integer id = Integer.parseInt(idTicket);
+		// Recherche du ticket à clôturer
+		Optional<Tickets> ticket = ticketService.findById(id);
+		// Changement du statut du ticket
+		ticket.get().setStatut(statutFermer);
+		ticketService.save(ticket.get());
+
+		return "redirect:/ticketsAspirant";
+	}
 }

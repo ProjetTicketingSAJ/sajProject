@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.service;
 
 import java.util.List;
@@ -61,6 +62,16 @@ public class TicketService implements ITicketService {
 	}
 
 	@Override
+	public List<Tickets> findListToDisplayInPool(Integer idIntervenant) {
+		return dao.findListToDisplayInPool(idIntervenant);
+	}
+
+	@Override
+	public Tickets findByStatut(String statut) {
+		return dao.findByStatut(statut);
+	}
+
+	@Override
 	public List<Tickets> findByLanguageLibraryIn(Set<LanguageLibrary> languageLibrary) {
 		return dao.findByLanguageLibraryIn(languageLibrary);
 	}
@@ -73,6 +84,18 @@ public class TicketService implements ITicketService {
 	@Override
 	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary) {
 		return dao.findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(languageLibrary);
+	}
+
+	@Override
+	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary) {
+
+		return dao.findByStatutLikeAndLanguageLibraryIn(statut, languageLibrary);
+	}
+
+	@Override
+	public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
+			Set languageLibrary) {
+		return dao.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(statut, languageLibrary);
 	}
 
 }

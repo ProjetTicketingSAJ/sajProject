@@ -56,7 +56,9 @@
 		<header th:insert="header.html"> </header>
 		<!--end of Navigation bar-->
 		<!-- 	start page div -->
-		<div class="content">
+		<div class="content"> 
+		
+		
 
 			<!--Début tableau-->
 			<div class="card mainCard col-12">
@@ -86,8 +88,11 @@
 							</thead>
 							<tbody>
 								<tr th:each="ticket: ${listTickets}">
-									<th scope="row" th:text="${ticket.id}"></th>
+								
+									<th scope="row" th:text="${ticket.id}" id="id"></th>
 									<td th:text="${ticket.titre}"></td>
+									
+								
 									<!-- <td th:text="${ticket.languageLibrary.codingLanguage.name}"></td> -->
 									<td th:text="${ticket.dateCreation}"></td>
 									<!-- <td class="tempsrestant">36h</td> -->
@@ -113,7 +118,9 @@
 
 											</button>
 
-										</form> <a href="#myModal"
+										</form> 
+										
+										<a href="#myModal"
 										th:onclick="'javascript:showFunctionModal(\'' + ${ticket.id} +'\');'"
 										class="btn btn-outline-danger eyeBtn " aria-label="Close"
 										data-toggle="modal" data-placement="top"
@@ -137,7 +144,11 @@
 					</div>
 				</div>
 			</div>
+			
+			
+		
 			<form action="envoiOffre" method="post">
+			
 				<div id="myModal" class="modal fade">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
@@ -184,7 +195,7 @@
 
 
 
-
+<script src="/jsImports.js"></script>
 
 			<script>
 				$('#ticketList').dataTable({
@@ -221,6 +232,7 @@
 	<script src="creationTicket.js"></script>
 	<script>
 		function showFunctionModal(id) {
+			
 			$(document).ready(function() {
 				$('.myModal').modal();
 				$("#idTick").val(id);

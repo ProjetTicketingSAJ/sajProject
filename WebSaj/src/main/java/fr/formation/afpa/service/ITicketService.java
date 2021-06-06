@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.service;
 
 import java.util.List;
@@ -24,9 +25,19 @@ public interface ITicketService {
 
 	public List<Tickets> findByAspirantIdLikeAndStatutLike(Integer intervenantid, String statut);
 
+	public List<Tickets> findListToDisplayInPool(@Param("idIntervenant") Integer idIntervenant);
+
+	public Tickets findByStatut(String statut);
+
 	List<Tickets> findByLanguageLibraryIn(Set<LanguageLibrary> languageLibrary);
 
 	public Tickets lastCreatedTicket(@Param("idAspirant") Integer idAspirant);
 
 	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary);
+
+	public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
+			Set languageLibrary);
+
+	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
+
 }
