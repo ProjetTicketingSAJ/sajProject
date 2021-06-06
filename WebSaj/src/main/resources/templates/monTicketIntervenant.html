@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org">
 <head>
-<link rel="shortcut icon" type="image/png" href="favicon.png"/>
+<link rel="shortcut icon" type="image/png" href="favicon.png" />
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,9 +62,9 @@
 		<!-- 	start page div -->
 		<div class="content">
 
-			<div class="row  justify-content-center">
+			<div class="row  justify-content-around">
 				<!-- START MAIN CARD -->
-				<div class="card cardTicket col-12 col-lg-8 ">
+				<div class="card cardTicket col-12 col-lg-7 ">
 					<div class="card-body">
 
 						<div class="row">
@@ -82,7 +82,6 @@
 									Title: <span class="badge bg-primary" th:text="${ticket.titre}"></span>
 								</h2>
 							</div>
-		
 
 						<div class="row">
 												<!-- TICKET FILE DOWNLAOD  -->
@@ -95,26 +94,28 @@
 										xmlns="http://www.w3.org/2000/svg" width="40" height="40"
 										fill="currentColor" class="bi bi-journal-arrow-down"
 										viewBox="0 0 16 16">
+
   <path fill-rule="evenodd"
-											d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
+												d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
   <path
-											d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+												d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
   <path
-											d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+												d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
 </svg>
-								</a>
-								<div class="dropdown-menu dropFile "
-									aria-labelledby="dropdownMenuLink">
-									<div th:each="file : ${files}">
-										<div th:if="${file != null}">
-											<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
-												<span th:text="${file.name}"></span>
-											</a>
+									</a>
+									<div class="dropdown-menu dropFile "
+										aria-labelledby="dropdownMenuLink">
+										<div th:each="file : ${files}">
+											<div th:if="${file != null}">
+												<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
+													<span th:text="${file.name}"></span>
+												</a>
+											</div>
 										</div>
 									</div>
+									<!-- END TICKET FILE DOWNLAOD  -->
 								</div>
-								<!-- END TICKET FILE DOWNLAOD  -->
-							</div>
+
 
 							<!-- Button trigger modal -->
 							<div class="col-12 col-md-6 col-lg-5">
@@ -124,18 +125,19 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
 										fill="currentColor" class="bi bi-journal-arrow-up"
 										viewBox="0 0 16 16">
+
   <path fill-rule="evenodd"
-											d="M8 11a.5.5 0 0 0 .5-.5V6.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 6.707V10.5a.5.5 0 0 0 .5.5z" />
+												d="M8 11a.5.5 0 0 0 .5-.5V6.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 6.707V10.5a.5.5 0 0 0 .5.5z" />
   <path
-											d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+												d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
   <path
-											d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+												d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
 </svg>
-									</i>
-								</button>
+										</i>
+									</button>
+								</div>
+
 							</div>
-							
-						</div>
 							<!-- END CLASS ROW  -->
 						</div>
 
@@ -165,7 +167,7 @@
 							</div>
 						</div>
 						<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
-						
+
 
 
 
@@ -181,6 +183,7 @@
 						<!-- END  BADGES LANGUAGE TAGS -->
 					</div>
 					<!-- Ancienne solution  -->
+
 								<div class="card infoCards col-12  col-lg-6">
 									<div class="card-header" th:text="${ticket.oldSoluce}"></div>
 									<div class="card-body">
@@ -193,51 +196,53 @@
 
 
 
-					<!-- END MAIN ROW -->
-					<script
-						src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-						integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-						crossorigin="anonymous"></script>
 
-					<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-					<script
-						src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-					<script
-						src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-					<script
-						src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-					<script
-						src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-					<script
-						src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+			<!-- END MAIN ROW -->
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+				crossorigin="anonymous"></script>
 
-				</div>
-			</div>
-			<!-- END MAIN CARD -->
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+			<script
+				src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
 
-
-
-
-
-			<!-- END content div -->
 		</div>
+	</div>
+	<!-- END MAIN CARD -->
 
-		<!--Navigation bar-->
-		<footer th:insert="footer.html"> </footer>
-		<!--end of Navigation bar-->
-		<!-- END page div -->
+
+
+
+
+	<!-- END content div -->
+	</div>
+
+	<!--Navigation bar-->
+	<footer th:insert="footer.html"> </footer>
+	<!--end of Navigation bar-->
+	<!-- END page div -->
 	</div>
 
 
 
 
-	<!-- Modal -->
+	<!-- Modal SOLUTION -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
 		data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog  modal-lg">
 			<div class="modal-content">
-				<form action="envoiSoluce" method="post">
+				<form action="envoiSoluce" method="post" class="needs-validation"
+					novalidate>
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">
 							Solution Ticket n° <span class="badge rounded-pill bg-primary"
@@ -248,13 +253,14 @@
 							aria-label="Close"></button>
 					</div>
 
-					<div class="modal-body">
+					<div class="modal-body" th:object="${solution}">
 						<textarea class="form-control" id="exampleFormControlTextarea1"
-							rows="3" name="solution"></textarea>
+							rows="3" name="solution" required></textarea>
 						<!-- 						<input type="text" class="input-group input-group-lgl" -->
 						<!-- 							id="exampleFormControlInput1" -->
 						<!-- 							placeholder="Entrer votre identifiant" > -->
 					</div>
+
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal" th:text="${ticket.close}"></button>
@@ -266,7 +272,7 @@
 	</div>
 
 
-
+	<script src="monTicketIntervenant.js"></script>
 
 </body>
 </html>

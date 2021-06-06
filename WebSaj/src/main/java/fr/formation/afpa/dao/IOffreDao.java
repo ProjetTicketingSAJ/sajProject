@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import fr.formation.afpa.domain.Offre;
 import fr.formation.afpa.domain.Tickets;
+import fr.formation.afpa.domain.UserProfile;
 
 
 public interface IOffreDao extends JpaRepository<Offre, Integer> {
@@ -21,5 +22,9 @@ public interface IOffreDao extends JpaRepository<Offre, Integer> {
 	public Integer findNbOffres(@Param("idTicket")Integer idTicket);
 	
 	List<Offre> findByTickets(Tickets ticket);
+	
+	Offre findByTicketsAndIntervenant(Tickets ticket,UserProfile intervenant);
+	
+	public void delete(Offre offre);
 
 }

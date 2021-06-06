@@ -89,7 +89,9 @@ $(document).ready(function() {
 			</form>
 
 			<form th:if="${session.title != null}" th:action="@{/logout}">
+
 				<button type="submit" class="btn btn-outline-danger" th:text="#{header.logout}"></button>
+
 			</form>
 
 			<!--  <form  action="login"> -->
@@ -100,5 +102,8 @@ $(document).ready(function() {
 
 		</div>
 	</div>
+
+				<script src="/jsImports.js"></script>
+	
 
 </nav>

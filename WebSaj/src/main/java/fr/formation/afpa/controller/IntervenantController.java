@@ -1,10 +1,8 @@
 
 package fr.formation.afpa.controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -17,23 +15,26 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeTypeUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.formation.afpa.domain.CodingLanguage;
 import fr.formation.afpa.domain.FileDb;
 import fr.formation.afpa.domain.Intervention;
 import fr.formation.afpa.domain.LanguageLibrary;
@@ -50,12 +51,13 @@ import fr.formation.afpa.service.UserService;
 @Controller
 public class IntervenantController {
 	LanguageLibraryService languageLibraryService;
-	TicketService ticketService;
-	OffreService offreService;
-	UserService userService;
+	static TicketService ticketService;
+	static OffreService offreService;
+	static UserService userService;
 	FileService fileService;
 	InterventionService interventionService;
 	String statut = "O";
+	String statutEncours = "E";
 
 	public IntervenantController() {
 	}
@@ -86,7 +88,9 @@ public class IntervenantController {
 		List<Tickets> listTicketsOuverts = ticketService.findByStatutLike(statut);
 		//suppression des tickets sur lesquels l'intervenant est déjà positionné de la liste globale
 		listTicketsOuverts.removeAll(listTickets);
-
+		//Tickets positionnés dont l'intervenant voudrait modifier l'offre
+		List<Tickets> listTicketsAModifier = ticketService.findTicketsToModifierOffer(user.getId());
+		m.addAttribute("listTicketsAModifier", listTicketsAModifier);
 		m.addAttribute("listTickets", listTicketsOuverts);
 
 		return "ZoneTickets";
@@ -101,7 +105,7 @@ public class IntervenantController {
 		UserProfile user = userService.findById(interId).orElse(null);
 		System.out.println(
 				"===================+++++++++++IntervenantId+++++++++++++++++++++++++++++++++++++++" + interId);
-		List<Tickets> listTickets = ticketService.findByIntervenantIdLike(interId);
+		List<Tickets> listTickets = ticketService.findByIntervenantIdLikeAndStatutLike(interId, statutEncours);
 		m.addAttribute("user", user);
 		m.addAttribute("listTickets", listTickets);
 
@@ -115,7 +119,8 @@ public class IntervenantController {
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);
-
+		String solution = new String();
+		
 		// Récupération des Tags du ticket
 		Set<LanguageLibrary> libraryTicket = ticket.get().getLanguageLibrary();
 
@@ -137,10 +142,10 @@ public class IntervenantController {
 				files.add(f);
 			}
 		}
-
+		
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
-
+		m.addAttribute("solution", solution);
 		return "monTicketIntervenant";
 
 	}
@@ -149,8 +154,15 @@ public class IntervenantController {
 	 * Proposition d'une soluce
 	 */
 	@RequestMapping(path = "/envoiSoluce", method = RequestMethod.POST)
-	public String envoiSoluce(Model m, @RequestParam String solution, Principal principal,
+	public String envoiSoluce(Model m,@ModelAttribute("solution") String solution, BindingResult result, Principal principal,
 			@RequestParam String idTicket) {
+		// validation 
+		if (result.hasErrors()) {
+            System.err.println("BINDING RESULT ERROR" + result);
+			return "creationTicket";
+        }
+		System.err.println("NO BINDING RESULT ERROR");
+
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);
@@ -166,7 +178,7 @@ public class IntervenantController {
 		System.out.println("*******************intervention******************* : " + intervention);
 
 		intervention.setSolution(solution);
-
+		intervention.setSolutionRecue(true);
 		interventionService.save(intervention);
 		// envoi des données pour la page d'après
 
@@ -287,5 +299,50 @@ public class IntervenantController {
 	@RequestMapping("/chatRoom")
 	public String chatRoom() {
 		return "chatRoom";
+	}
+	
+
+	public static Offre findOffer(Integer idTicket,Integer idIntervenant) {
+		Tickets ticket = ticketService.findById(idTicket).orElse(null);
+		UserProfile intervenant  = userService.findById(idIntervenant).orElse(null);
+		
+		Offre offre = offreService.findByTicketsAndIntervenant(ticket, intervenant);
+		
+		return offre;
+		
+	}
+	
+	/* Détachement de l'intervenant sur un ticket */
+	@RequestMapping(path = "/detachement", method = RequestMethod.POST)
+	public String detachement(Model m,HttpServletRequest request,@RequestParam String idTick) {
+		HttpSession httpSession = request.getSession();
+		Integer idTicket = Integer.parseInt(idTick);
+		Integer idUser = (Integer) httpSession.getAttribute("aspirantId");
+		Tickets ticket = ticketService.findById(idTicket).get();
+		UserProfile intervenant = userService.findById(idUser).get();
+		Intervention intervention = interventionService.findByTicketsAndUsers(ticket, intervenant);
+		intervention.setDetache(true);
+		interventionService.save(intervention);
+		ticket.setIntervenantId(null);
+		ticket.setStatut(statut);
+		ticketService.save(ticket);
+		
+		return "redirect:/ticketsInervenant";
+
+	}
+	/* Détachement de l'intervenant sur un ticket */
+	@RequestMapping(path = "/abandonnerOffre", method = RequestMethod.POST)
+	public String abandonnerOffre(Model m,HttpServletRequest request,@RequestParam String idTicket) {
+		HttpSession httpSession = request.getSession();
+		Integer idTick = Integer.parseInt(idTicket);
+		Integer idUser = (Integer) httpSession.getAttribute("aspirantId");
+		Tickets ticket = ticketService.findById(idTick).get();
+		UserProfile intervenant = userService.findById(idUser).get(); 
+		Offre offre = offreService.findByTicketsAndIntervenant(ticket, intervenant);
+		offreService.delete(offre);
+
+		
+		return "redirect:/zoneTickets";
+
 	}
 }
