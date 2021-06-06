@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeLeaf.org">
 
 <head>
-<link rel="shortcut icon" type="image/png" href="favicon.png"/>
+<link rel="shortcut icon" type="image/png" href="favicon.png" />
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,9 +80,9 @@
 						<!-- contact form -->
 						<div class=" wow animated fadeInRight inputCard"
 							data-wow-delay=".2s">
-							<form class="shake" role="form" method="post" id="contactForm"
-								action="inscription" name="contact-form" data-toggle="validator"
-								th:object="${user}">
+							<form class="shake needs-validation" role="form" method="post"
+								id="contactForm" action="inscription" name="contact-form"
+								data-toggle="validator" th:object="${user}" novalidate>
 								<div class="row">
 									<div class="col-12 col-lg-6">
 
@@ -93,8 +93,9 @@
 											<input class="form-control input" id="firstName" type="text"
 												required data-error="Please enter your first Name"
 												th:field="*{nom}">
-											<div class="help-block with-errors">
-												<span class="underline"></span>
+											<div class="invalid-feedback">
+												<p style="color: red" th:if="${#fields.hasErrors('nom')}"
+													th:errors="*{nom}"></p>
 											</div>
 										</div>
 										<!-- Prenom -->
@@ -103,7 +104,10 @@
 											<input class="form-control input" id="firstName" type="text"
 												required data-error="Please enter your first Name"
 												th:field="*{prenom}">
-											<div class="help-block with-errors"></div>
+											<div class="invalid-feedback">
+												<p style="color: red" th:if="${#fields.hasErrors('prenom')}"
+													th:errors="*{prenom}"></p>
+											</div>
 										</div>
 										<!-- Login -->
 										<div class="form-group label-floating">
@@ -111,7 +115,10 @@
 											<input class="form-control input" id="login" type="text"
 												th:field="*{login}" required
 												data-error="Please enter your login">
-											<div class="help-block with-errors"></div>
+											<div class="invalid-feedback">
+												<p style="color: red" th:if="${#fields.hasErrors('login')}"
+													th:errors="*{login}"></p>
+											</div>
 										</div>
 										<!-- Telephone -->
 										<div class="form-group label-floating">
@@ -119,7 +126,11 @@
 											<input class="form-control input" id="name" type="text"
 												th:field="*{telephone}" required
 												data-error="Please enter your phone number">
-											<div class="help-block with-errors"></div>
+											<div class="invalid-feedback">
+												<p style="color: red"
+													th:if="${#fields.hasErrors('telephone')}"
+													th:errors="*{telephone}"></p>
+											</div>
 										</div>
 
 
@@ -141,7 +152,10 @@
 													th:field="*{title}"> <label
 													class="form-check-label checkLabel" for="inlineRadio2">Intervenant</label>
 											</div>
-											<div class="help-block with-errors"></div>
+											<div class="invalid-feedback">
+												<p style="color: red" th:if="${#fields.hasErrors('title')}"
+													th:errors="*{title}">Nom obligatoir</p>
+											</div>
 										</div>
 
 										<!-- LANGUAGE LIST  -->
@@ -176,7 +190,11 @@
 												data-error="Please enter your birthdate"
 												th:text="${#dates.format(user.dateNaiss,'dd/MM/yyyy')}"
 												th:field="*{dateNaiss}">
-											<div class="help-block with-errors"></div>
+											<div class="invalid-feedback">
+												<p style="color: red"
+													th:if="${#fields.hasErrors('dateNaiss')}"
+													th:errors="*{dateNaiss}">Nom obligatoir</p>
+											</div>
 										</div>
 
 										<!-- email -->
@@ -185,14 +203,17 @@
 											<input class="form-control input" id="email" type="text"
 												required data-error="Please enter your Email"
 												th:field="*{email}">
-											<div class="help-block with-errors"></div>
+											<div class="invalid-feedback">
+												<p style="color: red" th:if="${#fields.hasErrors('email')}"
+													th:errors="*{email}">Nom obligatoir</p>
+											</div>
 										</div>
 										<!-- confirmer Email -->
 										<div class="form-group label-floating">
 											<label class="control-label inputLabel" for="email">Confirmez
 												Email</label> <input class="form-control input" id="email"
 												type="text" required data-error="Please enter your Email">
-											<div class="help-block with-errors"></div>
+											<div class="invalid-feedback"></div>
 										</div>
 
 
@@ -202,7 +223,11 @@
 											</label> <input class="form-control input" id="password"
 												type="password" th:field="*{password}" required
 												data-error="Please enter your password">
-											<div class="help-block with-errors"></div>
+											<div class="invalid-feedback">
+												<p style="color: red"
+													th:if="${#fields.hasErrors('password')}"
+													th:errors="*{password}">Nom obligatoir</p>
+											</div>
 										</div>
 										<!-- confirmer Password -->
 										<div class="form-group label-floating">
@@ -210,7 +235,7 @@
 												Confirmez Password </label> <input class="form-control input"
 												id="password" type="password" required
 												data-error="Please enter your password">
-											<div class="help-block with-errors"></div>
+													<div class="invalid-feedback"></div>
 										</div>
 
 										<!-- Form Submit -->
@@ -334,7 +359,7 @@
 		<!--end of Navigation bar-->
 		<!-- END page div -->
 	</div>
-
+	<script src="pageInscription.js"></script>
 </body>
 
 </html>

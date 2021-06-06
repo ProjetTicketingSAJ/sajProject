@@ -62,9 +62,9 @@
 		<!-- 	start page div -->
 		<div class="content">
 
-			<div class="row  justify-content-center">
+			<div class="row  justify-content-around">
 				<!-- START MAIN CARD -->
-				<div class="card cardTicket col-12 col-lg-8 ">
+				<div class="card cardTicket col-12 col-lg-7 ">
 					<div class="card-body">
 
 						<div class="row">
@@ -166,7 +166,7 @@
 							</div>
 						</div>
 						<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
-						
+
 
 
 
@@ -182,63 +182,65 @@
 						<!-- END  BADGES LANGUAGE TAGS -->
 					</div>
 					<!-- Ancienne solution  -->
-								<div class="card infoCards col-12  col-lg-6">
-									<div class="card-header">Ancienne solution</div>
-									<div class="card-body">
-										<p class="card-text"
-											th:text="${ticket.solutionTicket != null} ? ${ticket.solutionTicket}"></p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-
-					<!-- END MAIN ROW -->
-					<script
-						src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-						integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-						crossorigin="anonymous"></script>
-
-					<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-					<script
-						src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-					<script
-						src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-					<script
-						src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-					<script
-						src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-					<script
-						src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
 
 				</div>
+				<div class="card infoCards col-12  col-lg-4">
+					<div class="card-header">Ancienne solution</div>
+					<div class="card-body">
+						<p class="card-text"
+							th:text="${ticket.solutionTicket != null} ? ${ticket.solutionTicket}"></p>
+					</div>
+				</div>
 			</div>
-			<!-- END MAIN CARD -->
 
 
 
+			<!-- END MAIN ROW -->
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+				crossorigin="anonymous"></script>
 
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+			<script
+				src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
 
-			<!-- END content div -->
 		</div>
+	</div>
+	<!-- END MAIN CARD -->
 
-		<!--Navigation bar-->
-		<footer th:insert="footer.html"> </footer>
-		<!--end of Navigation bar-->
-		<!-- END page div -->
+
+
+
+
+	<!-- END content div -->
+	</div>
+
+	<!--Navigation bar-->
+	<footer th:insert="footer.html"> </footer>
+	<!--end of Navigation bar-->
+	<!-- END page div -->
 	</div>
 
 
 
 
-	<!-- Modal -->
+	<!-- Modal SOLUTION -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
 		data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog  modal-lg">
 			<div class="modal-content">
-				<form action="envoiSoluce" method="post">
+				<form action="envoiSoluce" method="post" class="needs-validation"
+					novalidate>
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">
 							Solution Ticket n° <span class="badge rounded-pill bg-primary"
@@ -249,7 +251,7 @@
 							aria-label="Close"></button>
 					</div>
 
-					<div class="modal-body">
+					<div class="modal-body" th:object="${solution}">
 						<textarea class="form-control" id="exampleFormControlTextarea1"
 							rows="3" name="solution" required></textarea>
 						<!-- 						<input type="text" class="input-group input-group-lgl" -->
