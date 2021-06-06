@@ -146,6 +146,9 @@
 								<!-- SOLUTION  -->
 								<div th:object="${intervention}"
 									class="card infoCards col-12  col-lg-4">
+											<div class="card-footer validateSolutionFooter">
+
+										<div class="row ">
 									<form action="validationSoluce">
 										<input type="hidden" th:value="${ticket.id}" name="idTicket">
 										<input type="hidden" th:value="${intervention.id}"
@@ -155,10 +158,24 @@
 											<p class="card-text"
 												th:text="${intervention.solution != null} ? ${intervention.solution}"></p>
 										</div>
-									</form>
-									<div class="card-footer validateSolutionFooter">
-
-										<div class="row ">
+									
+							
+											
+											<div class="col-6">
+											
+												<button type="submit"
+													class="btn btn-outline-success btnValidateSolution"
+													style="border: transparent;">
+													<svg xmlns="http://www.w3.org/2000/svg" width="35"
+														height="35" fill="currentColor" class="bi bi-check-lg"
+														viewBox="0 0 16 16">
+  <path
+															d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z" />
+</svg>
+												</button>
+												
+											</div>
+											</form>
 											<div class="col-6">
 												<form action="pasLaReponse">
 													<button type="submit" class="btn btn-outline-danger"
@@ -172,18 +189,6 @@
 </svg>
 													</button>
 												</form>
-											</div>
-											<div class="col-6">
-												<button type="submit"
-													class="btn btn-outline-success btnValidateSolution"
-													style="border: transparent;">
-													<svg xmlns="http://www.w3.org/2000/svg" width="35"
-														height="35" fill="currentColor" class="bi bi-check-lg"
-														viewBox="0 0 16 16">
-  <path
-															d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z" />
-</svg>
-												</button>
 											</div>
 										</div>
 									</div>

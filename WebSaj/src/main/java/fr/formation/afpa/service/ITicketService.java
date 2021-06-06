@@ -1,4 +1,3 @@
-
 package fr.formation.afpa.service;
 
 import java.util.List;
@@ -39,5 +38,11 @@ public interface ITicketService {
 			Set languageLibrary);
 
 	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
+  
+  public List<Tickets> findTicketsToModifierOffer(@Param("idIntervenant") Integer idIntervenant);
+	
+	public List<Tickets> findByIntervenantIdLikeAndStatutLike(Integer intervenantid, String statut);
+
 
 }
+

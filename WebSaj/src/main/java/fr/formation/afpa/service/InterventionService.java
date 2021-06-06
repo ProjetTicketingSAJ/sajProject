@@ -33,4 +33,11 @@ public class InterventionService implements IInterventionService{
 		return dao.findByTicketsAndUsers(tickets, user);
 	}
 
+
+
+	@Override
+	public List<Intervention> findByTicketsAndUsers(UserProfile user, Tickets tickets) {
+		return dao.findByTicketsAndUsers(user, tickets);
+	}
+
 }

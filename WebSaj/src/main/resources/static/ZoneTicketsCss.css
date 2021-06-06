@@ -2,6 +2,10 @@
 .navbar {
 	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+    margin-top: 5%;
+}
 
 html body {
 	background-color: #F9FAFF;

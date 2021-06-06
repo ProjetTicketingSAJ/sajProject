@@ -75,19 +75,22 @@ function onButtonClos(){
 	     return false;
 	  }
 	}
-function onButtonPlus(){  
-	var list = document.getElementById(list);
-	var id = document.getElementById(id);
-	for(var i=0; i<list.length; i++) {
-		  if(i===id){
-			  console.log("Vous avez déjà fait une offre sur ce ticket");
-			  var answer;   
-				answer = window.alert("Vous avez déjà fait une offre sur ce ticket !");     
-				 if (answer == true) {
-				     return true;
-				  } else {
-				     return false;
-				  } 
-		  }
-		}
-}
+function onButtonDetachement(){       
+	var answer;   
+	answer = window.confirm("Etes-vous sûr de vouloir vous détacher de ce ticket ?");     
+	 if (answer == true) {
+	     return true;
+	  } else {
+	     return false;
+	  }
+	}
+function onButtonAbandonOffre(){       
+	var answer;   
+	answer = window.confirm("Etes-vous sûr de vouloir annuler cette offre ?");     
+	 if (answer == true) {
+	     return true;
+	  } else {
+	     return false;
+	  }
+	}
+

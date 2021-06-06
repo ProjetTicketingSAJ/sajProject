@@ -38,13 +38,15 @@ public class Intervention implements java.io.Serializable {
 	private Set<Note> notes = new HashSet<Note>(0);
 	@NotEmpty
 	private String solution;
-
+	private boolean solutionRecue;
+	private boolean detache;
 	public Intervention() {
 	}
 
 	
 	public Intervention(Date dateDebutIntervention, Date dateClotureIntervention, 
-			Tickets tickets, UserProfile users, Set<Note> notes,String solution) {
+			Tickets tickets, UserProfile users, Set<Note> notes,String solution,boolean solutionRecue
+			,boolean detache) {
 		this.dateDebutIntervention = dateDebutIntervention;
 		this.dateClotureIntervention = dateClotureIntervention;
 	
@@ -52,6 +54,8 @@ public class Intervention implements java.io.Serializable {
 		this.users = users;
 		this.notes = notes;
 		this.solution = solution;
+		this.solutionRecue = solutionRecue;
+		this.detache = detache;
 	}
 
 	@Id
@@ -127,5 +131,26 @@ public class Intervention implements java.io.Serializable {
 		this.solution = solution;
 	}
 
+	@Column(name = "solution_recue")
+	public boolean isSolutionRecue() {
+		return solutionRecue;
+	}
+
+
+	public void setSolutionRecue(boolean solutionRecue) {
+		this.solutionRecue = solutionRecue;
+	}
+
+	@Column(name = "detache")
+	public boolean isDetache() {
+		return detache;
+	}
+
+
+	public void setDetache(boolean detache) {
+		this.detache = detache;
+	}
+
+	
 	
 }
