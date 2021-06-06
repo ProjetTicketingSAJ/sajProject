@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org">
 
 <head>
-<link rel="shortcut icon" type="image/png" href="favicon.png" />
+<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,88 +75,74 @@
 			<div class="row">
 				<div class="card registerCard col-12 col-lg-6">
 					<div class="card-body">
-						<h3>
-							Creez votre <span>compte</span>
+						<h3 th:text="#{inscription.titre1}">
 						</h3>
+						<span th:text="#{inscription.titre2}"></span>
 						<!-- contact form -->
 						<div class=" wow animated fadeInRight inputCard"
 							data-wow-delay=".2s">
-							<form class="shake needs-validation" role="form" method="post"
-								id="contactForm" action="inscription" name="contact-form"
-								data-toggle="validator" th:object="${user}" novalidate>
+							<form class="shake" role="form" method="post" id="contactForm"
+								action="inscription" name="contact-form" data-toggle="validator"
+								th:object="${user}">
 								<div class="row">
 									<div class="col-12 col-lg-6">
 
 
 										<!-- Prenom -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="name">Nom</label>
+											<label class="control-label inputLabel" for="name" th:text="#{inscription.nom}"></label>
 											<input class="form-control input" id="firstName" type="text"
 												required data-error="Please enter your first Name"
 												th:field="*{nom}">
-											<div class="invalid-feedback">
-												<p style="color: red" th:if="${#fields.hasErrors('nom')}"
-													th:errors="*{nom}"></p>
+											<div class="help-block with-errors">
+												<span class="underline"></span>
 											</div>
 										</div>
 										<!-- Prenom -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="name">Prenom</label>
+											<label class="control-label inputLabel" for="name" th:text="#{inscription.prenom}"></label>
 											<input class="form-control input" id="firstName" type="text"
 												required data-error="Please enter your first Name"
 												th:field="*{prenom}">
-											<div class="invalid-feedback">
-												<p style="color: red" th:if="${#fields.hasErrors('prenom')}"
-													th:errors="*{prenom}"></p>
-											</div>
+											<div class="help-block with-errors"></div>
 										</div>
 										<!-- Login -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="name">Login</label>
+											<label class="control-label inputLabel" for="name" th:text="#{inscription.login}"></label>
 											<input class="form-control input" id="login" type="text"
 												th:field="*{login}" required
 												data-error="Please enter your login">
-											<div class="invalid-feedback">
-												<p style="color: red" th:if="${#fields.hasErrors('login')}"
-													th:errors="*{login}"></p>
-											</div>
+											<div class="help-block with-errors"></div>
 										</div>
 										<!-- Telephone -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="name">Téléphone</label>
+											<label class="control-label inputLabel" for="name" th:text="#{inscription.telephone}"></label>
 											<input class="form-control input" id="name" type="text"
 												th:field="*{telephone}" required
 												data-error="Please enter your phone number">
-											<div class="invalid-feedback">
-												<p style="color: red"
-													th:if="${#fields.hasErrors('telephone')}"
-													th:errors="*{telephone}"></p>
-											</div>
+											<div class="help-block with-errors"></div>
 										</div>
 
 
 										<!-- Role -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="role">
-												Select your role</label>
+											<label class="control-label inputLabel" for="role" th:text="#{inscription.role}">
+											</label>
 											<div class="form-check form-check-inline mt-3">
 												<input class="form-check-input inputLabel "
 													onclick="javascript:yesnoCheck();" type="radio"
 													name="inlineRadioOptions" id="aspirant" value="A"
 													th:field="*{title}"> <label
-													class="form-check-label  checkLabel" for="inlineRadio1">Aspirant</label>
+													class="form-check-label  checkLabel" for="inlineRadio1" th:text="#{inscription.roleAspi}"></label>
 											</div>
 											<div class="form-check form-check-inline ml-2 mt-3">
 												<input class="form-check-input inputLabel"
 													onclick="javascript:yesnoCheck();" type="radio"
 													name="inlineRadioOptions" id="intervenant" value="I"
 													th:field="*{title}"> <label
-													class="form-check-label checkLabel" for="inlineRadio2">Intervenant</label>
+													class="form-check-label checkLabel" for="inlineRadio2" th:text="#{inscription.roleInter}"></label>
 											</div>
-											<div class="invalid-feedback">
-												<p style="color: red" th:if="${#fields.hasErrors('title')}"
-													th:errors="*{title}">Nom obligatoir</p>
-											</div>
+											<div class="help-block with-errors"></div>
 										</div>
 
 										<!-- LANGUAGE LIST  -->
@@ -184,17 +171,13 @@
 									<div class="col-6 col-lg-6">
 										<!--  Date de naissance -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="date">Date
-												de naissance</label> <input class="form-control input" id="email"
+											<label class="control-label inputLabel" for="date" th:text="#{inscription.ddn}">
+											</label> <input class="form-control input" id="email"
 												type="date" required
 												data-error="Please enter your birthdate"
 												th:text="${#dates.format(user.dateNaiss,'dd/MM/yyyy')}"
 												th:field="*{dateNaiss}">
-											<div class="invalid-feedback">
-												<p style="color: red"
-													th:if="${#fields.hasErrors('dateNaiss')}"
-													th:errors="*{dateNaiss}">Nom obligatoir</p>
-											</div>
+											<div class="help-block with-errors"></div>
 										</div>
 
 										<!-- email -->
@@ -203,44 +186,37 @@
 											<input class="form-control input" id="email" type="text"
 												required data-error="Please enter your Email"
 												th:field="*{email}">
-											<div class="invalid-feedback">
-												<p style="color: red" th:if="${#fields.hasErrors('email')}"
-													th:errors="*{email}">Nom obligatoir</p>
-											</div>
+											<div class="help-block with-errors"></div>
 										</div>
 										<!-- confirmer Email -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="email">Confirmez
-												Email</label> <input class="form-control input" id="email"
+											<label class="control-label inputLabel" for="email" th:text="#{inscription.emailconf}">
+												</label> <input class="form-control input" id="email"
 												type="text" required data-error="Please enter your Email">
-											<div class="invalid-feedback"></div>
+											<div class="help-block with-errors"></div>
 										</div>
 
 
 										<!-- Password -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="password">Password
+											<label class="control-label inputLabel" for="password" th:text="#{inscription.password}">
 											</label> <input class="form-control input" id="password"
 												type="password" th:field="*{password}" required
 												data-error="Please enter your password">
-											<div class="invalid-feedback">
-												<p style="color: red"
-													th:if="${#fields.hasErrors('password')}"
-													th:errors="*{password}">Nom obligatoir</p>
-											</div>
+											<div class="help-block with-errors"></div>
 										</div>
 										<!-- confirmer Password -->
 										<div class="form-group label-floating">
-											<label class="control-label inputLabel" for="password">
-												Confirmez Password </label> <input class="form-control input"
+											<label class="control-label inputLabel" for="password" th:text="#{inscription.passwordconf}">
+											</label> <input class="form-control input"
 												id="password" type="password" required
 												data-error="Please enter your password">
-													<div class="invalid-feedback"></div>
+											<div class="help-block with-errors"></div>
 										</div>
 
 										<!-- Form Submit -->
 										<div class="form-submit  mt-5 ml-5">
-											<button class="btn btn-outline-secondary" type="submit">Valider</button>
+											<button class="btn btn-outline-secondary" type="submit" th:text="#{modal.Submit}"></button>
 											<div id="msgSubmit" class="h3 text-center hidden"></div>
 											<div class="clearfix"></div>
 										</div>
@@ -359,7 +335,8 @@
 		<!--end of Navigation bar-->
 		<!-- END page div -->
 	</div>
-	<script src="pageInscription.js"></script>
+
 </body>
+
 
 </html>

@@ -1,5 +1,18 @@
 <html xmlns:th="http://www.thymeLeaf.org">
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('international?lang=' + selectedOption);
+        }
+    });
+});
+</script>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
 		<a href="/"> <img src="logo.png" alt="saj logo" class=""
@@ -18,23 +31,23 @@
 				<!-- mes tickets -->
 
 				
-   					<li class="nav-item active "><a class="nav-link headerText"
-					aria-current="page" href="qsm">Qui sommes-nous</a></li>
+   					<li class="nav-item active"><a class="nav-link headerText"
+					aria-current="page" href="qsm"  th:text="#{header.qsm}"></a></li>
 			
 				<li th:if="${session.title == 'A'}" class="nav-item active"><a class="nav-link headerText"
-					aria-current="page" href="ticketsAspirant">Mes tickets</a></li>
+					aria-current="page" href="ticketsAspirant" th:text="#{header.mesTicket}"></a></li>
 					
 
 				<!-- Creation tickets Aspirant -->
 				<li th:if="${session.title == 'A'}" class="nav-item active "><a
 					class="nav-link headerText" aria-current="page"
-					href="creationTicket">Création d'un ticket</a></li>
+					href="creationTicket" th:text="#{header.creationTicket}"></a></li>
 				<!--  Zone Tickets Intervenant -->
 				<li th:if="${session.title == 'I'}" class="nav-item active "><a
-					class="nav-link headerText" aria-current="page" href="zoneTickets">ZoneTickets</a></li>
+					class="nav-link headerText" aria-current="page" href="zoneTickets" th:text="#{header.zonetickets}"></a></li>
 					
 				<li th:if="${session.title == 'I'}" class="nav-item active"><a class="nav-link headerText"
-					aria-current="page" href="ticketsInervenant">Mes tickets</a></li>
+					aria-current="page" href="ticketsInervenant" th:text="#{header.mesTicket}"></a></li>
 				<li th:if="${session.title == 'I'}" class="nav-item active"><a class="nav-link headerText"
 					aria-current="page" href="chatRoom">ChatRoom</a></li>
 				<li th:if="${session.title == 'A'}" class="nav-item active"><a class="nav-link headerText"
@@ -44,10 +57,10 @@
 			
 
 
-				<li class="nav-item"><a class="nav-link " aria-current="page"
-					href="?lang=fr"> 🇫🇷</a></li>
-				<li class="nav-item"><a class="nav-link " aria-current="page"
-					href="?lang=en"> 🇬🇧</a></li>
+				<li class="nav-item" value="fr"  ><a class="nav-link " th:text="#{lang.fr}" aria-current="page"
+					href="?lang=fr" > 🇫🇷</a></li>
+				<li class="nav-item" value="en" ><a class="nav-link " th:text="#{lang.en}" aria-current="page"
+					href="?lang=en" > 🇬🇧</a></li>
 			</ul>
 			<form class="d-flex">
 				<!-- UserName -->
@@ -66,27 +79,31 @@
 
 						    <li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item"
-							href="profilIntervenant">Profil</a></li>
+							href="profilIntervenant" th:text="#{header.profil}"></a></li>
 
 						<li>
-						<li><a class="dropdown-item" href="#">Configurations</a></li>
+						<li><a class="dropdown-item" href="#" th:text="#{header.configuration}"></a></li>
 					</ul>
 				</div>
 
 			</form>
 
 			<form th:if="${session.title != null}" th:action="@{/logout}">
-				<button onclick="return onButtonDeco();" type="submit" class="btn btn-outline-danger">Logout</button>
+
+				<button type="submit" class="btn btn-outline-danger" th:text="#{header.logout}"></button>
+
 			</form>
 
 			<!--  <form  action="login"> -->
 			<button th:if="${session.title == null}" type="submit"
 				class="btn btn-outline-primary" data-bs-toggle="modal"
-				data-bs-target="#loginBackdrop">Login</button>
+				data-bs-target="#loginBackdrop" th:text="#{header.login }"></button>
 			<!-- </form> -->
 
 		</div>
 	</div>
+
 				<script src="/jsImports.js"></script>
 	
+
 </nav>

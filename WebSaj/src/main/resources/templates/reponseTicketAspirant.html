@@ -70,8 +70,8 @@
 							</div>
 							<!-- TICKET Title -->
 							<div class="col-12 col-lg-6">
-								<h2>
-									Title: <span class="badge bg-primary" th:text="${ticket.titre}"></span>
+								<h2 th:text="${tableau.titre}">
+									<span class="badge bg-primary" th:text="${ticket.titre}"></span>
 								</h2>
 							</div>
 							<!-- TICKET FILE DOWNLAOD  -->
@@ -108,7 +108,7 @@
 							<div class="row mainInfoTickets">
 								<!-- DESCRIPTION  -->
 								<div class="card probleme col-12 col-lg-5">
-									<div class="card-header">Description du problème</div>
+									<div class="card-header" th:text="#{creationTicket.problemDescription}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
@@ -117,7 +117,7 @@
 
 								<!-- EXCEPTION  -->
 								<div class="card exception col-12  col-lg-5">
-									<div class="card-header">Exception dans la console</div>
+									<div class="card-header" th:text="#{creationTicket.console}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
@@ -127,7 +127,7 @@
 						</div>
 							<!-- Solution  -->
 								<div class="card exception col-12  col-lg-5">
-									<div class="card-header">Solution</div>
+									<div class="card-header" th:text="#{proposition.soluce}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="${ticket.exceptionConsole != null} ? ${ticket.solutionTicket}"></p>

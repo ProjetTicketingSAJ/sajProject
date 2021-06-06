@@ -82,7 +82,7 @@
 							</div>
 							<!-- TICKET Title -->
 							<div class="mt-7 col-12 col-lg-7">
-								<h2>
+								<h2 th:text="#{tableau.titre}">
 									Title: <span class="badge bg-primary" th:text="${ticket.titre}"></span>
 								</h2>
 							</div>
@@ -92,7 +92,7 @@
 								<a class="btn btn-secondary dropdown-toggle btnDownloadFile"
 									href="#" role="button" id="dropdownMenuLink"
 									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"> Télécharger fichiers  <svg
+									aria-expanded="false" th:text="#{ticket.download}"><svg
 										xmlns="http://www.w3.org/2000/svg" width="40" height="40"
 										fill="currentColor" class="bi bi-journal-arrow-down"
 										viewBox="0 0 16 16">
