@@ -11,4 +11,7 @@ public interface IInterventionService {
 	public Intervention findByTicketsAndUsers(Tickets tickets,UserProfile user);
 	
 	public Intervention save(Intervention intervention);
+	
+	public List <Intervention> findByTicketsAndUsers(UserProfile user,Tickets tickets);
+
 }

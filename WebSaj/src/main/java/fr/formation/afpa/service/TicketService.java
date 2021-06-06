@@ -1,4 +1,3 @@
-
 package fr.formation.afpa.service;
 
 import java.util.List;
@@ -96,6 +95,15 @@ public class TicketService implements ITicketService {
 	public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
 			Set languageLibrary) {
 		return dao.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(statut, languageLibrary);
+	}
+  @Override
+	public List<Tickets> findTicketsToModifierOffer(Integer idIntervenant) {
+		return dao.findTicketsToModifierOffer(idIntervenant) ;
+	}
+
+	@Override
+	public List<Tickets> findByIntervenantIdLikeAndStatutLike(Integer intervenantid, String statut) {
+		return dao.findByIntervenantIdLikeAndStatutLike(intervenantid, statut);
 	}
 
 }
