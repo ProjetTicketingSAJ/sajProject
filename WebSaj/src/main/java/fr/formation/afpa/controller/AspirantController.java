@@ -213,7 +213,6 @@ public class AspirantController {
         }
 		System.err.println("NO BINDING RESULT ERROR");
 	
-
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);

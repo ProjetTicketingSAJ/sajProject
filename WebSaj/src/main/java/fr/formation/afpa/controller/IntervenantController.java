@@ -31,6 +31,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -118,7 +119,8 @@ public class IntervenantController {
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);
-
+		String solution = new String();
+		
 		// Récupération des Tags du ticket
 		Set<LanguageLibrary> libraryTicket = ticket.get().getLanguageLibrary();
 
@@ -140,10 +142,10 @@ public class IntervenantController {
 				files.add(f);
 			}
 		}
-
+		
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
-
+		m.addAttribute("solution", solution);
 		return "monTicketIntervenant";
 
 	}
@@ -152,9 +154,14 @@ public class IntervenantController {
 	 * Proposition d'une soluce
 	 */
 	@RequestMapping(path = "/envoiSoluce", method = RequestMethod.POST)
-	public String envoiSoluce(Model m, @RequestParam String solution, Principal principal,
+	public String envoiSoluce(Model m,@ModelAttribute("solution") String solution, BindingResult result, Principal principal,
 			@RequestParam String idTicket) {
-
+		// validation 
+		if (result.hasErrors()) {
+            System.err.println("BINDING RESULT ERROR" + result);
+			return "creationTicket";
+        }
+		System.err.println("NO BINDING RESULT ERROR");
 
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
