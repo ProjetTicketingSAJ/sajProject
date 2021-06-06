@@ -56,24 +56,19 @@
 		<!--end of Navigation bar-->
 
 		<div class="alert alert-danger alertIndex" role="alert" th:if="${loginError}">
-			<h6>Erreur login et/ou mot de passe</h6>
+			<h6 th:text="#{login.error}"></h6>
 		</div>
 
 		<div class="about-section">
-			<h1 data-aos="fade-up" data-aos-duration="800">Mais alors, qui
-				sommes-nous?</h1>
-			<p data-aos="fade-up" data-aos-duration="800">La conscience est
-				la connaissance savante de ce que nous sommes. Donc nous pouvons
-				remarquer que le contenu de la conscience est la représentation de
-				ce que nous pensons être. Et pour savoir ce que nous sommes, nous ne
-				pouvons le formuler qu'à travers la conscience d'être..</p>
+			<h1 data-aos="fade-up" data-aos-duration="800" th:text="#{qsm.titre}"></h1>
+			<p data-aos="fade-up" data-aos-duration="800" th:text="#{qsm.titreText}"></p>
 		</div>
 		<!-- 	start page div -->
 		<div class="content">
 
 
 			<h2 style="text-align: center" data-aos="fade-up"
-				data-aos-duration="800" data-aos-delay="400">Notre équipe</h2>
+				data-aos-duration="800" data-aos-delay="400" th:text="#{qsm.team}" ></h2>
 
 			<div class="row cardInfo">
 				

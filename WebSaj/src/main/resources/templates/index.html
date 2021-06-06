@@ -70,7 +70,7 @@
 		<!--end of Navigation bar-->
 		<!--    start page div -->
 		<div class="alert alert-danger alertIndex" role="alert" th:if="${loginError}">
-			<h6>Erreur login et/ou mot de passe</h6>
+			<h6 th:text="#{index.errorLogin}"></h6>
 		</div>
 
 		<div class="content">
@@ -84,11 +84,10 @@
 						<div
 							class="col-lg-6 col-md-10 col-12 d-flex flex-column justify-content-center align-items-center">
 							<div class="hero-text">
-								<h1 class="text-white" data-aos="fade-up">Votre plateforme
-									de gestion de tickets</h1>
+								<h1 class="text-white" data-aos="fade-up" th:text="#{index.titleUP}"></h1>
 								<a href="pageInscription" class="custom-btn btn-bg btn mt-3"
 									data-aos="fade-up" data-aos-delay="100"
-									th:if="${session.title == null}">Rejoignez nous ! </a><strong
+									th:if="${session.title == null}" th:text="#{index.join}"></a><strong
 									class="d-block py-3 pl-5 text-white" data-aos="fade-up"
 									data-aos-delay="200"></strong>
 							</div>
@@ -108,17 +107,13 @@
 					<div class="row">
 						<div class="col-lg-7 mx-auto col-md-10 col-12">
 							<div class="about-info">
-								<h2 class="textTitle mb-4" data-aos="fade-up">
-									Votre <span>plateforme de gestion de tickets</span> en France &
-									partout dans le monde.
+								<h2 class="textTitle mb-4" data-aos="fade-up" th:text="#{index.titleDown}">
+									 <span th:text="#{index.titleDownSpan}"></span> 
+									
 								</h2>
-								<p class="mb-0 about-info-Par" data-aos="fade-up">
-									Notre service s'adresse à tous les développeurs, que vous soyez
-									juniors, ou seniors, <span>intervenant</span> ou <span>aspirant</span>
-									notre service s'adresse à <span>vous</span>. <br> <br>Vous
-									êtes au <strong>❤</strong> de notre projet, ensemble nous
-									développons un meilleur monde !
+								<p class="mb-0 about-info-Par" data-aos="fade-up" th:text="#{index.titleDownTextupper1}">		
 								</p>
+								<p class="mb-0 about-info-Par" data-aos="fade-up" th:text="#{index.titleDownTextdown}"></p>
 							</div>
 							<div class="about-image" data-aos="fade-up" data-aos-delay="200">
 								<img src="images/office.png" class="img-fluid" alt="office">
@@ -161,26 +156,26 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="staticBackdropLabel">Se connecter</h5>
+							<h5 class="modal-title" id="staticBackdropLabel" th:text="#{header.login}"></h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
 						<div class="alert alert-danger alertModal" role="alert" th:if="${loginError}">
-							<h6>Erreur login et/ou mot de passe</h6>
+							<h6 th:text="#{login.error}"></h6>
 						</div>
 
 						<form th:action="@{/j_spring_security_check}" method="post">
 
 							<div class="modal-body">
 								<div class="mb-3">
-									<label for="exampleFormControlInput1" class="form-label">Identifiant
+									<label for="exampleFormControlInput1" class="form-label" th:text = "#{login.userName}">
 									</label> <input type="text" class="form-control"
 										id="exampleFormControlInput1"
 										placeholder="Entrer votre identifiant" name="login">
 								</div>
 								<div class="mb-3">
-									<label for="exampleFormControlInput1" class="form-label">Mot
-										de passe</label> <input type="password" class="form-control"
+									<label for="exampleFormControlInput1" class="form-label" th:text = "#{login.password}" >
+										</label> <input type="password" class="form-control"
 										id="exampleFormControlInput1"
 										placeholder="Entrer votre mot de passe" name="mdp">
 								</div>
@@ -188,12 +183,12 @@
 							<div class="form-check ml-3">
 								<input class="form-check-input" type="checkbox" value=""
 									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> se souvenir de moi </label>
+									for="flexCheckDefault" th:text = "#{login.remember}"></label>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">Annuler</button>
-								<button type="submit" class="btn btn-primary">Connexion</button>
+									data-bs-dismiss="modal" th:text = "#{login.annuler}"></button>
+								<button type="submit" class="btn btn-primary" th:text = "#{login.login}"></button>
 							</div>
 							<span th:if="${error != null}" class="error"></span>
 						</form>

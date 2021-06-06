@@ -85,7 +85,7 @@
 							<a class="btn btn-secondary dropdown-toggle btnDownloadFile"
 								href="#" role="button" id="dropdownMenuLink"
 								data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false">Télécharger fichiers <svg
+								aria-expanded="false" th:text="#{ticket.download}"><svg
 									xmlns="http://www.w3.org/2000/svg" width="40" height="40"
 									fill="currentColor" class="bi bi-journal-arrow-down"
 									viewBox="0
@@ -111,7 +111,7 @@
 							<div class="row mainInfoTickets">
 								<!-- DESCRIPTION  -->
 								<div class="card probleme col-12 col-lg-5">
-									<div class="card-header">Description</div>
+									<div class="card-header" th:text="#{creationTicket.console}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
@@ -120,7 +120,7 @@
 
 								<!-- EXCEPTION  -->
 								<div class="card exception col-12  col-lg-6">
-									<div class="card-header">Exception console</div>
+									<div class="card-header" th:text="#{creationTicket.problemDescription}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>

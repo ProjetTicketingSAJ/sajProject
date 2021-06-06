@@ -98,7 +98,7 @@
 								<!-- Card Ticket Title -->
 								<h2 class="card-title" th:text="${list.tickets.titre}"></h2>
 								<h5>
-									<span class="badge bg-primary">limite : <span
+									<span class="badge bg-primary" th:text="${modal.limit}"><span
 										class="badge dateLimit bg-danger"
 										th:text="${#dates.format(list.dateLimiteSoluce, 'dd-MM-yyyy')}">
 									</span>
@@ -109,7 +109,7 @@
 										class="montantEuro"> € </span>
 								</h5>
 								<form action="accepterOffre" method="post">
-								<button type="submit" class="btn btn-outline-primary">valider</button>
+								<button type="submit" class="btn btn-outline-primary" th:value="${modal.Submit}"></button>
 								<input type="hidden" name="idTicket" th:value="${list.tickets.id}">
 								<input type="hidden" name="idIntervenant" th:value="${list.intervenant.id}">
 								</form>

@@ -91,7 +91,7 @@
 									class="btn btn-outline-primary dropdown-toggle btnDownloadFile"
 									href="#" role="button" id="dropdownMenuLink"
 									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"> Télécharger fichiers  <svg
+									aria-expanded="false" th:text="${ticket.titre}"><svg
 										xmlns="http://www.w3.org/2000/svg" width="40" height="40"
 										fill="currentColor" class="bi bi-journal-arrow-down"
 										viewBox="0 0 16 16">
@@ -120,8 +120,8 @@
 							<div class="col-12 col-md-6 col-lg-5">
 								<button type="button"
 									class="btn btn-outline-primary sendSolution"
-									data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-									Proposer solution <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+									data-bs-toggle="modal" data-bs-target="#staticBackdrop" th:text="${ticket.solutionProp}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
 										fill="currentColor" class="bi bi-journal-arrow-up"
 										viewBox="0 0 16 16">
   <path fill-rule="evenodd"
@@ -146,7 +146,7 @@
 							<div class="row d-flex justify-content-around">
 								<!-- DESCRIPTION  -->
 								<div class="card infoCards col-12 col-lg-5">
-									<div class="card-header">Description</div>
+									<div class="card-header" th:text="${ticket.descr}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
@@ -156,7 +156,7 @@
 
 								<!-- EXCEPTION  -->
 								<div class="card infoCards col-12  col-lg-6">
-									<div class="card-header">Exception console</div>
+									<div class="card-header" th:text="${creationTicket.console}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
@@ -182,7 +182,7 @@
 					</div>
 					<!-- Ancienne solution  -->
 								<div class="card infoCards col-12  col-lg-6">
-									<div class="card-header">Ancienne solution</div>
+									<div class="card-header" th:text="${ticket.oldSoluce}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="${ticket.solutionTicket != null} ? ${ticket.solutionTicket}"></p>
@@ -257,8 +257,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">Fermer</button>
-						<button type="submit" class="btn btn-primary">Envoyer</button>
+							data-bs-dismiss="modal" th:text="${ticket.close}"></button>
+						<button type="submit" class="btn btn-primary" th:text="${modal.Submit}"></button>
 					</div>
 				</form>
 			</div>

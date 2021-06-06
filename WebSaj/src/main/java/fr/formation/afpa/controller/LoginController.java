@@ -3,11 +3,8 @@ package fr.formation.afpa.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
@@ -20,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,12 +24,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import fr.formation.afpa.domain.CodingLanguage;
-import fr.formation.afpa.domain.Offre;
 import fr.formation.afpa.domain.Tickets;
 import fr.formation.afpa.domain.UserProfile;
 import fr.formation.afpa.service.CodingLanguageService;
@@ -111,7 +104,7 @@ public class LoginController {
 
 	@Autowired
 	public LoginController(UserService userService, LanguageLibraryService languageLibraryService,
-			CodingLanguageService codingLanguageService, TicketService ticketService,OffreService offreService) {
+			CodingLanguageService codingLanguageService, TicketService ticketService, OffreService offreService) {
 		this.userService = userService;
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
@@ -143,15 +136,15 @@ public class LoginController {
 			if (user.getTitle().equals("I")) {
 				System.out.println("ID INTERVENANT: " + user.getId());
 				System.out.println("TITRE INTERVENANT: " + user.getTitle());
-				//Tickets pour lesquels une offre a déjà été faite
+				// Tickets pour lesquels une offre a déjà été faite
 				List<Tickets> listTickets = ticketService.findListToDisplayInPool(user.getId());
-			
-				//Tickets ouverts
+
+				// Tickets ouverts
 				List<Tickets> listTicketsOuverts = ticketService.findByStatutLike(statutOuvert);
-				//suppression des tickets sur lesquels l'intervenant est déjà positionné de la liste globale
+				// suppression des tickets sur lesquels l'intervenant est déjà positionné de la
+				// liste globale
 				listTicketsOuverts.removeAll(listTickets);
-								
-				
+
 				httpSession.setAttribute("title", user.getTitle());
 				httpSession.setAttribute("login", user.getLogin());
 				httpSession.setAttribute("aspirantId", user.getId());
@@ -171,19 +164,19 @@ public class LoginController {
 				System.out.println(listOffresOuverte);
 				System.out.println("=============================listTickets EN COURS ======================");
 				System.out.println(listOffresEnCours);
-				
-				//Liste des offres qui ont été faites pour pour un ticket
-				for(Tickets t : listOffresOuverte) {
+
+				// Liste des offres qui ont été faites pour pour un ticket
+				for (Tickets t : listOffresOuverte) {
 					Integer nbOffres = offreService.findNbOffres(t.getId());
 					t.setNbOffres(nbOffres);
 					ticketService.save(t);
 					System.err.println(nbOffres);
 				}
-				
+
 				m.addAttribute("user", user);
 				m.addAttribute("listOffresOuverte", listOffresOuverte);
 				m.addAttribute("listOffresEnCours", listOffresEnCours);
-				return "MesTicketAspirant"; 
+				return "MesTicketAspirant";
 			}
 		} catch (NoResultException nre) {
 			System.err.println("je suis nulle");
@@ -193,16 +186,14 @@ public class LoginController {
 		return "index";
 	}
 
-	  // Login form with error
-	  @RequestMapping("/login-error.html")
-	  public String loginError(Model model, RedirectAttributes redirAttrs) {
-		  redirAttrs.addFlashAttribute("message", "Wrong login or password");
-		  model.addAttribute("loginError", true);
-	    return "index";
-	  }
+	// Login form with error
+	@RequestMapping("/login-error.html")
+	public String loginError(Model model, RedirectAttributes redirAttrs) {
+		redirAttrs.addFlashAttribute("message", "Wrong login or password");
+		model.addAttribute("loginError", true);
+		return "index";
+	}
 
-	
-	
 	/* Logout method */
 	@RequestMapping(path = "/logoutSuccessful", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
