@@ -76,14 +76,13 @@
 									<button class="nav-link active" id="actifticket-tab"
 										data-bs-toggle="tab" data-bs-target="#actiftab" type="button"
 										role="tab" aria-controls="actifstab" aria-selected="true"
-										aria-current="page">Ouverts</button>
+										aria-current="page" th:text="#{tableau.ongletOuvert}"></button>
 								</li>
 								<!--tab tickets en cours de traitement -->
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="clotures-tab" data-bs-toggle="tab"
 										data-bs-target="#cloturestab" type="button" role="tab"
-										aria-controls="cloturestab" aria-selected="false">En
-										attente de validation</button>
+										aria-controls="cloturestab" aria-selected="false" th:text="#{tableau.attenteVal}"></button>
 								</li>
 							</ul>
 						</div>
@@ -103,11 +102,11 @@
 							<thead>
 								<tr>
 									<th scope="col">#</th>
-									<th scope="col">Titre</th>
+									<th scope="col" th:text="#{tableau.titre}"></th>
 									<!-- <th scope="col">Langage utilisé</th> -->
-									<th scope="col">Date création</th>
+									<th scope="col" th:text="#{tableau.ddc}"></th>
 									<!-- <th scope="col">Temps restant</th> -->
-									<th scope="col">Statut</th>
+									<th scope="col" th:text="#{tableau.statut}"></th>
 									<th class="colAction"><span class="action">Action</span></th>
 									<!-- <th scope="col" class="notif"><span class="action">Notification</span></th> -->
 								</tr>
@@ -186,11 +185,11 @@
 											<thead>
 												<tr>
 													<th scope="col" class="idTicket">#</th>
-													<th scope="col" class="titreTicket">Titre</th>
+													<th scope="col" class="titreTicket" th:text="#{tableau.titre}"></th>
 													<!-- <th scope="col">Langage utilisé</th> -->
-													<th scope="col" class="dateCrea">Date création</th>
+													<th scope="col" class="dateCrea" th:text="#{tableau.ddc}"></th>
 													<!-- <th scope="col">Temps restant</th> -->
-													<th scope="col" class="statusTicket">Statut</th>
+													<th scope="col" class="statusTicket" th:text="#{tableau.statut}"></th>
 													<th class="colAction"><span class="action">Action</span></th>
 													<!-- <th scope="col" class="notif"><span class="action">Notification</span></th> -->
 												</tr>
@@ -290,21 +289,21 @@
 							
 							<input type="hidden" name="ticketId" id="ticketId">
 							<div th:each="offre: ${T(fr.formation.afpa.controller.IntervenantController).findOffer(59,session.aspirantId)}">
-								<label>Nouvelle proposition</label>					
+								<label th:text="#{modal.newProp}"></label>					
 							
 							<div class="modal-body">
 								
 								<div class="form-group">
-								<label class="control-label">Montant actuel (€)</label>
+								<label class="control-label" th:text="#{modal.montantAct}"></label>
 								<h3 class="modal-title" th:text="${offre.montant}"></h3>
-								<label class="control-label">Nouveau Montant (€)</label>
+								<label class="control-label" th:text="${modal.montantNv}"></label>
 								<input type="number" min=0 class="form-control input-lg" name="montant">
 									
 								</div>
 								<div class="form-group">
-									<label class="control-label">Date limite actuelle</label>
+									<label class="control-label" th:text="#{modal.dla}"></label>
 									<h3 class="modal-title" th:text="${#dates.format(offre.dateLimiteSoluce,'dd/MM/yyyy')}"></h3>
-									<label class="control-label">Nouvelle date limite</label>
+									<label class="control-label" th:text="#{modal.ndl}"></label>
 									<input type="date" id="datefield" class="form-control input-lg" name="dateLimite">
 									
 								</div>
