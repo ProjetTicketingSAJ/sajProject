@@ -266,8 +266,11 @@ html body {
 	font-size: xxx-large;
 	font-weight: bold;
 	color: #0080ff;
-
+display: flex;
+justify-content: center;
 }
+
+
 
 @media (max-device-width: 780px) {
 	.ouJointure{
@@ -280,6 +283,13 @@ html body {
 	.ouJointure{
     display: flex;
     justify-content: center;
+}
+	.solutAlt span{
+font-size: smaller;
+
+}
+.solutAlt .spanTitleAlt {
+	font-size: unset;
 }
 	
 }

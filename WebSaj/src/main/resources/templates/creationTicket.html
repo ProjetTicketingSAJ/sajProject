@@ -194,7 +194,7 @@
 				</div>
 
 				<!-- card recherche solution identiques par tags -->
-				<div class="card solutAlt col-12 col-lg-3">
+				<div class="card solutAlt mb-3 col-12 col-lg-3">
 					<div class="card-body">
 						<div class="col-12">
 							<h2>
@@ -202,13 +202,13 @@
 							</h2>
 						</div>
 						<div class="col-12">
-							<form action="voirExample" method="post" target="_blank">
+							<form action="voirExample" method="post">
 								<div class="tagsAlt mt-5">
 									<div class="tags-input tagsInput  pb-2" data-name="tagsinput"></div>
 								</div>
 								<button title="Propositions de solutions concernant mes tags"
-									type="submit" class="btn btn-outline-primary btnProp col-12">
-									Propositions</button>
+									type="submit" class="btn btn-outline-primary btnProp col-12" th:text="#{creationTicket.propositions}">
+									</button>
 							</form>
 						</div>
 					</div>
