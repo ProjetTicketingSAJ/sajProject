@@ -194,16 +194,16 @@ public class AspirantController {
 		List<CodingLanguage> languageList = codingLanguageService.findAll();
 
 		System.out.println(languageList);
-
+		List<String> tagsArecherche = new ArrayList<String>();
 		m.addAttribute("tickets", new Tickets());
 		m.addAttribute("languageList", languageList);
+		m.addAttribute("tagsArecherche", tagsArecherche);
 		System.out.println();
 		return "creationTicket";
 
 	}
 
 	/* Enregistrement ticket aspirant en bdd */
-
 	@RequestMapping(path = "/createTicket", method = RequestMethod.POST)
 
 	public String createTicket(Model m, HttpServletRequest request, @Valid @ModelAttribute Tickets tickets, BindingResult result,
@@ -290,18 +290,27 @@ public class AspirantController {
 		return "redirect:/ticketsAspirant";
 
 	}
+	@RequestMapping(path = "/voirExample", method = RequestMethod.POST)
 
-	// Faire proposition a l'aspirant a la création de ticket
-	@RequestMapping(path = "/voirPropositions", method = RequestMethod.GET)
-	public String voirPropositions(Model model, HttpServletRequest request, @RequestParam Integer idTicket,
-			Principal principal) {
-
-		User loginedUser = (User) ((Authentication) principal).getPrincipal();
-		String userInfo = loginedUser.getUsername();
+	public String seeProposals(Model m, HttpServletRequest request, @RequestParam List<String> tagsinput) {
+		Set<LanguageLibrary> listLanguages = new HashSet<>();
+		for(String language : tagsinput ) {
+			LanguageLibrary languages = new LanguageLibrary();
+			languages = languageLibraryService.findByNom(language);
+			listLanguages.add(languages);
+		}
+		
+		List<Tickets> getTage = ticketService.findDistinctByStatutLikeAndLanguageLibraryIn(statutFermer,
+				listLanguages);
+		List<Tickets> getTageTopLikes = ticketService.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(
+				statutFermer, listLanguages);
+		
+		m.addAttribute("getTage", getTage);
+		m.addAttribute("getTageTopLikes", getTageTopLikes);
 
 		return "propositionSoluce";
-
-	}
+        }
+	
 
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
 	@RequestMapping(path = "/monTicket", method = RequestMethod.GET)

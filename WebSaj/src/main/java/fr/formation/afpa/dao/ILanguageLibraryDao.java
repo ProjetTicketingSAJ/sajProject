@@ -15,4 +15,6 @@ public interface ILanguageLibraryDao extends JpaRepository<LanguageLibrary, Inte
 	@SuppressWarnings("unchecked")
 	public LanguageLibrary save(LanguageLibrary l);
 	public LanguageLibrary findByNom(String l);
+	
+	
 }

@@ -50,15 +50,16 @@
 
 
 			<!-- START CARD -->
-			<div class="row justify-content-center">
+			<div class="row justify-content-around">
 				<div class="card mainCard  col-12 col-lg-8 mb-3">
 					<div class="card-body ticketCreate">
 						<div class="headTitle col-12 col-lg-8">
-							<h2>
+
+							<h3>
 								<!-- Title -->
 								<span th:text="#{creationTicket.titre}"> </span><span
 									class="spanTitle">Ticket</span>
-							</h2>
+							</h3>
 						</div>
 
 
@@ -145,8 +146,9 @@
 											<div class="">
 												<label for="exampleFormControlTextarea1 "
 													class="form-label  ml-3"><span
-													th:text="#{creationTicket.tags}" class="spanTitleTag"></span> </br> <span
-													th:text="#{creationTicket.appuyerVirgule}"> </span> </label>
+													th:text="#{creationTicket.tags}" class="spanTitleTag"></span>
+													</br> <span th:text="#{creationTicket.appuyerVirgule}"> </span>
+												</label>
 											</div>
 											<div class="tags-input tagsInput  pb-2" data-name="tagsinput"></div>
 										</div>
@@ -166,7 +168,8 @@
 									<div class="row justify-content-center ">
 
 										<button type="submit"
-											class="btn btn-outline-primary btn-lg mt-3 col-7 col-lg-5" th:text="#{creationTicket.valider}">
+											class="btn btn-outline-primary btn-lg mt-3 col-7 col-lg-5"
+											th:text="#{creationTicket.valider}">
 											<br>
 										</button>
 
@@ -179,21 +182,40 @@
 						</form>
 						<!-- END FORM  -->
 						<!-- Voir les réponses  -->
-						<div class="col-6">
-							<form action="voirSoluce" method="post" target="_blank">
-								<button title="Propositions de solutions concernant mes tags"
-									type="submit"
-									class="btn btn-outline-primary btn-lg mt-3 col-7 col-lg-5">
-									Propositions</button>
-							</form>
-						</div>
+
 
 
 
 						<!--  END CARD  -->
 					</div>
 				</div>
+				<div class="ouJointure col-12 col-lg-1">
+					<h1>OU</h1>
+				</div>
+
+				<!-- card recherche solution identiques par tags -->
+				<div class="card solutAlt col-12 col-lg-3">
+					<div class="card-body">
+						<div class="col-12">
+							<h2>
+								<span th:text="#{creationTicket.voirSolution}" ></span> <span th:text="#{creationTicket.possible}" class="spanTitleAlt"></span>
+							</h2>
+						</div>
+						<div class="col-12">
+							<form action="voirExample" method="post" target="_blank">
+								<div class="tagsAlt mt-5">
+									<div class="tags-input tagsInput  pb-2" data-name="tagsinput"></div>
+								</div>
+								<button title="Propositions de solutions concernant mes tags"
+									type="submit" class="btn btn-outline-primary btnProp col-12">
+									Propositions</button>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
+
+
 
 			<!--  SCRIPTS  -->
 			<!-- Optional JavaScript; choose one of the two! -->
