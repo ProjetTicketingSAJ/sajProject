@@ -380,7 +380,7 @@ public class AspirantController {
 
 	// Fermer l'inspection de l'un des tickets proposé
 	@RequestMapping(path = "/voirSoluce", method = RequestMethod.POST)
-	public String retoutEnArriere(Model m, HttpServletRequest request, @ModelAttribute Tickets tickets) {
+	public String retourEnArriere(Model m, HttpServletRequest request, @ModelAttribute Tickets tickets) {
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);
