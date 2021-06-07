@@ -136,6 +136,10 @@ btnProp {
 .modal-title{
 	color: #0080ff;
 }
+
+.filtre-tickets{
+	margin-bottom: -72px !important;
+}
 @media all and (max-device-width: 480px) {
 	.ticketList {
 		overflow: scroll;
