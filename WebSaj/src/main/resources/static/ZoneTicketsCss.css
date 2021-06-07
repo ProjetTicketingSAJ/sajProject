@@ -66,8 +66,24 @@ a:link {
 	text-decoration: none;
 }
 
-.ticketList .action {
-	text-align: center;
+.ticketTable .idTicket {
+	width: 3%;
+	text-align: center !important;
+}
+.ticketTable .titreTicket {
+	text-align: center !important;
+}
+.ticketTable .dateCrea {
+	width:10%;
+	text-align: center !important;
+}
+.ticketTable .statuTicket {
+		width:10%;
+	text-align: center !important;
+}
+.ticketTable .colAction {
+		width:15%;
+	text-align: center !important;
 }
 
 .ticketList .bell {

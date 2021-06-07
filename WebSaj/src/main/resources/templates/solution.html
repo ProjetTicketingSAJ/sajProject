@@ -126,7 +126,7 @@
 						<div class="" th:object="${ticket}">
 							<div class="row mainCardInfo">
 								<!-- DESCRIPTION  -->
-								<div class="card infoCards col-12 col-lg-3">
+								<div class="card infoCards col-12 col-lg-6">
 									<div class="card-header"
 										th:text="#{creationTicket.problemDescription}"></div>
 									<div class="card-body">
@@ -137,7 +137,7 @@
 
 
 								<!-- EXCEPTION  -->
-								<div class="card infoCards col-12  col-lg-4">
+								<div class="card infoCards col-12  col-lg-5">
 									<div class="card-header" th:text="#{creationTicket.console}"></div>
 									<div class="card-body">
 										<p class="card-text"
@@ -171,7 +171,7 @@
 							<input type="hidden" th:value="${ticket.id}" name="idTicket">
 							<input type="hidden" th:value="${intervention.id}"
 								name="idIntervention">
-							<div class="card-header">Solution proposée</div>
+							<div class="card-header soluTitle">Solution proposée</div>
 							<div class="card-body">
 								<p class="card-text"
 									th:text="${intervention.solution != null} ? ${intervention.solution}"></p>
@@ -179,7 +179,7 @@
 
 
 							<div class="row  justify-content-around">
-								<div class="col-5">
+								<div class="col-6 ReponseBtn">
 
 									<button type="submit"
 										class="btn btn-outline-success btnValidateSolution"
@@ -194,8 +194,8 @@
 
 								</div>
 						</form>
-						<div class="col-5">
-							<form action="pasLaReponse">
+						<div class="col-6">
+							<form action="pasLaReponse" class="ReponseBtn">
 								<button type="submit" class="btn btn-outline-danger"
 									style="border: transparent;">
 									<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
@@ -212,8 +212,8 @@
 			</div>
 
 
-		<!--END SOLUTION  -->
-	</div>
+			<!--END SOLUTION  -->
+		</div>
 
 
 

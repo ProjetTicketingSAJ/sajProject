@@ -64,6 +64,12 @@ html body {
 	font-weight: bolder;
 	color: #0080ff;
 }
+.about-info p {
+    font-weight: bold;
+    color: #676577;
+}
+}
+
 .spanIndexBlue{
 	color: #000000 !important; 
 	font-weight: normal !important;
