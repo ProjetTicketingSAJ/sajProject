@@ -1,0 +1,7 @@
+{
+  "name": "SAJ project",
+  "description": "SAJ PROJECT AFPA ",
+  "repository": "https://github.com/ProjetTicketingSAJ/sajProject",
+  "image": "heroku/java",
+
+}
