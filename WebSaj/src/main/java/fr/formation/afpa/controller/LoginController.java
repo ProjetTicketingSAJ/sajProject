@@ -1,5 +1,4 @@
 
-
 package fr.formation.afpa.controller;
 
 import java.security.Principal;
@@ -64,6 +63,18 @@ public class LoginController {
 	public LoginController() {
 	}
 
+	@Autowired
+	public LoginController(UserService userService, LanguageLibraryService languageLibraryService,
+			CodingLanguageService codingLanguageService, TicketService ticketService, OffreService offreService,
+			IRoleService iRoleService) {
+		this.userService = userService;
+		this.languageLibraryService = languageLibraryService;
+		this.ticketService = ticketService;
+		this.codingLanguageService = codingLanguageService;
+		this.offreService = offreService;
+		this.iRoleService = iRoleService;
+	}
+
 	/*
 	 * redirection Creation profil USER avec ajout de list de langages
 	 */
@@ -89,16 +100,17 @@ public class LoginController {
 			return "pageInscription";
 		}
 		System.err.println("NO BINDING RESULT ERROR");
+
 		String passw = user.getPassword();
 		user.setPassword(EncrytedPasswordUtils.encrytePassword(passw));
 		user.setEnabled(true);
 		if (user.getTitle().equals("A")) {
-			Set <AppRole> role = iRoleService.findByRoleId(2L);
+			Set<AppRole> role = iRoleService.findByRoleId(2L);
 			user.setRoles(role);
 			userService.save(user);
 		} else {
 			user.setCodingLanguage(listLang);
-			Set <AppRole> role = iRoleService.findByRoleId(2L);
+			Set<AppRole> role = iRoleService.findByRoleId(2L);
 			user.setRoles(role);
 			userService.save(user);
 		}
@@ -115,17 +127,6 @@ public class LoginController {
 		return "404Errorpage";
 	}
 
-	@Autowired
-	public LoginController(UserService userService, LanguageLibraryService languageLibraryService,
-			CodingLanguageService codingLanguageService, TicketService ticketService, OffreService offreService,IRoleService iRoleService) {
-		this.userService = userService;
-		this.languageLibraryService = languageLibraryService;
-		this.ticketService = ticketService;
-		this.codingLanguageService = codingLanguageService;
-		this.offreService = offreService;
-		this.iRoleService = iRoleService;
-	}
-
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String listEmp(Model model) {
 		return "index";
@@ -134,7 +135,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model m, Principal principal) {
 		return "redirect:/accueil";
-	} 
+	}
 
 	/*
 	 * Méthode validation Login qui donne accès à l'accueil
@@ -228,6 +229,5 @@ public class LoginController {
 		}
 		return "403Page";
 	}
-
 
 }
