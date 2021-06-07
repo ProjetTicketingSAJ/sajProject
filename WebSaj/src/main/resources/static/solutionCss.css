@@ -54,7 +54,10 @@ html body {
 	margin-bottom: 2%;
 	margin-top: 3% !important;
 	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-
+}
+.cardValid{
+		margin-bottom: 3%;
+	margin-top: 3% !important;
 }
 
 .btnDownloadFile {
@@ -68,11 +71,11 @@ html body {
 	justify-content: space-around;
 }
 
-.mainCardInfo{
+.mainCardInfo {
 	display: flex;
-justify-content: space-around;
+	justify-content: space-around;
 }
 
-.dropFile span{
-font-weight: bolder !important;
+.dropFile span {
+	font-weight: bolder !important;
 }
