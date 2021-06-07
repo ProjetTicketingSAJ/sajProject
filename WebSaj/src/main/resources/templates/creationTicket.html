@@ -56,7 +56,8 @@
 						<div class="headTitle col-12 col-lg-8">
 							<h2>
 								<!-- Title -->
-							<span th:text="#{creationTicket.titre}">	</span><span class="spanTitle">Ticket</span>
+								<span th:text="#{creationTicket.titre}"> </span><span
+									class="spanTitle">Ticket</span>
 							</h2>
 						</div>
 
@@ -64,7 +65,8 @@
 
 						<!-- Title FORM  -->
 						<form action="createTicket" th:object="${tickets}" method="post"
-							id="myform" enctype="multipart/form-data" class="needs-validation" novalidate>
+							id="myform" enctype="multipart/form-data"
+							class="needs-validation" novalidate>
 
 							<div class="row">
 
@@ -72,7 +74,7 @@
 								<div class="mt-7 col-12 col-lg-6">
 									<input type="text" class="form-control mb-3"
 										id="formGroupExampleInput"
-										placeholder="Entrez le titre de votre ticket"
+										th:placeholder="#{creationTicket.placeHolderTitre}"
 										th:field="*{titre}" required>
 
 									<div class="invalid-feedback">
@@ -80,14 +82,14 @@
 											th:errors="*{titre}"></p>
 									</div>
 								</div>
-				
+
 
 								<!-- Language Select-->
 								<div class="col-12 col-lg-6">
 									<select th:field="*{codingLanguage}"
 										class="form-select form-select mb-3"
 										aria-label=".form-select example" required>
-										<option value="">Sélectionnez votre techno</option>
+										<option value="" th:text="#{creationTicket.techSelec}"></option>
 										<option th:each="language : ${languageList}"
 											th:value="${language.id}" th:utext="${language.name}">Java</option>
 									</select>
@@ -96,7 +98,7 @@
 											th:if="${#fields.hasErrors('codingLanguage')}"
 											th:errors="*{codingLanguage}"></p>
 									</div>
-							
+
 
 
 
@@ -110,8 +112,8 @@
 								<!-- problem description  -->
 								<div class="probleme d-inline-flex col-12 col-lg-6">
 									<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label">Description
-											du problème</label>
+										<label for="exampleFormControlTextarea1" class="form-label"
+											th:text="#{creationTicket.problemDescription}"></label>
 										<textarea th:field="*{expoProblematique}"
 											class="form-control col-12 col-lg-12"
 											id="exampleFormControlTextarea1" rows="3" required></textarea>
@@ -120,15 +122,15 @@
 											<p th:if="${#fields.hasErrors('expoProblematique')}"
 												th:errors="*{expoProblematique}"></p>
 										</div>
-										
+
 									</div>
 								</div>
 
 								<!-- exception in console  -->
 								<div class="exception  d-inline-flex col-12 col-lg-6">
 									<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label">Exception
-											dans la console</label>
+										<label for="exampleFormControlTextarea1" class="form-label"
+											th:text="#{creationTicket.console}"></label>
 										<textarea th:field="*{exceptionConsole}"
 											class="form-control col-12 col-lg-12"
 											id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -142,9 +144,9 @@
 										<div class="mb-3">
 											<div class="">
 												<label for="exampleFormControlTextarea1 "
-													class="form-label  ml-3">Ajoutez vos tags </br> <span>Appuyer
-														sur ' , ' afin de valider votre tag</span>
-												</label>
+													class="form-label  ml-3"><span
+													th:text="#{creationTicket.tags}" class="spanTitleTag"></span> </br> <span
+													th:text="#{creationTicket.appuyerVirgule}"> </span> </label>
 											</div>
 											<div class="tags-input tagsInput  pb-2" data-name="tagsinput"></div>
 										</div>
@@ -153,23 +155,23 @@
 								<!-- File Input -->
 								<div class="col-12 col-lg-4">
 
-							<div>
-							<input class="form-control inputFile" type="file"
-								name="fileUpload" id="fileUpload"
-																				accept=".doc,.docx,.pdf,.txt" multiple>
-																		</div>
+									<div>
+										<input class="form-control inputFile" type="file"
+											name="fileUpload" id="fileUpload"
+											accept=".doc,.docx,.pdf,.txt" multiple>
+									</div>
 
 
 									<!-- BUTTON VALIDATE -->
 									<div class="row justify-content-center ">
 
 										<button type="submit"
-											class="btn btn-outline-primary btn-lg mt-3 col-7 col-lg-5">
-											Valider<br>
+											class="btn btn-outline-primary btn-lg mt-3 col-7 col-lg-5" th:text="#{creationTicket.valider}">
+											<br>
 										</button>
 
 									</div>
-									
+
 								</div>
 							</div>
 
@@ -179,9 +181,10 @@
 						<!-- Voir les réponses  -->
 						<div class="col-6">
 							<form action="voirSoluce" method="post" target="_blank">
-								<button title="Propositions de solutions concernant mes tags" type="submit" class="btn btn-outline-primary btn-lg mt-3 col-7 col-lg-5">
-								Propositions
-								</button>
+								<button title="Propositions de solutions concernant mes tags"
+									type="submit"
+									class="btn btn-outline-primary btn-lg mt-3 col-7 col-lg-5">
+									Propositions</button>
 							</form>
 						</div>
 

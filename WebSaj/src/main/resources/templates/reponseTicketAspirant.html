@@ -52,9 +52,9 @@
 		<!-- 	start page div -->
 		<div class="content">
 
-			<div class="row justify-content-center">
+			<div class="row justify-content-around">
 				<!-- START MAIN CARD -->
-				<div class="card cardTicket col-12 col-lg-10 ">
+				<div class="card cardTicket col-12 col-lg-7 ">
 					<div class="card-body">
 
 
@@ -62,7 +62,7 @@
 
 						<div class="row">
 							<!-- TICKET ID  -->
-							<div class="col-12 col-lg-6">
+							<div class="col-12 col-lg-4">
 								<h2>
 									Ticket n° <span class="badge rounded-pill bg-primary"
 										th:text="${ticket.id}"></span>
@@ -70,37 +70,53 @@
 							</div>
 							<!-- TICKET Title -->
 							<div class="col-12 col-lg-6">
-								<h2 th:text="${tableau.titre}">
-									<span class="badge bg-primary" th:text="${ticket.titre}"></span>
+								<h2>
+									<span th:text="#{tableau.titre}"></span> <span
+										class="badge bg-primary spanTitle" th:text="${ticket.titre}"></span>
 								</h2>
 							</div>
-							<!-- TICKET FILE DOWNLAOD  -->
-							<div class="dropdown show">
-								<a class="btn btn-secondary dropdown-toggle btnDownloadFile"  href="#"
-									role="button" id="dropdownMenuLink" data-toggle="dropdown"
-									aria-haspopup="true" aria-expanded="false"> <svg
-										xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-										fill="currentColor" class="bi bi-journal-arrow-down"
-										viewBox="0
-									0 16 16"> <path fill-rule="evenodd"
-											d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
-									<path
-											d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
-									<path
-											d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+							<div class="col-2">
+								<form action="voirSoluce" method="post">
+									<button type="submit" class="btn btn-outline-danger"
+										style="border: transparent;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+											fill="currentColor" class="bi bi-x-lg btnValidateSolution"
+											viewBox="0 0 16 16">
+  										<path
+												d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z" />
 									</svg>
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<div th:each="file : ${files}">
-										<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
-											<span th:text="${file.name}"></span>
-										</a>
-									</div>
-								</div>
+									</button>
+								</form>
 							</div>
-
 							<!-- END CLASS ROW  -->
 						</div>
+						<!-- TICKET FILE DOWNLAOD  -->
+						<div class="dropdown show">
+							<a class="btn btn-secondary dropdown-toggle btnDownloadFile"
+								href="#" role="button" id="dropdownMenuLink"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> <svg
+									xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+									fill="currentColor" class="bi bi-journal-arrow-down"
+									viewBox="0
+									0 16 16"> <path fill-rule="evenodd"
+										d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
+									<path
+										d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+									<path
+										d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+									</svg>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<div th:each="file : ${files}">
+									<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
+										<span th:text="${file.name}"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+
+
 
 
 						<!-- INFO TICKETS / DESCRIPTION & EXCEPTION  -->
@@ -108,7 +124,8 @@
 							<div class="row mainInfoTickets">
 								<!-- DESCRIPTION  -->
 								<div class="card probleme col-12 col-lg-5">
-									<div class="card-header" th:text="#{creationTicket.problemDescription}"></div>
+									<div class="card-header"
+										th:text="#{creationTicket.problemDescription}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
@@ -125,74 +142,61 @@
 								</div>
 							</div>
 						</div>
-							<!-- Solution  -->
-								<div class="card exception col-12  col-lg-5">
-									<div class="card-header" th:text="#{proposition.soluce}"></div>
-									<div class="card-body">
-										<p class="card-text"
-											th:text="${ticket.exceptionConsole != null} ? ${ticket.solutionTicket}"></p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
-						<div class="col-6">
-							<form action="voirSoluce" method="post">
-								<button type="submit" class="btn btn-outline-danger"
-														style="border: transparent;">
-									<svg xmlns="http://www.w3.org/2000/svg" width="35"
-															height="35" fill="currentColor"
-															class="bi bi-x-lg btnValidateSolution"
-															viewBox="0 0 16 16">
-  										<path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z" />
-									</svg>
-								</button>
-							</form>
-						</div>
-
-						<!-- 						<div class="card"> -->
-						<!-- 							<div class="card-body"> -->
-
 						<!-- BADGES LANGUAGE TAGS -->
-						<div class="row m-3">
-							<h3>
-								<span class="badge bg-primary" style="margin: 2%;"
-									th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
-							</h3>
-						</div>
-						<!-- 							</div> -->
-						<!-- 						</div> -->
-						<!-- END  BADGES LANGUAGE TAGS -->
-					</div>
-					<!-- END MAIN ROW -->
-					<script
-						src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-						integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-						crossorigin="anonymous"></script>
+				<div class="row m-3">
+					<h3>
+						<span class="badge bg-primary" style="margin: 2%;"
+							th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
+					</h3>
+				</div>
 
-					<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-					<script
-						src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-					<script
-						src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-					<script
-						src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-					<script
-						src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-					<script
-						src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+					</div>
 
 				</div>
+				<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
+
+
+				<!-- 						<div class="card"> -->
+				<!-- 							<div class="card-body"> -->
+
+				
+				<!-- Solution  -->
+				<div class="card exception col-12  col-lg-4">
+					<div class="card-header" th:text="#{proposition.soluce}"></div>
+					<div class="card-body">
+						<p class="card-text"
+							th:text="${ticket.exceptionConsole != null} ? ${ticket.solutionTicket}"></p>
+					</div>
+				</div>
+
 			</div>
-			<!-- END MAIN CARD -->
+			<!-- END MAIN ROW -->
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+				crossorigin="anonymous"></script>
 
-			<!-- END content div -->
-		</div>
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+			<script
+				src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
 
-		<!--Navigation bar-->
-		<footer th:insert="footer.html"> </footer>
-		<!--end of Navigation bar-->
-		<!-- END page div -->
+	<!-- END MAIN CARD -->
+
+	<!-- END content div -->
+	</div>
+
+	<!--Navigation bar-->
+	<footer th:insert="footer.html"> </footer>
+	<!--end of Navigation bar-->
+	<!-- END page div -->
 	</div>
 </body>
 </html>

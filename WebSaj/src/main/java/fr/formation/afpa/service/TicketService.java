@@ -86,9 +86,9 @@ public class TicketService implements ITicketService {
 	}
 
 	@Override
-	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary) {
+	public List<Tickets> findDistinctByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary){
 
-		return dao.findByStatutLikeAndLanguageLibraryIn(statut, languageLibrary);
+		return dao.findDistinctByStatutLikeAndLanguageLibraryIn(statut, languageLibrary);
 	}
 
 	@Override

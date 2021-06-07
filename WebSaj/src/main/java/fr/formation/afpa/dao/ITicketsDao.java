@@ -39,7 +39,7 @@ public interface ITicketsDao extends JpaRepository<Tickets, Integer> {
 
 	public List<Tickets> findByLanguageLibraryIn(Set languageLibrary);
 
-	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
+	public List<Tickets> findDistinctByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
 
 	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary);
 	

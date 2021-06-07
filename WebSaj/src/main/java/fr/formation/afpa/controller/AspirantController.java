@@ -10,7 +10,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set; 
+import java.util.Set;
+import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -263,7 +266,7 @@ public class AspirantController {
 		tickets.setStatut(statutOuvert);
 		tickets.setLanguageLibrary(set);
 		tickets.setAspirantId(id);
-
+		tickets.setLikes(0);
 		System.out.println(tickets.getLanguageLibrary());
 		System.out.println(tickets);
 
@@ -379,7 +382,8 @@ public class AspirantController {
 		// Recherche du ticket que l'on vient de save
 		Tickets ticketTags = ticketService.lastCreatedTicket(id);
 
-		List<Tickets> getTage = ticketService.findByStatutLikeAndLanguageLibraryIn(statutFermer,
+		
+		List<Tickets> getTage = ticketService.findDistinctByStatutLikeAndLanguageLibraryIn(statutFermer,
 				ticketTags.getLanguageLibrary());
 		List<Tickets> getTageTopLikes = ticketService.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(
 				statutFermer, ticketTags.getLanguageLibrary());
