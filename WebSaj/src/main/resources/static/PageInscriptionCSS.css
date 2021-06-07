@@ -812,5 +812,5 @@ select.form-control {
 	margin-left: 5%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-gap: 2px;
+	grid-gap: 10px;
 }

@@ -63,7 +63,7 @@
 				<div class="card-body ticketCard col-12">
 					<div class="title">
 							<h2>
-								Pool <span>Tickets </span>
+							<span th:text="#{zoneTickets.titre}"></span>	 <span class="spanTitle">Tickets </span>
 							</h2>
 						</div>
 		     
@@ -121,7 +121,11 @@
 									<!-- <td th:text="${ticket.languageLibrary.codingLanguage.name}"></td> -->
 									<td th:text="${ticket.dateCreation}"></td>
 									<!-- <td class="tempsrestant">36h</td> -->
-									<td th:text="${ticket.statut}"></td>
+									<td><svg xmlns="http://www.w3.org/2000/svg" width="35"
+															height="35" fill="green" class="bi bi-circle-fill"
+															viewBox="0 0 16 16">
+													<circle cx="8" cy="8" r="8" />
+										</svg></td>
 
 									<td class="flexBtn">
 
@@ -354,7 +358,7 @@
 									<label class="control-label">Date limite</label>
 									<div>
 										<input type="date" id="datefield"
-											class="form-control input-lg" name="dateLimite">
+											class="form-control input-lg" name="dateLimite" min="2021-07-06">
 									</div>
 								</div>
 

@@ -45,7 +45,7 @@ html body {
 /* END FOOTER */
 
 /* TITLE  */
-.headTitle span {
+.headTitle .spanTitle {
 	color: #0080ff;
 	font-size: 45px;
 	font-weight: 700;

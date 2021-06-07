@@ -180,6 +180,11 @@ html body {
 	height: 50px;
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
 }
+.ticketCreate .spanTitleTag {
+	color: #0080ff;
+	font-size: 20px;
+	font-weight: 700;
+}
 .main-input{
 		box-shadow: 2px 2px 2px 1px rgba(0.1, 0.1, 0.1, .2) !important;
 }

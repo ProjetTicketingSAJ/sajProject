@@ -37,7 +37,7 @@ public interface ITicketService {
 	public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
 			Set languageLibrary);
 
-	public List<Tickets> findByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
+	public List<Tickets> findDistinctByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
   
   public List<Tickets> findTicketsToModifierOffer(@Param("idIntervenant") Integer idIntervenant);
 	
