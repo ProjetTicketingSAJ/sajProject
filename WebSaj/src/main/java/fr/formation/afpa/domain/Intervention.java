@@ -36,7 +36,7 @@ public class Intervention implements java.io.Serializable {
 	private Tickets tickets = new Tickets();
 	private UserProfile users = new UserProfile();
 	private Set<Note> notes = new HashSet<Note>(0);
-	@NotEmpty
+	
 	private String solution;
 	private boolean solutionRecue;
 	private boolean detache;

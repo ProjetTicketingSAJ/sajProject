@@ -47,7 +47,9 @@ public class UserRoleService implements UserDetailsService,IRoleService {
                 appUser.getPassword(), grantList);
         return userDetails;
     }
-    public Set<AppRole> findByRoleId(Long id){
-    	return iroleDao.findByRoleId(id);
-    }
+	@Override
+	public Set<AppRole> findByRoleId(Long id) {
+		return iroleDao.findByRoleId(id);
+	}
+   
 }

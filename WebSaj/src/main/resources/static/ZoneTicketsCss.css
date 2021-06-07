@@ -93,7 +93,7 @@ a:link {
 .title {
 margin-bottom: -60px;}
 
-.title span {
+.title .spanTitle {
 	color: #0080ff;
 	font-size: 45px;
 	font-weight: 700;

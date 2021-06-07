@@ -114,8 +114,44 @@ public class IntervenantController {
 	}
 
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
-	@RequestMapping(path = "/monTicketintervenant", method = RequestMethod.POST)
+	@RequestMapping(path = "/monTicketintervenantAvecProposition", method = RequestMethod.POST)
 	public String monTicket(Model m, @RequestParam String idTicket) {
+		System.out.println(idTicket);
+		Integer id = Integer.parseInt(idTicket);
+		Optional<Tickets> ticket = ticketService.findById(id);
+		String solution = new String();
+		
+		// Récupération des Tags du ticket
+		Set<LanguageLibrary> libraryTicket = ticket.get().getLanguageLibrary();
+
+		List<String> listLibrary = new ArrayList<String>();
+		// Ajout des noms des tags du ticket à une liste de noms
+		for (LanguageLibrary l : libraryTicket) {
+			listLibrary.add(l.getNom());
+			System.out.println(l.getNom());
+		}
+
+		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
+
+		// Recherche et envoi des fichiers liés qu ticket
+		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
+		List<FileDb> files = new ArrayList<>();
+
+		for (FileDb f : tickets.getFile()) {
+			if (f.getFichier().length > 0) {
+				files.add(f);
+			}
+		}
+		
+		m.addAttribute("listLibrary", listLibrary);
+		m.addAttribute("files", files);
+		m.addAttribute("solution", solution);
+		return "monTicketIntervenantAvecProposition";
+
+	}
+	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
+	@RequestMapping(path = "/monTicketintervenant", method = RequestMethod.POST)
+	public String monTicketInter(Model m, @RequestParam String idTicket) {
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);
@@ -149,6 +185,7 @@ public class IntervenantController {
 		return "monTicketIntervenant";
 
 	}
+
 
 	/*
 	 * Proposition d'une soluce
@@ -205,7 +242,7 @@ public class IntervenantController {
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
 
-		return "monTicketIntervenant";
+		return "redirect:/ticketsInervenant";
 
 	}
 

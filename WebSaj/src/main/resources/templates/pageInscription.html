@@ -146,7 +146,7 @@
 												<input class="form-check-input inputLabel "
 													onclick="javascript:yesnoCheck();" type="radio"
 													name="inlineRadioOptions" id="aspirant" value="A"
-													th:field="*{title}"> <label
+													th:field="*{title}" required> <label
 													class="form-check-label  checkLabel" for="inlineRadio1"
 													th:text="#{inscription.roleAspi}"></label>
 											</div>
@@ -154,7 +154,7 @@
 												<input class="form-check-input inputLabel"
 													onclick="javascript:yesnoCheck();" type="radio"
 													name="inlineRadioOptions" id="intervenant" value="I"
-													th:field="*{title}"> <label
+													th:field="*{title}" required> <label
 													class="form-check-label checkLabel" for="inlineRadio2"
 													th:text="#{inscription.roleInter}"></label>
 											</div>

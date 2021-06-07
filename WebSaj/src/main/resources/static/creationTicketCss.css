@@ -115,7 +115,7 @@ html body {
 }
 
 /* TITLE */
-.ticketCreate span {
+.ticketCreate .spanTitle {
 	color: #0080ff;
 	font-size: 45px;
 	font-weight: 700;
