@@ -282,35 +282,9 @@ public class AspirantController {
 			return "redirect:/creationTicket";
 		}
 
-		// --------------------recherche de solution par tag
-
-		// Recherche du ticket que l'on vient de save
-		Tickets ticketTags = ticketService.lastCreatedTicket(id);
-
-		List<Tickets> getTage = ticketService.findByStatutLikeAndLanguageLibraryIn(statutFermer,
-				ticketTags.getLanguageLibrary());
-		List<Tickets> getTageTopLikes = ticketService.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(
-				statutFermer, ticketTags.getLanguageLibrary());
-		System.err.println("ØØØØØØØØØØØØØØØØØØØØØØØØØØfindByLanguageLibraryInØØØØØØØØØØØØØØØØØØØØØØØØØØØ");
-		System.out.println("+++++Toutes+++++" + ticketTags.getLanguageLibrary());
-		for (Tickets tt : getTage) {
-			System.out.println("getTage" + tt.getTitre());
-
-		}
-		System.err.println(
-				"ØØØØØØØØØØØØØØØØØØØØØØØØØØfindByLanguageLibraryIn ORDER BY TOP 3 ØØØØØØØØØØØØØØØØØØØØØØØØØØØ");
-		for (Tickets tt : getTageTopLikes) {
-			System.out.println("getTageTopLikes" + tt.getTitre());
-
-		}
-		m.addAttribute("getTage", getTage);
-		m.addAttribute("getTageTopLikes", getTageTopLikes);
-
-		
-		
 		
 	
-		return "redirect:/creationTicket";
+		return "redirect:/ticketsAspirant";
 
 	}
 

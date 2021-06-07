@@ -82,8 +82,9 @@
 							</div>
 							<!-- TICKET Title -->
 							<div class="mt-7 col-12 col-lg-7">
-								<h2 th:text="#{tableau.titre}">
-									Title: <span class="badge bg-primary" th:text="${ticket.titre}"></span>
+							<h2>
+								<span th:text="#{tableau.titre}"></span>
+								 <span class="badge bg-primary" th:text="${ticket.titre}"></span>
 								</h2>
 							</div>
 						</div>
@@ -127,7 +128,7 @@
 							<div class="row mainCardInfo">
 								<!-- DESCRIPTION  -->
 								<div class="card infoCards col-12 col-lg-3">
-									<div class="card-header">Description</div>
+									<div class="card-header" th:text="#{creationTicket.problemDescription}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
@@ -137,7 +138,7 @@
 
 								<!-- EXCEPTION  -->
 								<div class="card infoCards col-12  col-lg-4">
-									<div class="card-header">Exception console</div>
+									<div class="card-header" th:text="#{creationTicket.console}"></div>
 									<div class="card-body">
 										<p class="card-text"
 											th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>

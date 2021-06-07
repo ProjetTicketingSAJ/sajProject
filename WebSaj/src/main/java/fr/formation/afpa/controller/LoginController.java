@@ -29,10 +29,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import fr.formation.afpa.domain.AppRole;
 import fr.formation.afpa.domain.CodingLanguage;
 import fr.formation.afpa.domain.Tickets;
 import fr.formation.afpa.domain.UserProfile;
 import fr.formation.afpa.service.CodingLanguageService;
+import fr.formation.afpa.service.IRoleService;
 import fr.formation.afpa.service.LanguageLibraryService;
 import fr.formation.afpa.service.OffreService;
 import fr.formation.afpa.service.TicketService;
@@ -46,6 +48,7 @@ public class LoginController {
 	CodingLanguageService codingLanguageService;
 	UserService userService;
 	LanguageLibraryService languageLibraryService;
+	IRoleService iRoleService;
 	TicketService ticketService;
 	OffreService offreService;
 	String statutOuvert = "O";
@@ -81,6 +84,8 @@ public class LoginController {
 			@RequestParam(value = "idChecked", required = false) Set<CodingLanguage> listLang) {
 		if (result.hasErrors()) {
 			System.err.println("BINDING RESULT ERROR" + result);
+			List<CodingLanguage> langList = codingLanguageService.findAll();
+			model.addAttribute("langList", langList);
 			return "pageInscription";
 		}
 		System.err.println("NO BINDING RESULT ERROR");
@@ -88,13 +93,13 @@ public class LoginController {
 		user.setPassword(EncrytedPasswordUtils.encrytePassword(passw));
 		user.setEnabled(true);
 		if (user.getTitle().equals("A")) {
+			Set <AppRole> role = iRoleService.findByRoleId(2L);
+			user.setRoles(role);
 			userService.save(user);
 		} else {
 			user.setCodingLanguage(listLang);
-//          User userFake =  userService.findTopByOrderByIdDesc();
-//          Integer idFake = userFake.getId();
-//          idFake += 1;
-//          user.setId(idFake);
+			Set <AppRole> role = iRoleService.findByRoleId(2L);
+			user.setRoles(role);
 			userService.save(user);
 		}
 		return "index";
@@ -112,12 +117,13 @@ public class LoginController {
 
 	@Autowired
 	public LoginController(UserService userService, LanguageLibraryService languageLibraryService,
-			CodingLanguageService codingLanguageService, TicketService ticketService, OffreService offreService) {
+			CodingLanguageService codingLanguageService, TicketService ticketService, OffreService offreService,IRoleService iRoleService) {
 		this.userService = userService;
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
 		this.codingLanguageService = codingLanguageService;
 		this.offreService = offreService;
+		this.iRoleService = iRoleService;
 	}
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
@@ -128,7 +134,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model m, Principal principal) {
 		return "redirect:/accueil";
-	}
+	} 
 
 	/*
 	 * Méthode validation Login qui donne accès à l'accueil
