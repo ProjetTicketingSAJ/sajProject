@@ -82,18 +82,14 @@ html body {
 	font-size: 20px;
 }
 
-
 .tags {
 	display: flex;
 	flex-direction: column;
 }
 
-
-
 .probleme {
 	display: flex;
 	flex-direction: column;
-
 	height: 100%;
 }
 
@@ -172,7 +168,6 @@ html body {
 }
 
 .tagsInput {
-
 	border: transparent;
 }
 
@@ -180,16 +175,19 @@ html body {
 	height: 50px;
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
 }
+
 .ticketCreate .spanTitleTag {
 	color: #0080ff;
 	font-size: 20px;
 	font-weight: 700;
 }
-.main-input{
-		box-shadow: 2px 2px 2px 1px rgba(0.1, 0.1, 0.1, .2) !important;
+
+.main-input {
+	box-shadow: 2px 2px 2px 1px rgba(0.1, 0.1, 0.1, .2) !important;
 }
+
 .inputFile {
-background: transparent !important;
+	background: transparent !important;
 	margin-top: 20%;
 	margin-left: 20%;
 }
@@ -227,7 +225,7 @@ background: transparent !important;
 }
 
 @media all and (max-device-width: 780px) {
-		.inputFile {
+	.inputFile {
 		margin-top: 15%;
 		margin-left: 0%;
 	}
@@ -243,6 +241,45 @@ background: transparent !important;
 		margin-left: 0%;
 		height: 100%;
 	}
+}
+
+.solutAlt {
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
+	margin-bottom: 1%;
+}
+
+.solutAlt .spanTitleAlt {
+	font-size: larger;
+	font-weight: bold;
+	color: #0080ff;
+}
+
+.btnProp {
+	margin-top: 30% !important;
+}
+.ouJointure{
+		display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.ouJointure h1{
+	font-size: xxx-large;
+	font-weight: bold;
+	color: #0080ff;
+
+}
+
+@media (max-device-width: 780px) {
+	.ouJointure{
+    display: flex;
+    justify-content: center;
+}
 	
+}
+@media  (max-device-width:450px) {
+	.ouJointure{
+    display: flex;
+    justify-content: center;
+}
 	
 }
