@@ -334,7 +334,16 @@ public class IntervenantController {
 	}
 
 	@RequestMapping("/chatRoom")
-	public String chatRoom() {
+	public String chatRoom(Model m,HttpServletRequest request, @RequestParam("ticketId") String ticketId) {
+		HttpSession httpSession = request.getSession();
+		Integer id = Integer.parseInt(ticketId);
+		System.err.println(id);
+//		String idTicket = String.valueOf(ticketId);
+		
+		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
+		String userLogin = user.getLogin();
+		m.addAttribute("userLogin", userLogin);
+		m.addAttribute("ticketId",  id);
 		return "chatRoom";
 	}
 	
