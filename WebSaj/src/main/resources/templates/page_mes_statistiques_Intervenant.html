@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeLeaf.org">
 
 <head>
   <!-- Required meta tags -->
@@ -18,83 +18,7 @@
 
 
 
-  <!--GOOGLE CHART TICKETS-->
-  <!--Load the AJAX API-->
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
 
-    // Load the Visualization API and the corechart package.
-    google.charts.load('current', { 'packages': ['corechart'] });
-
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawChart);
-
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-    function drawChart() {
-
-      // Create the data table.
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Topping');
-      data.addColumn('number', 'Slices');
-      data.addRows([
-        ['tickets résolus', 20],
-        ['tickets détachés', 10],
-      ]);
-
-      // Set chart options
-      var options = {
-        chartArea: {width:'100%',height:'100%'},
-        'title': 'Tickets',
-        is3D: true,
-      };
-
-      // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-      chart.draw(data, options);
-    }
-  </script>
-
-  <!--GOOGLE CHART NPS-->
-  <!--Load the AJAX API-->
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-
-    // Load the Visualization API and the corechart package.
-    google.charts.load('current', { 'packages': ['corechart'] });
-
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawChart);
-
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-    function drawChart() {
-
-      // Create the data table.
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Topping');
-      data.addColumn('number', 'Slices');
-      data.addRows([
-        ['promoteurs', 15],
-        ['detracteurs ', 4],
-        ['passifs', 6],
-      ]);
-
-      // Set chart options
-      var options = {
-        chartArea: {width:'100%',height:'100%'},
-        'title': 'NPS',
-        is3D: true,
-
-      };
-
-      // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.PieChart(document.getElementById('chart_nps'));
-      chart.draw(data, options);
-    }
-  </script>
 
   <!--GOOGLE CHART progression temporelle-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -144,62 +68,7 @@
 
   <!-- page -->
   <div class="page">
-
-     <!--Début navbar-->
-  <nav class="navbar navbar-light navbar-custom">
-    <div class="logoflex">
-      <a href="ZoneTickets.html"> <img src="\C:\Users\afpa\Documents\Projet\Images\logo.png" alt="saj logo" class="logo align-self-center" height=90 width=100>
-      </a>
-      <nav class="navbar navbar-light bg-light">
-        <form class="form-inline searchFlex">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </nav>
-    </div>
-    <div class="d-flex barCoteDroit">
-      <i class="fas fa-bell"></i>
-      <span class="nom">El Argabi Sofiane</span>
-      <div class="btn-group">
-        <button type="button" class="btn btn-light btn-sm " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="\C:\Users\afpa\Documents\Projet\Images\account.png"
-            class="rounded-circle align-self-center p-2" alt="" height=60
-            width=60>
-        </button>
-       
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="page_mes_statistiques_Intervenant.html">Profil</a></li>
-          
-          <li> 
-          <li><a class="dropdown-item" href="#">Configurations</a></li>
-          
-          <li> 
-             <form action="LogOutController" method="get">
-             <a href="projet_page_login.html"><button type="submit" class="dropdown-item">Déconnexion</button> </a>
-           </form>	
-          </li>
-           
-      
-        </ul>
-      </div>
-
-  </nav>  <!--Fin navbar-->
-    <!-- SubNavbar -->
-    <ul class="nav nav-pills nav-fill menu">
-      <li class="nav-item">
-        <a class="nav-link  sousmenu" href="ProfilIntervenant.html">Mon profil</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active sousmenu" aria-current="page" href="page_mes_statistiques_Intervenant.html">Mes statistiques</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link  sousmenu"
-          href="page_mes_tickets_Intervenant.html">Mes Tickets</a>
-      </li>
-    </ul>
-    <!-- end Navbar -->
-
-
+	<header th:insert="header.html"> </header>
     <!--content -->
     <div class="content">
 
@@ -224,15 +93,16 @@
                 <div class="card border-dark">
                   <div class="card-body">
                     <div class="card-footer border-dark">
-                      <p class="card-text">Nombre de tickets résolus : <span style="color:rgb(38, 0, 255)"> 20</span>
+                  Nombre d'interventions : <p class="card-text" th:text=${nbInterventions} id="nbInterventions"> <span style="color:rgb(38, 0, 255)"></span>
                       </p>
-                      <p class="card-text">Nombre de tickets détachés :<span style="color:rgb(255, 0, 0)"> 10 </span>
+                      
+                 
+                  Nombre d'offres : <p class="card-text" th:text=${nbOffres} id="nbOffres"><span style="color:rgb(22, 94, 0)"> </span>
                       </p>
-                      <p class="card-text">Temps max resolution :<span style="color:rgb(255, 153, 0)"> 3 jours </span>
-                      </p>
-                      <p class="card-text">Temps min resolution :<span style="color:rgb(22, 94, 0)"> 15 min </span>
-                      </p>
-                      Temps moyen de résolution : <span style="color:rgb(22, 94, 0)">2:30:00</span>
+                  
+                  Nombre de détachements : <p class="card-text" th:text=${nbDetachements} id="nbOffres"><span style="color:rgb(22, 94, 0)"> </span>
+                     
+                     </p>
                     </div>
                   </div>
                 </div>
@@ -251,74 +121,22 @@
                   <div class="boutton_ticket">
                     <button type="button" class="btn btn-outline-dark boutton_prog" data-bs-toggle="modal"
                       data-bs-target="#staticBackdrop">
-                      Évolution des tickets dans le temps
+                      Évolution des tickets dans le temps </button>
                   </div>
-                  </button>
+                 
                 </div>
               </div>
             </div>
           </div>
           <!-- card footer -->
           <div class="card-footer text-muted">
-            Nombre de tickets total : <span style="color:rgb(22, 94, 0)">30</span>
+            Nombre total de tickets résolus: <p class="card-text" th:text=${totalTicketsResolus}> <span style="color:rgb(22, 94, 0)"></span>
           </div>
         </div>
 
-
-        <!--card statistiques tickets NPS  (net promtoter score)-->
-
-        <div class="card text-center card-stat col-12 col-lg-6">
-          <div class="card-header">
-            Net Promoter Score
+         
           </div>
-          <div class="card-body">
-
-            <div class="row">
-              <div class="col-12 col-lg-6">
-                <!--first inner card info-->
-                <div class="card border-dark card-nps-info">
-                  <div class="card-body">
-                    <p class="card-text">Nombre de notes total :<span style="color:rgb(22, 94, 0)"> 30</span> </p>
-                    <div class="card-footer border-dark">
-                      <p class="card-text">Nombre de promoteurs : <span style="color:rgb(38, 0, 255)"> 15</span></p>
-                      <p class="card-text">Nombre de passifs :<span style="color:rgb(38, 0, 255)"> 6</span> </p>
-                      <p class="card-text">Nombre de detracteurs : <span style="color:rgb(255, 0, 0)"> 4 </span></p>
-                    </div>
-                  </div>
-                </div>
-                <!-- Button trigger modal Commentaires -->
-                <div class="boutton_comment">
-                  <button type="button" class="btn btn-outline-dark boutton_prog" data-bs-toggle="modal"
-                    data-bs-target="#commentBtn">
-                    Mes commentaires </button>
-                </div>
-              </div>
-
-              <!--Second inner card - TICKETS CHART -->
-              <div class="col-12 col-lg-6">
-                <div class="card_graph">
-                  <div class="card border-dark">
-                    <div class="card-body">
-                      <h5 class="card-title">Graphique</h5>
-                      <div id="chart_nps"></div>
-                    </div>
-                  </div>
-                  <!--boutton modal graphique progression ticket dans le temps-->
-                  <div class="boutton_ticket">
-                    <!-- Button trigger modal nps -->
-                    <button type="button" class="btn btn-outline-dark boutton_prog" data-bs-toggle="modal"
-                      data-bs-target="#modalNps">
-                      Mon NPS
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- card footer -->
-          <div class="card-footer text-muted">
-            Net Promoter Score :<span style="color:rgb(22, 94, 0)"> 84</span>
-          </div>
+        
         </div>
 
 
@@ -353,113 +171,6 @@
 
 
 
-    <!-- Modal NPS -->
-    <div class="modal fade" id="modalNps" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="modalNps" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalNps">Mes notes reçces NPS</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-             <!-- LIST GROUP NOTES  -->
-             <ol class="list-group list-group-numbered">
-              <li class="list-group-item list-group-item-action list-group-item-dark d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold"> JavaFx problème</div>
-                  Net Promoter Score  <span class="badge bg-success rounded-pill"> 9</span>
-                </div>
-                <span class="badge bg-secondary">#015</span>
-              </li>
-              <li class="list-group-item list-group-item-action list-group-item-dark d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Angular</div>
-                  Net Promoter Score  <span class="badge bg-warning  rounded-pill"> 7</span>
-                </div>
-                <span class="badge bg-secondary">#037</span> 
-              </li>
-              <li class="list-group-item list-group-item-action list-group-item-dark d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Spring</div>
-                  Net Promoter Score  <span class="badge bg-danger rounded-pill"> 6</span>
-                </div>
-                <span class="badge bg-secondary">#067</span> 
-              </li>
-            </ol>
-            <!-- LIST GROUP NOTES  -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Modal Commentaires -->
-    <div class="modal fade" id="commentBtn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="commentBtn" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="commentBtn">Mes commentaires</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- LIST GROUP COMMENT    -->
-            <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1"> <span class="badge bg-secondary">#015</span> JavaFx problème</h5>
-                  <small>02/04/2021</small>
-                </div>
-                <p class="mb-1">Mark m'a bien aidé! merci.</p>
-                <small> <span style="color:rgb(0, 0, 0)">Votre réponse :</span> Merci à toi, n'hésites pas </small>
-              </a>
-              <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1"> <span class="badge bg-secondary">#034</span> HTML/CSS FlexBox</h5>
-                  <small class="text-muted">15/03/2021</small>
-                </div>
-                <p class="mb-1">Très compétent et réactif, Merci pour ton aide! </p>
-                <small class="text-muted"> <span style="color:rgb(0, 0, 0)">Votre réponse :</span> ce fut un plaisir de t'aider! n'hésites pas!</small>
-              </a>
-              <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">  <span class="badge bg-secondary">#024</span>  Ajax connection</h5>
-                  <small class="text-muted">07/03/2021</small>
-                </div>
-                <p class="mb-1">Karim est très compétant, je recommande! merci Karim :) </p>
-                <small class="text-muted"><span style="color:rgb(0, 0, 0)">Votre réponse :</span> Je t'en prie, ce fut un plaisir de t'aider ! </small>
-              </a>
-            </div>
-            <!-- LIST GROUP COMMENT    -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ===END MODALS=== -->
-    
-    <!-- End content -->
-  </div>
-
-
-
-  <!-- Footer -->
-  <footer class="bg-light text-center text-lg-start footer">
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © SAJ 2021 Copyright:
-      <a class="text-dark" href="#">saj-solutions.com</a>
-    </div>
-  </footer>
-  <!-- end Footer -->
-
   <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -475,8 +186,51 @@
 
 
 
-  <!-- end page -->
-  </div>
+  <footer th:insert="footer.html"> </footer>
+  <!--GOOGLE CHART TICKETS-->
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+  
+  </script>
+  
+  <script type="text/javascript">
+
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+   
+      data.addColumn('string', 'Topping');
+      data.addColumn('number', 'Slices');
+      data.addRows([
+        ['Nombre d\'offres', [[${nbOffres}]]],
+        ['Nombre d\'interventions',[[${nbInterventions}]]],
+        ['Nombre de détachements',[[${nbDetachements}]]],
+      ]);
+      
+      // Set chart options
+      var options = {
+        chartArea: {width:'100%',height:'100%'},
+        'title': 'Tickets',
+        is3D: true,
+      };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+      chart.draw(data, options);
+    }
+  </script>
+
 
 </body>
 

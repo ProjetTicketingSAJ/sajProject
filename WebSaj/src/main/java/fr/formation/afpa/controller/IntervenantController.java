@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +64,8 @@ public class IntervenantController {
 	PictureService pservice;
 	String statut = "O";
 	String statutEncours = "E";
-
+	String statutFerme = "F";
+	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	public IntervenantController() {
 	}
 
@@ -93,9 +97,27 @@ public class IntervenantController {
 		// suppression des tickets sur lesquels l'intervenant est déjà positionné de la
 		// liste globale
 		listTicketsOuverts.removeAll(listTickets);
-		// Tickets positionnés dont l'intervenant voudrait modifier l'offre
-		List<Tickets> listTicketsAModifier = ticketService.findTicketsToModifierOffer(user.getId());
-		m.addAttribute("listTicketsAModifier", listTicketsAModifier);
+
+		
+		
+		//trouver les offres encore ouvertes sur lesquelles l'intervenant est positionné
+		List<Offre> offres = offreService.findTicketsOuvertsEtNonPerimes(user.getId());
+		//Ajouter à une liste de tickets, toutes les offres qui ne sont pas encore périmées
+		List<Tickets> tickets = new ArrayList<>();
+		for (Offre o :offres) {
+			try {
+				//renvoie false lorsque la date du jour est supérieure à la date de péremption pour chaque offre
+				//le ticket n'est donc pas encore périmé
+				if(compareDateOffer(o.getDatePeremption())==false) {
+				tickets.add(o.getTickets());
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+//		
+		m.addAttribute("listTicketsAModifier", tickets);
+
 		m.addAttribute("listTickets", listTicketsOuverts);
 
 		return "ZoneTickets";
@@ -220,6 +242,7 @@ public class IntervenantController {
 		System.out.println("*******************intervention******************* : " + intervention);
 
 		intervention.setSolution(solution);
+		//Indiquer que la solution a été envoyée
 		intervention.setSolutionRecue(true);
 		interventionService.save(intervention);
 		// envoi des données pour la page d'après
@@ -258,7 +281,19 @@ public class IntervenantController {
 		// Date création ticket
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
+		
+		
 		Date date = convertToDateViaSqlTimestamp(now);
+		// convert date to calendar
+	    Calendar c = Calendar.getInstance();
+	    c.setTime(date);
+	    
+	    // manipulate date
+	    c.add(Calendar.DATE, 2);
+		
+	 // convert calendar to date
+        Date currentDatePlusTwo = c.getTime();
+	    System.err.println("CECI EST LA DATE: " +currentDatePlusTwo);
 		// Recherche du ticket par id
 		Integer id = Integer.parseInt(idTick);
 		Optional<Tickets> ticket = ticketService.findById(id);
@@ -277,6 +312,7 @@ public class IntervenantController {
 
 		Offre offre = new Offre();
 		offre.setDateCreation(date);
+		offre.setDatePeremption(currentDatePlusTwo);
 		offre.setTickets(ticket.get());
 		offre.setDateLimiteSoluce(dateLimite);
 		offre.setMontant(montant);
@@ -289,6 +325,7 @@ public class IntervenantController {
 		return "redirect:/zoneTickets";
 
 	}
+	
 
 	public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
 		return java.sql.Timestamp.valueOf(dateToConvert);
@@ -433,4 +470,37 @@ public class IntervenantController {
 		return "redirect:/zoneTickets";
 
 	}
+	
+	@RequestMapping(path = "/MesStats", method = RequestMethod.GET)
+	public String mesStat(Model m,HttpServletRequest request) {
+		HttpSession httpSession = request.getSession();
+		Integer intervenantId = (Integer) httpSession.getAttribute("aspirantId");
+		UserProfile user = userService.findById(intervenantId).get();
+	    Integer nbInterventions = interventionService.countDistinctByUsers(user);
+		Integer nbOffres = offreService.countDistinctByIntervenant(user);
+		Integer totalTicketsResolus = ticketService.countDistinctByStatutAndIntervenantId(statutFerme, intervenantId);
+		Integer nbDetachements = interventionService.countDistinctByUsersAndDetache(user, true);
+		m.addAttribute("nbInterventions", nbInterventions);
+		m.addAttribute("nbOffres", nbOffres);
+		m.addAttribute("nbDetachements", nbDetachements);
+		m.addAttribute("totalTicketsResolus", totalTicketsResolus);
+	
+		
+		return "page_mes_statistiques_Intervenant";
+	}
+	
+	//savoir si une offre est périmée ou non
+	public static boolean compareDateOffer(Date datePeremp) throws ParseException {
+		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		 String datePeremption = dateFormat.format(datePeremp);
+		if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
+		    return true;
+		}
+		else {
+
+		return false;
+		}
+		
+	}
+	
 }

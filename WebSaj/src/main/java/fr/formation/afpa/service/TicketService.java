@@ -106,4 +106,9 @@ public class TicketService implements ITicketService {
 		return dao.findByIntervenantIdLikeAndStatutLike(intervenantid, statut);
 	}
 
+	@Override
+	public Integer countDistinctByStatutAndIntervenantId(String statut, Integer intervenantId) {
+		return dao.countDistinctByStatutAndIntervenantId(statut, intervenantId);
+	}
+
 }

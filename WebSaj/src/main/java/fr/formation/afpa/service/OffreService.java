@@ -45,6 +45,18 @@ public class OffreService implements IOffreService {
 		dao.delete(offre);
 	}
 
+	@Override
+	public Integer countDistinctByIntervenant(UserProfile intervenant) {
+		return dao.countDistinctByIntervenant(intervenant);
+	}
+
+	@Override
+	public List<Offre> findTicketsOuvertsEtNonPerimes(Integer idIntervenant) {
+		return dao.findTicketsOuvertsEtNonPerimes(idIntervenant);
+	}
+
+	
+
 	
 	
 

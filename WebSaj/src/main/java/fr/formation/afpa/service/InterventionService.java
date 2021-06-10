@@ -40,4 +40,18 @@ public class InterventionService implements IInterventionService{
 		return dao.findByTicketsAndUsers(user, tickets);
 	}
 
+
+
+	@Override
+	public Integer countDistinctByUsers(UserProfile intervenant) {
+		return dao.countDistinctByUsers(intervenant);
+	}
+
+
+
+	@Override
+	public Integer countDistinctByUsersAndDetache(UserProfile intervenant, boolean detache) {
+		return dao.countDistinctByUsersAndDetache(intervenant, detache);
+	}
+
 }

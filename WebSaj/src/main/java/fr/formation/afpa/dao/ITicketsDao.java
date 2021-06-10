@@ -50,5 +50,7 @@ public interface ITicketsDao extends JpaRepository<Tickets, Integer> {
 			Set languageLibrary);
   
   public List<Tickets> findByIntervenantIdLikeAndStatutLike(Integer intervenantid, String statut);
+  
+  public Integer countDistinctByStatutAndIntervenantId(String statut,Integer intervenantId);
 }
 
