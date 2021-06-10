@@ -1,161 +1,139 @@
 /* NAVBAR */
 .navbar {
-	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .nav-tabs {
     border-bottom: 1px solid #dee2e6;
     margin-top: 5%;
 }
-
 html body {
-	background-color: #F9FAFF;
+    background-color: #F9FAFF;
 }
-
 /* FOOTER */
 .content {
-	min-height: calc(100vh - 70px);
-	padding: 40px 40px 0 40px;
+    min-height: calc(100vh - 70px);
+    padding: 40px 40px 0 40px;
 }
-
 .footer {
-	height: 50px;
+    height: 50px;
 }
-
 /* END FOOTER */
-
 /* TABLE */
 .eyeBtn {
-	decoration: none;
-	border: transparent !important;
+    decoration: none;
+    border: transparent !important;
 }
-
 .eyeBtn span {
-	font-size: 25px;
+    font-size: 25px;
 }
-
 .tooltipTicket {
-	background-color: black;
+    background-color: black;
 }
-
 .ticketList {
+        margin-top: -4.4%;
 }
-
 .green {
-	color: green;
+    color: green;
 }
-
 .green .tooltiptext {
-	visibility: visible;
+    visibility: visible;
 }
-
 .flexBtn {
-	display: flex;
-	justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
 }
-
 .ticketList .flexBtn .actionForm {
-	background-color: transparent !important;
-	border: transparent !important;
+    background-color: transparent !important;
+    border: transparent !important;
 }
-
 .ticketTable {
-	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 a:link {
-	text-decoration: none;
+    text-decoration: none;
 }
-
 .ticketTable .idTicket {
-	width: 3%;
-	text-align: center !important;
+    width: 3%;
+    text-align: center !important;
 }
 .ticketTable .titreTicket {
-	text-align: center !important;
+    text-align: center !important;
 }
 .ticketTable .dateCrea {
-	width:10%;
-	text-align: center !important;
+    width:10%;
+    text-align: center !important;
 }
 .ticketTable .statuTicket {
-		width:10%;
-	text-align: center !important;
+        width:10%;
+    text-align: center !important;
 }
 .ticketTable .colAction {
-		width:15%;
-	text-align: center !important;
+        width:15%;
+    text-align: center !important;
 }
-
 .ticketList .bell {
-	text-align: center;
+    text-align: center;
 }
-
 .colAction {
-	width: 5%;
+    width: 5%;
 }
-
 .ticketList .notif {
-	width: 5%;
+    width: 5%;
 }
-
 .ticketCard {
-/* 	margin: -4% */
+/*  margin: -4% */
 }
-
 .mainCard {
-	margin-bottom: 1%;
+    margin-bottom: 1%;
 }
-
 .title {
 margin-bottom: -60px;}
-
 .title .spanTitle {
-	color: #0080ff;
-	font-size: 45px;
-	font-weight: 700;
+    color: #0080ff;
+    font-size: 45px;
+    font-weight: 700;
 }
 /* END TABLE */
 .searchFlex {
-	display: flex;
-	margin-left: 10%;
+    display: flex;
+    margin-left: 10%;
 }
-
 .tempsrestantbas {
-	color: crimson;
+    color: crimson;
 }
-
 .tempsrestanthaut {
-	color: green;
+    color: green;
 }
-
 .
 btnProp {
-	display: flex !important;
-	justify-content: end !important;
+    display: flex !important;
+    justify-content: end !important;
 }
 .modal-title{
-	color: #0080ff;
+    color: #0080ff;
 }
-
 .filtre-tickets{
-	margin-bottom: -72px !important;
+        margin-top: 5%;
+}
+.fixed-table-toolbar{
+    margin-top: 1%;
 }
 @media all and (max-device-width: 480px) {
-	.ticketList {
-		overflow: scroll;
-		height: 60%;
-		box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-		overflow: scroll;
-	}
-	.ticketList h2 {
-		font-size: 1.3em;
-	}
-	.ticketList h2 span {
-		font-size: 1.2em;
-	}
-	.ticketList{
-	margin: -21px;
-	}
-	.title{
-	margin-bottom: 3%;}
+    .ticketList {
+        overflow: scroll;
+        height: 60%;
+        box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+        overflow: scroll;
+    }
+    .ticketList h2 {
+        font-size: 1.3em;
+    }
+    .ticketList h2 span {
+        font-size: 1.2em;
+    }
+    .ticketList{
+    margin: -21px;
+    }
+    .title{
+    margin-bottom: 3%;}
 }

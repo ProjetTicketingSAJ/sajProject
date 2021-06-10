@@ -153,15 +153,15 @@ public class LoginController {
 				System.out.println("TITRE INTERVENANT: " + user.getTitle());
 				// Tickets pour lesquels une offre a déjà été faite
 				List<Tickets> listTickets = ticketService.findListToDisplayInPool(user.getId());
-  
+
 				// Tickets ouverts
 				List<Tickets> listTicketsOuverts = ticketService.findByStatutLike(statutOuvert);
 				// suppression des tickets sur lesquels l'intervenant est déjà positionné de la
 				// liste globale
 				listTicketsOuverts.removeAll(listTickets);
-				
+
 				List<Tickets> listTicketsAModifier = ticketService.findTicketsToModifierOffer(user.getId());
-				
+
 				httpSession.setAttribute("title", user.getTitle());
 				httpSession.setAttribute("login", user.getLogin());
 				httpSession.setAttribute("aspirantId", user.getId());
