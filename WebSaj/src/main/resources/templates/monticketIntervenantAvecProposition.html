@@ -140,6 +140,12 @@
 										th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
 								</div>
 							</div>
+							<form action="chatRoom">
+								<input type="hidden" th:value="${ticket.id}" name="ticketId">
+								<button class="btn btn-primary" type="submit">go Chat</button>
+							</form>
+
+
 						</div>
 					</div>
 					<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->

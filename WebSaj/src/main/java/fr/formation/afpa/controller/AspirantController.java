@@ -1,7 +1,6 @@
 package fr.formation.afpa.controller;
 
 import java.io.IOException;
-
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,14 +20,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -91,7 +86,7 @@ public class AspirantController {
 		this.interventionService = interventionService;
 		this.offreService = offreService;
 	}
- 
+
 	/* Atterrissage sur la page des tickets aspirant */
 	@RequestMapping(path = "/ticketsAspirant", method = RequestMethod.GET)
 	public String ticketsAspirant(Model m, HttpServletRequest request) {
@@ -103,10 +98,7 @@ public class AspirantController {
 
 		List<Tickets> listOffresOuverte = ticketService.findByAspirantIdLikeAndStatutLike(id, statutOuvert);
 		List<Tickets> listOffresEnCours = ticketService.findByAspirantIdLikeAndStatutLike(id, statutEnCours);
-		System.out.println("=============================listTickets OUVERT======================");
-		System.out.println(listOffresOuverte);
-		System.out.println("=============================listTickets EN COURS ======================");
-		System.out.println(listOffresEnCours);
+
 		UserProfile user = userService.findById(id).orElse(null);
 		// Liste des offres qui ont été faites pour pour un ticket
 		for (Tickets t : listOffresOuverte) {
@@ -131,8 +123,7 @@ public class AspirantController {
 			ticketService.save(t);
 			
 		}
-		
-	
+
 		m.addAttribute("user", user);
 		m.addAttribute("listOffresOuverte", listOffresOuverte);
 		m.addAttribute("listOffresEnCours", listOffresEnCours);
@@ -237,22 +228,20 @@ public class AspirantController {
 	/* Enregistrement ticket aspirant en bdd */
 	@RequestMapping(path = "/createTicket", method = RequestMethod.POST)
 
-	public String createTicket(Model m, HttpServletRequest request, @Valid @ModelAttribute Tickets tickets, BindingResult result,
-			@RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput
-			) {
+	public String createTicket(Model m, HttpServletRequest request, @Valid @ModelAttribute Tickets tickets,
+			BindingResult result, @RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput) {
 		if (result.hasErrors()) {
 			List<CodingLanguage> languageList = codingLanguageService.findAll();
 			m.addAttribute("languageList", languageList);
-            System.err.println("BINDING RESULT ERROR" + result);
+			System.err.println("BINDING RESULT ERROR" + result);
 			return "creationTicket";
-        }
+		}
 		System.err.println("NO BINDING RESULT ERROR");
-	
+
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);
 		Integer id = (Integer) httpSession.getAttribute("aspirantId");
-		
 
 		// Création nouvelle liste pour gérer
 		List<String> newList = new ArrayList<String>();
@@ -267,9 +256,7 @@ public class AspirantController {
 		}
 
 		Set<LanguageLibrary> set = new HashSet<>();
-		
-		
-	
+
 		/*
 		 * Boucle qui ajoute le(s) tag(s) en bdd s'il(s) n'existe(nt) pas et set le
 		 * ticket.library || set seulement le ticket.languageLibrary lorsque le tag
@@ -316,32 +303,29 @@ public class AspirantController {
 			return "redirect:/creationTicket";
 		}
 
-		
-	
 		return "redirect:/ticketsAspirant";
 
 	}
+
 	@RequestMapping(path = "/voirExample", method = RequestMethod.POST)
 
 	public String seeProposals(Model m, HttpServletRequest request, @RequestParam List<String> tagsinput) {
 		Set<LanguageLibrary> listLanguages = new HashSet<>();
-		for(String language : tagsinput ) {
+		for (String language : tagsinput) {
 			LanguageLibrary languages = new LanguageLibrary();
 			languages = languageLibraryService.findByNom(language);
 			listLanguages.add(languages);
 		}
-		
-		List<Tickets> getTage = ticketService.findDistinctByStatutLikeAndLanguageLibraryIn(statutFermer,
-				listLanguages);
-		List<Tickets> getTageTopLikes = ticketService.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(
-				statutFermer, listLanguages);
-		
+
+		List<Tickets> getTage = ticketService.findDistinctByStatutLikeAndLanguageLibraryIn(statutFermer, listLanguages);
+		List<Tickets> getTageTopLikes = ticketService
+				.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(statutFermer, listLanguages);
+
 		m.addAttribute("getTage", getTage);
 		m.addAttribute("getTageTopLikes", getTageTopLikes);
 
 		return "propositionSoluce";
-        }
-	
+	}
 
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
 	@RequestMapping(path = "/monTicket", method = RequestMethod.GET)
@@ -422,7 +406,6 @@ public class AspirantController {
 		// Recherche du ticket que l'on vient de save
 		Tickets ticketTags = ticketService.lastCreatedTicket(id);
 
-		
 		List<Tickets> getTage = ticketService.findDistinctByStatutLikeAndLanguageLibraryIn(statutFermer,
 				ticketTags.getLanguageLibrary());
 		List<Tickets> getTageTopLikes = ticketService.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(
@@ -478,7 +461,7 @@ public class AspirantController {
 		m.addAttribute("files", files);
 		m.addAttribute("listLibrary", listLibrary);
 		System.out.println(ticket);
-		
+
 		return "solution";
 
 	}
@@ -529,6 +512,7 @@ public class AspirantController {
 		return "redirect:/ticketsAspirant";
 	}
 	
+
 	//savoir si une offre est périmée ou non
 		public static boolean compareDateOffer(Date datePeremp) throws ParseException {
 			 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -542,4 +526,23 @@ public class AspirantController {
 			}
 			
 		}
+
+	
+	@RequestMapping("/chatRoomAspirant")
+	public String chatRoom(Model m,HttpServletRequest request, @RequestParam String ticketId) {
+		HttpSession httpSession = request.getSession();
+		Integer id = Integer.parseInt(ticketId);
+		System.err.println(id);
+//		String idTicket = String.valueOf(ticketId);
+
+		
+		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
+		String userLogin = user.getLogin();
+		m.addAttribute("userLogin", userLogin);
+		m.addAttribute("ticketId", id);
+		return "chatRoom";
+	}
+	
+	
+
 }

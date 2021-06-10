@@ -70,8 +70,6 @@
 					<div class="card-body">
 
 
-
-
 						<div class="row">
 							<!-- TICKET ID  -->
 							<div class="col-12 col-lg-5">
@@ -144,7 +142,12 @@
 											th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
 									</div>
 								</div>
-
+								
+								<form action="chatRoomAspirant">
+									<input type="hidden" th:value="${ticket.id}" name="ticketId">
+									<button class="btn btn-primary" type="submit">go Chat</button>
+								</form>
+								
 							</div>
 							<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
 						</div>
@@ -178,8 +181,10 @@
 							</div>
 
 
+
 							<div th:if="${intervention.solution!=null}" class="row  justify-content-around">
 								<div class="col-6 ReponseBtn">
+
 
 									<button type="submit"
 										class="btn btn-outline-success btnValidateSolution"
@@ -194,7 +199,9 @@
 
 								</div>
 						</form>
+
 						<div th:if="${intervention.solution!=null}" class="col-6">
+
 							<form action="pasLaReponse" class="ReponseBtn">
 								<button type="submit" class="btn btn-outline-danger"
 									style="border: transparent;">
