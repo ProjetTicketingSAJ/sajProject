@@ -178,7 +178,7 @@
 							</div>
 
 
-							<div class="row  justify-content-around">
+							<div th:if="${intervention.solution!=null}" class="row  justify-content-around">
 								<div class="col-6 ReponseBtn">
 
 									<button type="submit"
@@ -194,7 +194,7 @@
 
 								</div>
 						</form>
-						<div class="col-6">
+						<div th:if="${intervention.solution!=null}" class="col-6">
 							<form action="pasLaReponse" class="ReponseBtn">
 								<button type="submit" class="btn btn-outline-danger"
 									style="border: transparent;">
@@ -243,12 +243,12 @@
 	<!-- END MAIN CARD -->
 
 	<!-- END content div -->
-	</div>
+
 
 	<!--Navigation bar-->
 	<footer th:insert="footer.html"> </footer>
 	<!--end of Navigation bar-->
 	<!-- END page div -->
-	</div>
+
 </body>
 </html>

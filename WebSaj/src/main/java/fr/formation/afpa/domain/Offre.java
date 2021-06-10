@@ -24,11 +24,12 @@ public class Offre implements java.io.Serializable{
 	private UserProfile intervenant;
 	private boolean ticketVu;
 	private boolean offreDejaFaite;
+	private Date datePeremption;
 	
 	public Offre() {
 	}
 	
-	public Offre(Integer id,Date dateCreation,Date dateLimiteSoluce,Double montant,Tickets tickets,UserProfile intervenant,boolean ticketVu,boolean offreDejaFaite) {
+	public Offre(Integer id,Date dateCreation,Date dateLimiteSoluce,Double montant,Tickets tickets,UserProfile intervenant,boolean ticketVu,boolean offreDejaFaite,Date datePeremption) {
 		this.id = id;
 		this.dateCreation = dateCreation;
 		this.dateLimiteSoluce = dateLimiteSoluce;
@@ -37,6 +38,7 @@ public class Offre implements java.io.Serializable{
 		this.intervenant = intervenant;
 		this.ticketVu = ticketVu;
 		this.offreDejaFaite = offreDejaFaite;
+		this.datePeremption = datePeremption;
 	}
 	
 	@Id
@@ -116,6 +118,18 @@ public class Offre implements java.io.Serializable{
 	public void setOffreDejaFaite(boolean offreDejaFaite) {
 		this.offreDejaFaite = offreDejaFaite;
 	}
+
+	@Column(name = "date_peremption")
+	public Date getDatePeremption() {
+		return datePeremption;
+	}
+
+	public void setDatePeremption(Date datePeremption) {
+		this.datePeremption = datePeremption;
+	}
+
+	
+	
 	
 	
 	

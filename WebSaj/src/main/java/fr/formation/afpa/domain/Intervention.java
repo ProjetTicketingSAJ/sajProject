@@ -38,7 +38,7 @@ public class Intervention implements java.io.Serializable {
 	private Set<Note> notes = new HashSet<Note>(0);
 	
 	private String solution;
-	private boolean solutionRecue;
+	private boolean solutionRecue;//Savoir si la solution a été envoyée ou non
 	private boolean detache;
 	public Intervention() {
 	}

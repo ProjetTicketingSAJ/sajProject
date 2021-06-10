@@ -18,4 +18,8 @@ public interface IInterventionDao extends JpaRepository<Intervention, Integer> {
 	public Intervention save(Intervention intervention);
 	
 	public List <Intervention> findByTicketsAndUsers(UserProfile user,Tickets tickets);
+	
+	public Integer countDistinctByUsers(UserProfile intervenant); 
+	
+	public Integer countDistinctByUsersAndDetache(UserProfile intervenant, boolean detache);
 }

@@ -14,4 +14,7 @@ public interface IInterventionService {
 	
 	public List <Intervention> findByTicketsAndUsers(UserProfile user,Tickets tickets);
 
+	public Integer countDistinctByUsers(UserProfile intervenant); 
+	
+	public Integer countDistinctByUsersAndDetache(UserProfile intervenant, boolean detache);
 }

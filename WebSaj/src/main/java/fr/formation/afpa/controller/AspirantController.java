@@ -3,11 +3,14 @@ package fr.formation.afpa.controller;
 import java.io.IOException;
 
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -92,6 +95,7 @@ public class AspirantController {
 	/* Atterrissage sur la page des tickets aspirant */
 	@RequestMapping(path = "/ticketsAspirant", method = RequestMethod.GET)
 	public String ticketsAspirant(Model m, HttpServletRequest request) {
+	
 		System.out.println(
 				"++++++++++++++++++++++++++++++++++++++++++ ticketsAspirant +++++++++++++++++++++++++++++++++++++++++++++++");
 		HttpSession httpSession = request.getSession();
@@ -106,11 +110,28 @@ public class AspirantController {
 		UserProfile user = userService.findById(id).orElse(null);
 		// Liste des offres qui ont été faites pour pour un ticket
 		for (Tickets t : listOffresOuverte) {
-			Integer nbOffres = offreService.findNbOffres(t.getId());
-			t.setNbOffres(nbOffres);
+			int i = 0;
+			for(Offre o : t.getOffres()) {
+				
+				try {
+					if(compareDateOffer(o.getDatePeremption())==false) {
+						System.err.println("je suis dans le if");
+					//	Integer nbOffres = offreService.findNbOffres(t.getId());
+						i=i+1;
+						t.setNbOffres(i);
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+			
+			System.err.println("JE SUIS I " +i);
 			ticketService.save(t);
-			System.err.println("////////=+=+=+=+=+=+=++=+=+=+=+=+=+=++=+=+=+=+=+=+=+=////////" + nbOffres);
+			
 		}
+		
 	
 		m.addAttribute("user", user);
 		m.addAttribute("listOffresOuverte", listOffresOuverte);
@@ -137,14 +158,24 @@ public class AspirantController {
 		Tickets ticket = ticketService.findById(idTicket).orElse(null);
 		System.err.println(ticket);
 
-		/* Ajouter ticket à liste d'offres */
+		/*Récupérer toutes les offres d'un ticket*/
 		Set<Offre> offresTickets = ticket.getOffres();
-
+//		List<Offre> listOffres = offreService.findByTickets(ticket);
 		System.err.println(offresTickets);
-
-		List<Offre> listOffres = offreService.findByTickets(ticket);
-		for (Offre o : listOffres) {
-			o.setTicketVu(true);
+		Iterator<Offre> it = offresTickets.iterator();
+		while( it.hasNext() ) {
+			 
+			Offre o = it.next();
+			try {
+				if(compareDateOffer(o.getDatePeremption())==false) {
+			   o.setTicketVu(true);
+				}
+				else {
+					it.remove();
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			offreService.save(o);
 		}
 
@@ -497,4 +528,18 @@ public class AspirantController {
 
 		return "redirect:/ticketsAspirant";
 	}
+	
+	//savoir si une offre est périmée ou non
+		public static boolean compareDateOffer(Date datePeremp) throws ParseException {
+			 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			 String datePeremption = dateFormat.format(datePeremp);
+			if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
+			    return true;
+			}
+			else {
+
+			return false;
+			}
+			
+		}
 }

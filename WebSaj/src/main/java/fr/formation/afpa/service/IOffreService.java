@@ -18,4 +18,10 @@ public interface IOffreService {
 	Offre findByTicketsAndIntervenant(Tickets ticket,UserProfile intervenant);
 	
 	public void delete(Offre offre);
+	
+	public Integer countDistinctByIntervenant(UserProfile intervenant); 
+
+	List <Offre> findTicketsOuvertsEtNonPerimes(@Param("idIntervenant") Integer idIntervenant);
+	
+
 }

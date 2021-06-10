@@ -26,5 +26,10 @@ public interface IOffreDao extends JpaRepository<Offre, Integer> {
 	Offre findByTicketsAndIntervenant(Tickets ticket,UserProfile intervenant);
 	
 	public void delete(Offre offre);
+	
+	public Integer countDistinctByIntervenant(UserProfile intervenant); 
+	
+	@Query(value="select * from offre inner join tickets on tickets.id = offre.id_ticket where tickets.Statut='O' and id_intervenant= :idIntervenant group by tickets.ID",nativeQuery=true)
+	List <Offre> findTicketsOuvertsEtNonPerimes(@Param("idIntervenant") Integer idIntervenant);
 
 }
