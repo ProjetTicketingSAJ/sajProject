@@ -14,15 +14,15 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 //	that the clients will use to connect to the server.
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/websocket").withSockJS();
+        registry.addEndpoint("/sock").setAllowedOriginPatterns("*").withSockJS();
 	}
 
 //  configureMessageBroker method is used to configure our message broker 
 //	which will be used to route messages from one client to another.
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		registry.enableSimpleBroker("/topic");
-		registry.setApplicationDestinationPrefixes("/app");
+		registry.enableSimpleBroker("/chat-room");
+		registry.setApplicationDestinationPrefixes("/chat-app");
 	}
 
 }

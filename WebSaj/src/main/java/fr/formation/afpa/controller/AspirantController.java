@@ -481,4 +481,22 @@ public class AspirantController {
 
 		return "redirect:/ticketsAspirant";
 	}
+	
+	
+	@RequestMapping("/chatRoomAspirant")
+	public String chatRoom(Model m,HttpServletRequest request, @RequestParam String ticketId) {
+		HttpSession httpSession = request.getSession();
+		Integer id = Integer.parseInt(ticketId);
+		System.err.println(id);
+//		String idTicket = String.valueOf(ticketId);
+
+		
+		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
+		String userLogin = user.getLogin();
+		m.addAttribute("userLogin", userLogin);
+		m.addAttribute("ticketId", id);
+		return "chatRoom";
+	}
+	
+	
 }

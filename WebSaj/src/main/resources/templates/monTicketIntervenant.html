@@ -83,16 +83,14 @@
 								</h2>
 							</div>
 
-						<div class="row">
-												<!-- TICKET FILE DOWNLAOD  -->
-							<div class="dropdown show col-12 col-md-6 col-lg-6">
-								<a
-									class="btn btn-outline-primary dropdown-toggle btnDownloadFile"
-									href="#" role="button" id="dropdownMenuLink"
-									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false" th:text="#{ticket.download}">
-									
-									</a>
+							<div class="row">
+								<!-- TICKET FILE DOWNLAOD  -->
+								<div class="dropdown show col-12 col-md-6 col-lg-6">
+									<a
+										class="btn btn-outline-primary dropdown-toggle btnDownloadFile"
+										href="#" role="button" id="dropdownMenuLink"
+										data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false" th:text="#{ticket.download}"> </a>
 									<div class="dropdown-menu dropFile "
 										aria-labelledby="dropdownMenuLink">
 										<div th:each="file : ${files}">
@@ -107,8 +105,8 @@
 								</div>
 
 
-							<!-- Button trigger modal -->
-				<!-- 			<div class="col-12 col-md-6 col-lg-6">
+								<!-- Button trigger modal -->
+								<!-- 			<div class="col-12 col-md-6 col-lg-6">
 								<button type="button"
 									class="btn btn-outline-primary sendSolution"
 									data-bs-toggle="modal" data-bs-target="#staticBackdrop" th:text="#{ticket.solutionProp}">
@@ -129,91 +127,94 @@
 
 							</div>
 							<!-- END CLASS ROW  -->
-						</div>
+							</div>
 
 
 
-						<!-- INFO TICKETS / DESCRIPTION & EXCEPTION  -->
-						<div class="" th:object="${ticket}">
-							<div class="row d-flex justify-content-around">
-								<!-- DESCRIPTION  -->
-								<div class="card infoCards col-12 col-lg-5">
-									<div class="card-header" th:text="#{ticket.descr}"></div>
-									<div class="card-body">
-										<p class="card-text"
-											th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
+							<!-- INFO TICKETS / DESCRIPTION & EXCEPTION  -->
+							<div class="" th:object="${ticket}">
+								<div class="row d-flex justify-content-around">
+									<!-- DESCRIPTION  -->
+									<div class="card infoCards col-12 col-lg-5">
+										<div class="card-header" th:text="#{ticket.descr}"></div>
+										<div class="card-body">
+											<p class="card-text"
+												th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
+										</div>
 									</div>
-								</div>
 
+									<!-- ICI CHAT ROOM  -->
 
-								<!-- EXCEPTION  -->
-								<div class="card infoCards col-12  col-lg-6">
-									<div class="card-header" th:text="#{creationTicket.console}"></div>
-									<div class="card-body">
-										<p class="card-text"
-											th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
+									<!-- EXCEPTION  -->
+									<div class="card infoCards col-12  col-lg-6">
+										<div class="card-header" th:text="#{creationTicket.console}"></div>
+										<div class="card-body">
+											<p class="card-text"
+												th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
+										</div>
 									</div>
+									
+									
 								</div>
 							</div>
+							<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
+
+
+
+
+
+							<!-- BADGES LANGUAGE TAGS -->
+							<div class="row tags">
+								<h3>
+									<span class="badge bg-primary" style="margin: 2%;"
+										th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
+								</h3>
+							</div>
+
+							<!-- END  BADGES LANGUAGE TAGS -->
 						</div>
-						<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
+						<!-- Ancienne solution  -->
 
-
-
-
-
-						<!-- BADGES LANGUAGE TAGS -->
-						<div class="row tags">
-							<h3>
-								<span class="badge bg-primary" style="margin: 2%;"
-									th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
-							</h3>
+						<div class="card infoCards col-12  col-lg-6">
+							<div class="card-header" th:text="#{ticket.oldSoluce}"></div>
+							<div class="card-body">
+								<p class="card-text"
+									th:text="${ticket.solutionTicket != null} ? ${ticket.solutionTicket}"></p>
+							</div>
 						</div>
-
-						<!-- END  BADGES LANGUAGE TAGS -->
 					</div>
-					<!-- Ancienne solution  -->
-
-								<div class="card infoCards col-12  col-lg-6">
-									<div class="card-header" th:text="#{ticket.oldSoluce}"></div>
-									<div class="card-body">
-										<p class="card-text"
-											th:text="${ticket.solutionTicket != null} ? ${ticket.solutionTicket}"></p>
-									</div>
-								</div>
-							</div>
-						</div>
+				</div>
 
 
 
 
-			<!-- END MAIN ROW -->
-			<script
-				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-				integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-				crossorigin="anonymous"></script>
+				<!-- END MAIN ROW -->
+				<script
+					src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+					integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+					crossorigin="anonymous"></script>
 
-			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-			<script
-				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-			<script
-				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-			<script
-				src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-			<script
-				src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-			<script
-				src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+				<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+				<script
+					src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+				<script
+					src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+				<script
+					src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+				<script
+					src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+				<script
+					src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
 
+			</div>
 		</div>
-	</div>
-	<!-- END MAIN CARD -->
+		<!-- END MAIN CARD -->
 
 
 
 
 
-	<!-- END content div -->
+		<!-- END content div -->
 	</div>
 
 	<!--Navigation bar-->
@@ -254,7 +255,8 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal" th:text="#{ticket.close}"></button>
-						<button type="submit" class="btn btn-primary" th:text="#{modal.Submit}"></button>
+						<button type="submit" class="btn btn-primary"
+							th:text="#{modal.Submit}"></button>
 					</div>
 				</form>
 			</div>
