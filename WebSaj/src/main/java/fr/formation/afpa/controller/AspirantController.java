@@ -441,9 +441,15 @@ public class AspirantController {
 
 	/* Visualisation d'un ticket avec la soluce */
 	@RequestMapping(path = "/VoirSoluce", method = RequestMethod.GET)
-	public String VoirSoluce(Model m, @RequestParam String idTicket) {
+	public String VoirSoluce(Model m,HttpServletRequest request, @RequestParam String idTicket) {
+	HttpSession httpSession = request.getSession();
 
+		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
+		String userLogin = user.getLogin();
+	
+    
 		Integer id = Integer.parseInt(idTicket);
+	
 		// Recherche du ticket à afficher
 		Optional<Tickets> ticket = ticketService.findById(id);
 
@@ -478,6 +484,9 @@ public class AspirantController {
 		intervention.setSolutionRecue(false);
 		interventionService.save(intervention);
 
+    //attrib for chat 
+		m.addAttribute("userLogin", userLogin);
+		m.addAttribute("ticketId", id);
 		m.addAttribute("files", files);
 		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("listLibrary", listLibrary);

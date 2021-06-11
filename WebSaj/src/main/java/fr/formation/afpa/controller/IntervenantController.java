@@ -1,4 +1,3 @@
-
 package fr.formation.afpa.controller;
 
 import java.io.IOException;
@@ -142,7 +141,12 @@ public class IntervenantController {
 
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
 	@RequestMapping(path = "/monTicketintervenantAvecProposition", method = RequestMethod.POST)
-	public String monTicket(Model m, @RequestParam String idTicket) {
+	public String monTicket(Model m, HttpServletRequest request,@RequestParam String idTicket) {
+    HttpSession httpSession = request.getSession();
+		// geting profile for chatRoom
+		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
+		String userLogin = user.getLogin();
+		
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);
@@ -181,6 +185,9 @@ public class IntervenantController {
 		m.addAttribute("files", files);
 		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("solution", solution);
+    //attrib for chat 
+		m.addAttribute("userLogin", userLogin);
+		m.addAttribute("ticketId", id);
 		return "monTicketIntervenantAvecProposition";
 
 	}
@@ -443,20 +450,6 @@ public class IntervenantController {
 			os.close();
 		}
 
-	}
-
-	@RequestMapping("/chatRoom")
-	public String chatRoom(Model m,HttpServletRequest request, @RequestParam("ticketId") String ticketId) {
-		HttpSession httpSession = request.getSession();
-		Integer id = Integer.parseInt(ticketId);
-		System.err.println(id);
-//		String idTicket = String.valueOf(ticketId);
-		
-		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
-		String userLogin = user.getLogin();
-		m.addAttribute("userLogin", userLogin);
-		m.addAttribute("ticketId",  id);
-		return "chatRoom";
 	}
 
 	public static Offre findOffer(Integer idTicket, Integer idIntervenant) {

@@ -32,7 +32,6 @@ function connect(event) {
 function onConnected() {
 	enterRoom(room.val());
 	waiting.classList.add('d-none');
-
 }
 
 function onError(error) {
@@ -55,7 +54,6 @@ function enterRoom(newRoomId) {
 }
 
 function onMessageReceived(payload) {
-
 }
 
 function sendMessage(event) {
@@ -126,7 +124,6 @@ function getAvatarColor(messageSender) {
 	for (var i = 0; i < messageSender.length; i++) {
 		hash = 31 * hash + messageSender.charCodeAt(i);
 	}
-
 	var index = Math.abs(hash % colors.length);
 	return colors[index];
 }
