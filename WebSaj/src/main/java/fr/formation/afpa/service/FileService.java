@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import fr.formation.afpa.dao.IFileDao;
 import fr.formation.afpa.domain.FileDb;
 import fr.formation.afpa.domain.Tickets;
+import fr.formation.afpa.domain.UserProfile;
 
 @Service
 @Transactional
@@ -22,9 +23,9 @@ public class FileService implements IFileService {
 	@Autowired 
 	private IFileDao dao;
 	
-	public FileDb save(Tickets tickets,MultipartFile file) throws IOException {
+	public FileDb save(Tickets tickets,MultipartFile file,UserProfile user) throws IOException {
 	    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-	    FileDb FileDb = new FileDb(fileName, file.getContentType(), file.getBytes(),tickets);
+	    FileDb FileDb = new FileDb(fileName, file.getContentType(), file.getBytes(),tickets,user);
 	    
 	    return dao.save(FileDb);
 	  }

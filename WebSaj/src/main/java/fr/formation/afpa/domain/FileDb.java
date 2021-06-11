@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Arrays;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -28,15 +30,17 @@ public class FileDb{
 	private byte[] fichier;
 	
 	private Tickets tickets;
+	private UserProfile user;
 	
 	public FileDb() {
 	}
 	
-	public FileDb(String name, String type, byte[] fichier,Tickets tickets) {
+	public FileDb(String name, String type, byte[] fichier,Tickets tickets,UserProfile user) {
 		this.name = name;
 		this.type = type;
 		this.fichier = fichier;
 		this.tickets = tickets;
+		this.user = user;
 	}
 
 	  public FileDb(String name, String type, byte[] fichier) {
@@ -96,6 +100,16 @@ public class FileDb{
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_user")
+	public UserProfile getUser() {
+		return user;
+	}
+
+	public void setUser(UserProfile user) {
+		this.user = user;
 	}
 
 	@Override

@@ -96,10 +96,28 @@
 									class="btn btn-outline-primary dropdown-toggle btnDownloadFile"
 									href="#" role="button" id="dropdownMenuLink"
 									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false" th:text="#{ticket.download}"> </a>
+									aria-expanded="false" > télécharger fichiers de l'aspirant</a>
 								<div class="dropdown-menu dropFile "
 									aria-labelledby="dropdownMenuLink">
 									<div th:each="file : ${files}">
+										<div th:if="${file != null}">
+											<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
+												<span th:text="${file.name}"></span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<!-- END TICKET FILE DOWNLAOD  -->
+							</div>
+							<div class="dropdown show col-12 col-md-6 col-lg-6">
+								<a
+									class="btn btn-outline-primary dropdown-toggle btnDownloadFile"
+									href="#" role="button" id="dropdownMenuLink"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false" > Télécharger mes fichiers </a>
+								<div class="dropdown-menu dropFile "
+									aria-labelledby="dropdownMenuLink">
+									<div th:each="file : ${filesIntervenant}">
 										<div th:if="${file != null}">
 											<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
 												<span th:text="${file.name}"></span>
@@ -224,7 +242,7 @@
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog  modal-lg">
 			<div class="modal-content">
-				<form action="envoiSoluce" method="post" class="needs-validation"
+				<form action="envoiSoluce" method="post" enctype="multipart/form-data" class="needs-validation"
 					novalidate>
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">
@@ -243,7 +261,11 @@
 						<!-- 							id="exampleFormControlInput1" -->
 						<!-- 							placeholder="Entrer votre identifiant" > -->
 					</div>
-
+									<div>
+										<input class="form-control inputFile" type="file"
+											name="fileUpload" id="fileUpload"
+											accept=".doc,.docx,.pdf,.txt" multiple>
+									</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal" th:text="#{ticket.close}"></button>

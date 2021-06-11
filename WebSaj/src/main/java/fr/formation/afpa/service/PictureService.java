@@ -27,7 +27,7 @@ public class PictureService implements IPictureService {
 	public PictureDb save(UserProfile userProfile, MultipartFile file) throws IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		PictureDb checkPdb = null;
-		if (dao.findByUserProfileLike(userProfile) != null) {
+		if (dao.findByUserProfileLike(userProfile) != null && file!=null ) {
 			System.err.println("------------------findByUserProfileLike-------------------");
 			checkPdb = dao.findByUserProfileLike(userProfile);
 			checkPdb.setImage(file.getBytes());

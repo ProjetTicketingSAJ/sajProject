@@ -8,10 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.afpa.domain.FileDb;
 import fr.formation.afpa.domain.Tickets;
+import fr.formation.afpa.domain.UserProfile;
 
 public interface IFileService {
 
-	public FileDb save(Tickets tickets,MultipartFile file) throws IOException;
+	public FileDb save(Tickets tickets,MultipartFile file,UserProfile user) throws IOException;
 	
 	public FileDb getFile(Integer id) ;
 	
