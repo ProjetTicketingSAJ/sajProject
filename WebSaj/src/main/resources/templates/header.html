@@ -1,6 +1,6 @@
+
 <html xmlns:th="http://www.thymeLeaf.org">
 
-	
 <!-- 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -86,7 +86,7 @@ $(document).ready(function() {
 
 			<form th:if="${session.title != null}" th:action="@{/logout}">
 
-				<button type="submit" class="btn btn-outline-danger" th:text="#{header.logout}"></button>
+				<button  onclick="return onButtonDeco();" type="submit" class="btn btn-outline-danger" th:text="#{header.logout}"></button>
 
 			</form>
 
@@ -98,8 +98,20 @@ $(document).ready(function() {
 
 		</div>
 	</div>
+	<script>
 
-				<!-- <script src="/jsImports.js"></script> -->
+		function onButtonDeco() {
+			var answer;
+			answer = window
+					.confirm("Etes-vous sur de vouloir vous deconnecter ?");
+			if (answer == true) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	</script>
+	<!-- <script src="/jsImports.js"></script>  -->
 	
 
 </nav>
