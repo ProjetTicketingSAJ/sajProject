@@ -1,137 +1,44 @@
-/*
-Navbar
-*/
-.navbar-custom {
-  display: flex;
-  background-color:#F9FAFF;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-  height: 50%;
-}
-.barCoteDroit{
-  display: flex;
-  margin-right: 4%;
-  justify-content: right;
-}
-.logoflex{
-  display: flex;
-} 
-.barCoteDroit .inter{
-  color:   #252a2e;
-  margin-right: 6px;
-  margin-top: 15px;
-  font-weight: bold;
-}
-.barCoteDroit .nom{
-color:  #252a2e;
-margin-right: 3px;
-margin-top: 15px;
-font-weight: bold;
-}
-.searchFlex{
-     display: flex;
-     margin-left: 10%;
- }
-
-.statbtn{
-    margin-left: 3px;
-}
-a:link 
-    { 
- text-decoration:none; 
-    } 
-
-.rounded-circle{
-  margin-bottom: 30px;
-  width: 90px;
-  height: 80px;
+/* NAVBAR */
+.navbar {
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.menu{
-  background-color:#252a2e;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+html body {
+	background-color: #F9FAFF;
 }
 
-.menu .sousmenu{
-  color:  white;
-}
-/*
-end navbar
-*/
-
-
-/*
-statistic-cards
-*/
-.statistic-cards{
-  margin: 2%;
-  display: flex;
-  justify-content: space-around;
+.headerText {
+	color: #0080ff;
+	text-decoration: none;
+	display: inline-block;
+	position: relative;
 }
 
-.card-stat{
-  margin: 1%;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+.headerText:after {
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	position: absolute;
+	background: #0080ff;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
 }
 
-.card-nps-info{
-  height: 79%;
+.headerText:hover:after {
+	width: 100%;
+	left: 0;
+}
+/* FOOTER */
+.content {
+	min-height: calc(100vh - 70px);
+	padding: 40px 40px 0 40px;
 }
 
-/* MODAL */
-.modal_disp{
-  height: 100%;
+.footer {
+	height: 50px;
 }
 
-
-
-/*
-class card graphique ticket  
-          +
-boutton progression ticket
-*/
-.card_graph{
-  display: flex;
-  flex-direction: column;
-}
-
-/*
-boutton progression ticket
-*/
-.boutton_prog{
-  margin-top: 3%;
-  width: 100%;
-  }
-
-.boutton_comment{
-  margin-top: 2%;
-}
-    /*
-Footer
-*/ 
-.page{
-  min-height:100vh; 
-display:flex; 
-flex-direction:column; 
-}
-.content{
-  flex-grow:1; 
-}
-.footer{
-  flex-shrink: 0;
-  }
-
-  @media all and (max-device-width: 480px)
-{
-  .statistic-cards{
-    margin: 2%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-@media only screen and (max-device-width: 768px) {
-  .statistic-cards{
-    margin: 2%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
+/* END FOOTER */

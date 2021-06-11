@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.controller;
 
 import java.io.IOException;
@@ -90,7 +91,7 @@ public class AspirantController {
 	/* Atterrissage sur la page des tickets aspirant */
 	@RequestMapping(path = "/ticketsAspirant", method = RequestMethod.GET)
 	public String ticketsAspirant(Model m, HttpServletRequest request) {
-
+	
 		System.out.println(
 				"++++++++++++++++++++++++++++++++++++++++++ ticketsAspirant +++++++++++++++++++++++++++++++++++++++++++++++");
 		HttpSession httpSession = request.getSession();
@@ -103,23 +104,25 @@ public class AspirantController {
 		// Liste des offres qui ont été faites pour pour un ticket
 		for (Tickets t : listOffresOuverte) {
 			int i = 0;
-			for (Offre o : t.getOffres()) {
-
+			for(Offre o : t.getOffres()) {
+				
 				try {
-					if (compareDateOffer(o.getDatePeremption()) == false) {
+					if(compareDateOffer(o.getDatePeremption())==false) {
 						System.err.println("je suis dans le if");
-						// Integer nbOffres = offreService.findNbOffres(t.getId());
-						i = i + 1;
+					//	Integer nbOffres = offreService.findNbOffres(t.getId());
+						i=i+1;
 						t.setNbOffres(i);
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 			}
-
-			System.err.println("JE SUIS I " + i);
+			
+			
+			
+			System.err.println("JE SUIS I " +i);
 			ticketService.save(t);
-
+			
 		}
 
 		m.addAttribute("user", user);
@@ -147,18 +150,19 @@ public class AspirantController {
 		Tickets ticket = ticketService.findById(idTicket).orElse(null);
 		System.err.println(ticket);
 
-		/* Récupérer toutes les offres d'un ticket */
+		/*Récupérer toutes les offres d'un ticket*/
 		Set<Offre> offresTickets = ticket.getOffres();
 //		List<Offre> listOffres = offreService.findByTickets(ticket);
 		System.err.println(offresTickets);
 		Iterator<Offre> it = offresTickets.iterator();
-		while (it.hasNext()) {
-
+		while( it.hasNext() ) {
+			 
 			Offre o = it.next();
 			try {
-				if (compareDateOffer(o.getDatePeremption()) == false) {
-					o.setTicketVu(true);
-				} else {
+				if(compareDateOffer(o.getDatePeremption())==false) {
+			   o.setTicketVu(true);
+				}
+				else {
 					it.remove();
 				}
 			} catch (ParseException e) {
@@ -166,7 +170,7 @@ public class AspirantController {
 			}
 			offreService.save(o);
 		}
-
+	
 		model.addAttribute("offresTickets", offresTickets);
 
 		return "mesOffres";
@@ -212,6 +216,7 @@ public class AspirantController {
 		// Liste des coding language
 		List<CodingLanguage> languageList = codingLanguageService.findAll();
 
+		System.out.println(languageList);
 		List<String> tagsArecherche = new ArrayList<String>();
 		m.addAttribute("tickets", new Tickets());
 		m.addAttribute("languageList", languageList);
@@ -223,23 +228,22 @@ public class AspirantController {
 
 	/* Enregistrement ticket aspirant en bdd */
 	@RequestMapping(path = "/createTicket", method = RequestMethod.POST)
+
 	public String createTicket(Model m, HttpServletRequest request, @Valid @ModelAttribute Tickets tickets,
-			BindingResult result, @RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput,
-			@ModelAttribute CodingLanguage codingLanguage) {
+			BindingResult result, @RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput) {
 		if (result.hasErrors()) {
 			List<CodingLanguage> languageList = codingLanguageService.findAll();
 			m.addAttribute("languageList", languageList);
 			System.err.println("BINDING RESULT ERROR" + result);
 			return "creationTicket";
 		}
-
 		System.err.println("NO BINDING RESULT ERROR");
 
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);
 		Integer id = (Integer) httpSession.getAttribute("aspirantId");
-
+		UserProfile user = userService.findById(id).get();		
 		// Création nouvelle liste pour gérer
 		List<String> newList = new ArrayList<String>();
 
@@ -277,6 +281,7 @@ public class AspirantController {
 		}
 
 		tickets.setDateCreation(date);
+
 		tickets.setStatut(statutOuvert);
 		tickets.setLanguageLibrary(set);
 		tickets.setAspirantId(id);
@@ -291,7 +296,7 @@ public class AspirantController {
 		try {
 			if (fileUpload != null)
 				for (MultipartFile multi : fileUpload) {
-					fileService.save(tickets, multi);
+					fileService.save(tickets, multi,user);
 				}
 
 		} catch (IOException e) {
@@ -341,13 +346,20 @@ public class AspirantController {
 		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
 
 		List<FileDb> files = new ArrayList<>();
+		List<FileDb> filesIntervenant = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
-			if (f.getFichier().length > 0) {
+			if(f!=null) {
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")) {
+			filesIntervenant.add(f);
+			}
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")){
 				files.add(f);
 			}
+			}
 		}
-
 		m.addAttribute("files", files);
+		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("listLibrary", listLibrary);
 		System.out.println(ticket);
 
@@ -373,15 +385,22 @@ public class AspirantController {
 		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
 
 		List<FileDb> files = new ArrayList<>();
+		List<FileDb> filesIntervenant = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
-
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
 			files.add(f);
-		}
+			}
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+				filesIntervenant.add(f);
+			}
+			}
 		// Incrémentation de la colonne nb-likes dans la db
 		ticketSoluce.setLikes(ticketSoluce.getLikes() + 1);
 		System.err.println("ticketSoluce.getLikes()--------------------------------- : " + ticketSoluce.getLikes());
 		ticketService.save(ticketSoluce);
 		m.addAttribute("files", files);
+		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("listLibrary", listLibrary);
 		System.out.println(ticket);
 
@@ -423,9 +442,15 @@ public class AspirantController {
 
 	/* Visualisation d'un ticket avec la soluce */
 	@RequestMapping(path = "/VoirSoluce", method = RequestMethod.GET)
-	public String VoirSoluce(Model m, @RequestParam String idTicket) {
+	public String VoirSoluce(Model m,HttpServletRequest request, @RequestParam String idTicket) {
+	HttpSession httpSession = request.getSession();
 
+		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
+		String userLogin = user.getLogin();
+	
+    
 		Integer id = Integer.parseInt(idTicket);
+	
 		// Recherche du ticket à afficher
 		Optional<Tickets> ticket = ticketService.findById(id);
 
@@ -447,14 +472,24 @@ public class AspirantController {
 
 		m.addAttribute("intervention", intervention);
 		List<FileDb> files = new ArrayList<>();
+		List<FileDb> filesIntervenant = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
-
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
 			files.add(f);
-		}
+			}
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+				filesIntervenant.add(f);
+			}
+			}
 		intervention.setSolutionRecue(false);
 		interventionService.save(intervention);
 
+    //attrib for chat 
+		m.addAttribute("userLogin", userLogin);
+		m.addAttribute("ticketId", id);
 		m.addAttribute("files", files);
+		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("listLibrary", listLibrary);
 		System.out.println(ticket);
 
@@ -507,32 +542,39 @@ public class AspirantController {
 
 		return "redirect:/ticketsAspirant";
 	}
+	
 
-	// savoir si une offre est périmée ou non
-	public static boolean compareDateOffer(Date datePeremp) throws ParseException {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String datePeremption = dateFormat.format(datePeremp);
-		if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
-			return true;
-		} else {
+	//savoir si une offre est périmée ou non
+		public static boolean compareDateOffer(Date datePeremp) throws ParseException {
+			 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			 String datePeremption = dateFormat.format(datePeremp);
+			if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
+			    return true;
+			}
+			else {
 
 			return false;
+			}
+			
 		}
 
-	}
-
+	
 	@RequestMapping("/chatRoomAspirant")
-	public String chatRoom(Model m, HttpServletRequest request, @RequestParam String ticketId) {
+	public String chatRoom(Model m,HttpServletRequest request, @RequestParam String ticketId) {
 		HttpSession httpSession = request.getSession();
 		Integer id = Integer.parseInt(ticketId);
 		System.err.println(id);
 //		String idTicket = String.valueOf(ticketId);
 
+		
 		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
 		String userLogin = user.getLogin();
 		m.addAttribute("userLogin", userLogin);
 		m.addAttribute("ticketId", id);
 		return "chatRoom";
 	}
+	
+	
 
 }
+

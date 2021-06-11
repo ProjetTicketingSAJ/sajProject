@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org">
 <head>
-<link rel="shortcut icon" type="image/png" href="favicon.png"/>
+<link rel="shortcut icon" type="image/png" href="favicon.png" />
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +71,7 @@
 				<div class="card-body">
 					<div class="title">
 						<h2 class="col-12" th:object="${user}">
-							<span th:text="${user.prenom}" > </span>'s tickets
+							<span th:text="${user.prenom}"> </span>'s tickets
 						</h2>
 					</div>
 
@@ -94,7 +94,8 @@
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="clotures-tab" data-bs-toggle="tab"
 										data-bs-target="#cloturestab" type="button" role="tab"
-										aria-controls="cloturestab" aria-selected="false" th:text="#{tableau.ongletEncours}"></button>
+										aria-controls="cloturestab" aria-selected="false"
+										th:text="#{tableau.ongletEncours}"></button>
 								</li>
 							</ul>
 						</div>
@@ -121,13 +122,16 @@
 											<thead>
 												<tr>
 													<th scope="col" class="idTicket">#</th>
-													<th scope="col" class="titreTicket" th:text="#{tableau.titre}"></th>
+													<th scope="col" class="titreTicket"
+														th:text="#{tableau.titre}"></th>
 													<!-- <th scope="col">Langage utilisé</th> -->
 													<th scope="col" class="dateCrea" th:text="#{tableau.ddc}"></th>
 													<!-- <th scope="col">Temps restant</th> -->
-													<th scope="col" class="statusTicket" th:text="#{tableau.statut}"></th>
+													<th scope="col" class="statusTicket"
+														th:text="#{tableau.statut}"></th>
 													<th class="colAction"><span class="action">Action</span></th>
-													<th scope="col" class="notif"><span class="action" th:text="#{tableau.offre}"></span></th>
+													<th scope="col" class="notif"><span class="action"
+														th:text="#{tableau.offre}"></span></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -168,27 +172,28 @@
 
 														</form>
 														<form action="closeTicket" method="post">
-														<input type="hidden" th:value="${ticket.id}"
+															<input type="hidden" th:value="${ticket.id}"
 																name="idTicket">
-														<button type="submit" onclick="return onButtonClos();"
-															class="btn btn-outline-danger eyeBtn" aria-label="Close"
-															data-toggle="tooltip" data-placement="top"
-															title="clôturer le ticket">
-															<svg xmlns="http://www.w3.org/2000/svg" width="35"
-																height="35" fill="currentColor" class="bi bi-x-square"
-																viewBox="0 0 16 16">
+															<button type="submit" onclick="return onButtonClos();"
+																class="btn btn-outline-danger eyeBtn" aria-label="Close"
+																data-toggle="tooltip" data-placement="top"
+																title="clôturer le ticket">
+																<svg xmlns="http://www.w3.org/2000/svg" width="35"
+																	height="35" fill="currentColor" class="bi bi-x-square"
+																	viewBox="0 0 16 16">
   <path
-																	d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+																		d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
   <path
-																	d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+																		d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
 </svg>
-														</button>
-															</form>
+															</button>
+														</form>
 
 													</td>
 
 													<td>
 														<!-- OFFRES BUTTON -->
+
 														<form action="VoirOffres" method="get" class="actionForm">
 															<input type="hidden" th:value="${ticket.id}"
 																name="idTicket">
@@ -233,13 +238,16 @@
 											<thead>
 												<tr>
 													<th scope="col" class="idTicket">#</th>
-													<th scope="col" class="titreTicket" th:text="#{tableau.titre}"></th>
+													<th scope="col" class="titreTicket"
+														th:text="#{tableau.titre}"></th>
 													<!-- <th scope="col">Langage utilisé</th> -->
 													<th scope="col" class="dateCrea" th:text="#{tableau.ddc}"></th>
 													<!-- <th scope="col">Temps restant</th> -->
-													<th scope="col" class="statusTicket" th:text="#{tableau.statut}"></th>
+													<th scope="col" class="statusTicket"
+														th:text="#{tableau.statut}"></th>
 													<th class="colAction"><span class="action">Action</span></th>
-													<th scope="col" class="notif"><span class="action" th:text="#{tableau.notification}"></span></th>
+													<th scope="col" class="notif"><span class="action"
+														th:text="#{tableau.notification}"></span></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -278,9 +286,7 @@
 
 															</button>
 
-														</form>
-
-												<!-- 		<button type="button"
+														</form> <!-- 		<button type="button"
 															class="btn btn-outline-danger eyeBtn" aria-label="Close"
 															data-toggle="tooltip" data-placement="top"
 															title="clôturer le ticket">
@@ -296,41 +302,49 @@
  -->
 
 													</td>
-													<th:block th:each="soluceRecue : ${ticket.Intervention.iterator().next().solutionRecue}"
-													th:if="${soluceRecue == false}">
-													<td>
-													<form action="VoirSoluce" method="get" class="actionForm">
-													<input type="hidden" th:value="${ticket.id}"
-																name="idTicket">
-															<button type="submit"
-																class="btn btn-outline-primary eyeBtn"
-																data-toggle="tooltip" data-placement="top"
-																title="examiner ticket">
-																<svg xmlns="http://www.w3.org/2000/svg" width="35"
-																	height="35" fill="currentColor" class="bi bi-bell"
-																	viewBox="0 0 16 16">
+													<th:block
+														th:each="soluceRecue : ${ticket.Intervention.iterator().next().solutionRecue}"
+														th:if="${soluceRecue == false}">
+														<td>
+															<div class="" th:object="${ticket}">
+																<form action="VoirSoluce" method="get"
+																	class="actionForm">
+																	<input type="hidden" th:value="${ticket.id}"
+																		name="idTicket">
+																	<button type="submit"
+																		class="btn btn-outline-primary eyeBtn"
+																		data-toggle="tooltip" data-placement="top"
+																		title="examiner ticket">
+																		<svg xmlns="http://www.w3.org/2000/svg" width="35"
+																			height="35" fill="currentColor" class="bi bi-bell"
+																			viewBox="0 0 16 16">
   <path
-																		d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+																				d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
 </svg>
-																</i>
-															</button>															
-														 </form> 
-													</td>
+																		</i>
+																	</button>
+																</form>
+															</div>
+														</td>
 													</th:block>
-													<th:block th:each="soluceRecue : ${ticket.Intervention.iterator().next().solutionRecue}"
-													th:if="${soluceRecue == true}">
-													<td>
-													<form action="VoirSoluce" method="get" class="actionForm">
-															<input type="hidden" th:value="${ticket.id}"
-																name="idTicket">
-															<button type="submit"
-																class="btn btn-outline-primary eyeBtn"
-																data-toggle="tooltip" data-placement="top"
-																title="examiner ticket">
-															<i class="far fa-bell blink" style="font-size:37px; color:red;" ></i>
-															</button>															
-														</form>
-													</td>
+													<th:block
+														th:each="soluceRecue : ${ticket.Intervention.iterator().next().solutionRecue}"
+														th:if="${soluceRecue == true}">
+														<td>
+
+															<form action="VoirSoluce" method="get" class="actionForm">
+																<input type="hidden" th:value="${ticket.id}"
+																	name="idTicket">
+																<button type="submit"
+																	class="btn btn-outline-primary eyeBtn"
+																	data-toggle="tooltip" data-placement="top"
+																	title="examiner ticket">
+																	<i class="far fa-bell blink"
+																		style="font-size: 37px; color: red;"></i>
+																</button>
+															</form>
+
+														</td>
 													</th:block>
 												</tr>
 
