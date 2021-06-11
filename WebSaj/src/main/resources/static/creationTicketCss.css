@@ -257,39 +257,37 @@ html body {
 .btnProp {
 	margin-top: 30% !important;
 }
-.ouJointure{
-		display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+.ouJointure {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
-.ouJointure h1{
+
+.ouJointure h1 {
 	font-size: xxx-large;
 	font-weight: bold;
 	color: #0080ff;
-display: flex;
-justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
+@media ( max-device-width : 780px) {
+	.ouJointure {
+		display: flex;
+		justify-content: center;
+	}
+}
 
-
-@media (max-device-width: 780px) {
-	.ouJointure{
-    display: flex;
-    justify-content: center;
-}
-	
-}
-@media  (max-device-width:450px) {
-	.ouJointure{
-    display: flex;
-    justify-content: center;
-}
-	.solutAlt span{
-font-size: smaller;
-
-}
-.solutAlt .spanTitleAlt {
-	font-size: unset;
-}
-	
+@media ( max-device-width :450px) {
+	.ouJointure {
+		display: flex;
+		justify-content: center;
+	}
+	.solutAlt span {
+		font-size: smaller;
+	}
+	.solutAlt .spanTitleAlt {
+		font-size: unset;
+	}
 }
