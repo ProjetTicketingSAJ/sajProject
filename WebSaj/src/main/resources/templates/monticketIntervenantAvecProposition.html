@@ -13,22 +13,10 @@
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-<link href="\C:\Users\afpa\Documents\fontawesome/css/all.css"
-	rel="stylesheet">
-
-<!-- MDBootstrap Datatables CSS  -->
-<link href="css/addons/datatables.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
 
 
-<!-- MDBootstrap Datatables JS  -->
-<script type="text/javascript" src="js/addons/datatables.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
-<script
-	src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+
 <!-- SCRIPT FOR HEADER IMPORT -->
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
@@ -64,7 +52,7 @@
 
 			<div class="row  justify-content-around">
 				<!-- START MAIN CARD -->
-				<div class="card cardTicket col-12 col-lg-7 ">
+				<div class="card cardTicket col-12 col-lg-6 ">
 					<div class="card-body">
 
 						<div class="row">
@@ -114,146 +102,241 @@
 
 
 						</div>
-						<!-- END CLASS ROW  -->
+
+
+
+
+						<!-- INFO TICKETS / DESCRIPTION & EXCEPTION  -->
+						<div class="" th:object="${ticket}">
+							<div class="row d-flex justify-content-around">
+								<!-- DESCRIPTION  -->
+								<div class="card infoCards col-12 col-lg-5">
+									<div class="card-header" th:text="#{ticket.descr}"></div>
+									<div class="card-body">
+										<p class="card-text"
+											th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
+									</div>
+								</div>
+
+
+								<div class="accordion infoEx col-12 col-lg-6"
+									id="accordionPanelsStayOpenExample">
+
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseTwo"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseTwo"
+												th:text="#{creationTicket.console}"></button>
+										</h2>
+										<div id="panelsStayOpen-collapseTwo"
+											class="accordion-collapse collapse"
+											aria-labelledby="panelsStayOpen-headingTwo">
+											<div class="accordion-body">
+												<p class="card-text"
+													th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
+											</div>
+										</div>
+									</div>
+									<!-- SOLUTION ACCORDION -->
+									<div class="accordion-item">
+										<h2 class="accordion-header"
+											id="panelsStayOpen-headingSolution">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseSolution"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseSolution"
+												th:text="#{ticket.oldSoluce}"></button>
+										</h2>
+										<div id="panelsStayOpen-collapseSolution"
+											class="accordion-collapse collapse"
+											aria-labelledby="panelsStayOpen-headingSolution">
+											<div class="accordion-body">
+												<p class="card-text"
+													th:text="${ticket.solutionTicket != null} ? ${ticket.solutionTicket}"></p>
+
+											</div>
+										</div>
+										<!-- END SOLUTION  COLLAPSE-->
+									</div>
+									<!-- END SOLUTION ACCORDION -->
+								</div>
+
+
+
+							</div>
+						</div>
+						<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
+
+
+
+
+
+						<!-- BADGES LANGUAGE TAGS -->
+						<div class="row tags">
+							<h3>
+								<span class="badge bg-primary" style="margin: 2%;"
+									th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
+							</h3>
+						</div>
+
+						<!-- END  BADGES LANGUAGE TAGS -->
+					</div>
+
+				</div>
+				<!-- CHATROOM CARD -->
+				<div class="col-12 col-lg-5 chatTicket">
+					<div class="card border-primary joinChat" 
+						id="userJoin">
+						<div class="card-header">Join the chat</div>
+						<div class="card-body text-primary">
+							<form id="userJoinForm" name="userJoinForm" method="post">
+								<div class="form-group">
+									<input type="hidden" th:value="${userLogin}"
+										class="form-control" id="name">
+								</div>
+								<div class="form-group">
+									<input type="hidden" th:value="${ticketId}" name="idTicket"
+										class="form-control" id="room">
+								</div>
+								<button type="submit" class="btn btn-primary">Enter
+									room</button>
+							</form>
+						</div>
 					</div>
 
 
-
-					<!-- INFO TICKETS / DESCRIPTION & EXCEPTION  -->
-					<div class="" th:object="${ticket}">
-						<div class="row d-flex justify-content-around">
-							<!-- DESCRIPTION  -->
-							<div class="card infoCards col-12 col-lg-5">
-								<div class="card-header" th:text="#{ticket.descr}"></div>
-								<div class="card-body">
-									<p class="card-text"
-										th:text="*{expoProblematique != null} ? *{expoProblematique}"></p>
+					<!-- Displaying chat -->
+					<div id="chatPage" class="d-none">
+						<div class="card mainCardChat">
+							<div class="card-body">
+								<div class="chat-container">
+									<div class="chat-header cardTitle">
+										<span class="chatRoom">Chatroom </span>ticket n°<span
+											class="ticketNum" id="room-id-display"></span>
+									</div>
+									<ul id="messageArea">
+									</ul>
+									<form id="messageForm" name="messageForm"
+										nameForm="messageForm">
+										<div class="form-group">
+											<div class="input-group clearfix">
+												<input type="text" id="message"
+													placeholder="Votre message..." autocomplete="off"
+													class="form-control col-8" />
+												<button type="submit" class="btn btn-outline-primary col-3">Envoyer</button>
+											</div>
+										</div>
+									</form>
 								</div>
 							</div>
-
-
-							<!-- EXCEPTION  -->
-							<div class="card infoCards col-12  col-lg-5">
-								<div class="card-header" th:text="#{creationTicket.console}"></div>
-								<div class="card-body">
-									<p class="card-text"
-										th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
-								</div>
-							</div>
-							<form action="chatRoom">
-								<input type="hidden" th:value="${ticket.id}" name="ticketId">
-								<button class="btn btn-primary" type="submit">go Chat</button>
-							</form>
 
 
 						</div>
+
 					</div>
-					<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
+					<!-- CHATROOM CARD -->
 
-
-
-
-
-					<!-- BADGES LANGUAGE TAGS -->
-					<div class="row tags">
-						<h3>
-							<span class="badge bg-primary" style="margin: 2%;"
-								th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
-						</h3>
-					</div>
-
-					<!-- END  BADGES LANGUAGE TAGS -->
 				</div>
-				<!-- Ancienne solution  -->
-				<div class="card infoCards col-12  col-lg-4">
-					<div class="card-header" th:text="#{ticket.oldSoluce}"></div>
-					<div class="card-body">
-						<p class="card-text"
-							th:text="${ticket.solutionTicket != null} ? ${ticket.solutionTicket}"></p>
+				<!-- END CHATROOM CARD -->
+
+			</div>
+
+			<!-- Modal SOLUTION -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+				data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog  modal-lg">
+					<div class="modal-content">
+						<form action="envoiSoluce" method="post" class="needs-validation"
+							novalidate>
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">
+									Solution Ticket n° <span class="badge rounded-pill bg-primary"
+										th:text="${ticket.id}"></span>
+								</h5>
+								<input type="hidden" th:value="${ticket.id}" name="idTicket">
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+
+							<div class="modal-body" th:object="${solution}">
+								<textarea class="form-control" id="exampleFormControlTextarea1"
+									rows="3" name="solution" required></textarea>
+								<!-- <input type="text" class="input-group input-group-lgl" -->
+								<!-- id="exampleFormControlInput1" -->
+								<!-- placeholder="Entrer votre identifiant" > -->
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal" th:text="#{ticket.close}"></button>
+								<button type="submit" class="btn btn-primary"
+									th:text="#{modal.Submit}"></button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 
 
+
+			<!-- END MAIN ROW -->
+<!-- 			SCRIPTS -->
+			
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+				crossorigin="anonymous"></script>
+
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+			<script
+				src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+
+
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+			<script src="/chatRoom.js"></script>
+
+
+
+
+
+
+			<!-- END content div -->
 		</div>
 
-
-
-
-
-		<!-- END MAIN ROW -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-			crossorigin="anonymous"></script>
-
-		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<script
-			src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-		<script
-			src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-		<script
-			src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-
-
-		<!-- END MAIN CARD -->
-
-
-
-
-
-		<!-- END content div -->
-	</div>
-
-	<!--Navigation bar-->
-	<footer th:insert="footer.html"> </footer>
-	<!--end of Navigation bar-->
-	<!-- END page div -->
+		<!--Navigation bar-->
+		<footer th:insert="footer.html"> </footer>
+		<!--end of Navigation bar-->
+		<!-- END page div -->
 	</div>
 
 
 
 
-	<!-- Modal SOLUTION -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<form action="envoiSoluce" method="post" class="needs-validation"
-					novalidate>
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">
-							Solution Ticket n° <span class="badge rounded-pill bg-primary"
-								th:text="${ticket.id}"></span>
-						</h5>
-						<input type="hidden" th:value="${ticket.id}" name="idTicket">
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
 
-					<div class="modal-body" th:object="${solution}">
-						<textarea class="form-control" id="exampleFormControlTextarea1"
-							rows="3" name="solution" required></textarea>
-						<!-- 						<input type="text" class="input-group input-group-lgl" -->
-						<!-- 							id="exampleFormControlInput1" -->
-						<!-- 							placeholder="Entrer votre identifiant" > -->
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal" th:text="#{ticket.close}"></button>
-						<button type="submit" class="btn btn-primary"
-							th:text="#{modal.Submit}"></button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 
 
 	<script src="monTicketIntervenant.js"></script>

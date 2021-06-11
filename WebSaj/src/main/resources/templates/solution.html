@@ -4,33 +4,20 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- CUSTOM CSS -->
 <link href="solutionCss.css" rel="stylesheet">
-<link rel="shortcut icon" type="image/png" href="favicon.png" />
+<link href="chatRoom.css" rel="stylesheet">
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-<link href="\C:\Users\afpa\Documents\fontawesome/css/all.css"
-	rel="stylesheet">
-
-
-<!-- ICONES BOOTSTRAP  -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-<!-- MDBootstrap Datatables CSS  -->
-<link href="css/addons/datatables.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
 
 
-<!-- MDBootstrap Datatables JS  -->
-<script type="text/javascript" src="js/addons/datatables.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
-<script
-	src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+
+
 <!-- SCRIPT FOR HEADER IMPORT -->
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
@@ -39,17 +26,15 @@
 	rel="stylesheet">
 
 <link
-	href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css"
-	rel="stylesheet">
-<link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<!-- ICONES BOOTSTRAP  -->
 <link rel="stylesheet"
-	href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 
 <!--load all styles -->
@@ -64,13 +49,14 @@
 		<!-- 	start page div -->
 		<div class="content">
 
-			<div class="row  justify-content-around">
+			<div class="row justify-content-around">
 				<!-- START MAIN CARD -->
-				<div class="card cardTicket col-12 col-lg-8 ">
+				<div class="card cardTicket col-12 col-lg-7 ">
 					<div class="card-body">
 
 
 						<div class="row">
+							<!-- row for card header -->
 							<!-- TICKET ID  -->
 							<div class="col-12 col-lg-5">
 								<h2>
@@ -79,13 +65,14 @@
 								</h2>
 							</div>
 							<!-- TICKET Title -->
-							<div class="mt-7 col-12 col-lg-7">
+							<div class="ticketTitle mt-7 col-12 col-lg-7">
 								<h2>
 									<span th:text="#{tableau.titre}"></span> <span
 										class="badge bg-primary" th:text="${ticket.titre}"></span>
 								</h2>
 							</div>
 						</div>
+						<!-- END CLASS ROW  -->
 						<!-- TICKET FILE DOWNLAOD  -->
 						<div class="dropdown show col-lg-2">
 							<a class="btn btn-secondary dropdown-toggle btnDownloadFile"
@@ -110,14 +97,7 @@
 								</div>
 							</div>
 						</div>
-
-
-
 						<!-- END TICKET FILE DOWNLAOD  -->
-
-
-						<!-- END CLASS ROW  -->
-
 
 
 						<!-- INFO TICKETS / DESCRIPTION & EXCEPTION  -->
@@ -134,125 +114,213 @@
 								</div>
 
 
-								<!-- EXCEPTION  -->
-								<div class="card infoCards col-12  col-lg-5">
-									<div class="card-header" th:text="#{creationTicket.console}"></div>
-									<div class="card-body">
-										<p class="card-text"
-											th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
+								<!-- EXCEPTION ACCORDION -->
+
+								<div class="accordion infoEx col-12 col-lg-6"
+									id="accordionPanelsStayOpenExample">
+
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseTwo"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseTwo"
+												th:text="#{creationTicket.console}"></button>
+										</h2>
+										<div id="panelsStayOpen-collapseTwo"
+											class="accordion-collapse collapse"
+											aria-labelledby="panelsStayOpen-headingTwo">
+											<div class="accordion-body">
+												<p class="card-text"
+													th:text="${ticket.exceptionConsole != null} ? ${ticket.exceptionConsole}"></p>
+											</div>
+										</div>
 									</div>
+									<!-- SOLUTION ACCORDION -->
+									<div class="accordion-item">
+										<h2 class="accordion-header"
+											id="panelsStayOpen-headingSolution">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseSolution"
+												aria-expanded="false"
+												aria-controls="panelsStayOpen-collapseSolution">Solution
+												proposée</button>
+										</h2>
+										<div id="panelsStayOpen-collapseSolution"
+											class="accordion-collapse collapse"
+											aria-labelledby="panelsStayOpen-headingSolution">
+											<div class="accordion-body" th:object="${intervention}">
+												<p class="card-text"
+													th:text="${intervention.solution != null} ? ${intervention.solution}"></p>
+												<!-- VALIDATION SOLUTION -->
+												<div class="row mb-3">
+													<div th:if="${intervention.solution != null}"
+														class="col-6 ReponseBtn">
+														<form action="validationSoluce">
+															<input type="hidden" th:value="${ticket.id}"
+																name="idTicket"> <input type="hidden"
+																th:value="${intervention.id}" name="idIntervention">
+
+
+
+															<button type="submit"
+																class="btn btn-outline-success btnValidateSolution"
+																style="border: transparent;">
+																<svg xmlns="http://www.w3.org/2000/svg" width="35"
+																	height="35" fill="currentColor" class="bi bi-check-lg"
+																	viewBox="0 0 16 16">
+  <path
+																		d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z" />
+</svg>
+															</button>
+														</form>
+													</div>
+													<div th:if="${intervention.solution != null}" class="col-6">
+														<form action="pasLaReponse" class="ReponseBtn">
+															<button type="submit" class="btn btn-outline-danger"
+																style="border: transparent;">
+																<svg xmlns="http://www.w3.org/2000/svg" width="35"
+																	height="35" fill="currentColor"
+																	class="bi bi-x-lg btnValidateSolution"
+																	viewBox="0 0 16 16">
+  <path
+																		d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z" />
+</svg>
+															</button>
+														</form>
+													</div>
+												</div>
+												<!-- END VALIDATION SOLUTION -->
+											</div>
+										</div><!-- END SOLUTION  COLLAPSE-->
+									</div><!-- END SOLUTION ACCORDION -->
+
 								</div>
-								
-								<form action="chatRoomAspirant">
-									<input type="hidden" th:value="${ticket.id}" name="ticketId">
-									<button class="btn btn-primary" type="submit">go Chat</button>
-								</form>
-								
+								<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
 							</div>
-							<!-- END INFO TICKETS / DESCRIPTION & EXCEPTION  -->
+							<!-- BADGES LANGUAGE TAGS -->
+							<div class="row m-3">
+								<h3>
+									<span class="badge bg-primary" style="margin: 2%;"
+										th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
+								</h3>
+							</div>
+							<!-- END  BADGES LANGUAGE TAGS -->
 						</div>
-						<!-- BADGES LANGUAGE TAGS -->
-						<div class="row m-3">
-							<h3>
-								<span class="badge bg-primary" style="margin: 2%;"
-									th:each="tag : ${listLibrary}" th:utext="${tag}"></span>
-							</h3>
-						</div>
-						<!-- END  BADGES LANGUAGE TAGS -->
+						<!-- END INFO TICKETS  -->
 					</div>
+					<!-- END MAIN CARD BODY  -->
 				</div>
+				<!-- END MAIN CARD -->
 
-				<!-- Bouton de validation de la soluce  -->
-
-				<!-- SOLUTION  -->
-				<div th:object="${intervention}"
-					class="card infoCards cardValid col-12  col-lg-3">
-
-					<div class="">
-
-						<form action="validationSoluce">
-							<input type="hidden" th:value="${ticket.id}" name="idTicket">
-							<input type="hidden" th:value="${intervention.id}"
-								name="idIntervention">
-							<div class="card-header soluTitle">Solution proposée</div>
-							<div class="card-body">
-								<p class="card-text"
-									th:text="${intervention.solution != null} ? ${intervention.solution}"></p>
-							</div>
-
-
-							<div class="row  justify-content-around">
-								<div th:if="${intervention.solution != null}"
-									class="col-6 ReponseBtn">
-
-									<button type="submit"
-										class="btn btn-outline-success btnValidateSolution"
-										style="border: transparent;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
-											fill="currentColor" class="bi bi-check-lg"
-											viewBox="0 0 16 16">
-  <path
-												d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z" />
-</svg>
-									</button>
-
+				<!-- CHATROOM CARD -->
+				<div class="col-12 col-lg-5 chatTicket">
+					<div class="card border-primary joinChat" style="max-width: 18rem;"
+						id="userJoin">
+						<div class="card-header">Join the chat</div>
+						<div class="card-body text-primary">
+							<form id="userJoinForm" name="userJoinForm">
+								<div class="form-group">
+									<input type="hidden" th:value="${userLogin}"
+										class="form-control" id="name">
 								</div>
-						</form>
-						<div th:if="${intervention.solution != null}" class="col-6">
-							<form action="pasLaReponse" class="ReponseBtn">
-								<button type="submit" class="btn btn-outline-danger"
-									style="border: transparent;">
-									<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
-										fill="currentColor" class="bi bi-x-lg btnValidateSolution"
-										viewBox="0 0 16 16">
-  <path
-											d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z" />
-</svg>
-								</button>
+								<div class="form-group">
+									<input type="hidden" th:value="${ticketId}" name="idTicket"
+										class="form-control" id="room">
+								</div>
+								<button type="submit" class="btn btn-primary">Enter
+									room</button>
 							</form>
 						</div>
 					</div>
+
+
+					<!-- Displaying chat -->
+					<div id="chatPage" class="d-none">
+						<div class="card mainCardChat">
+							<div class="card-body">
+								<div class="chat-container">
+									<div class="chat-header cardTitle">
+										<span class="chatRoom">Chatroom </span>ticket n°<span
+											class="ticketNum" id="room-id-display"></span>
+									</div>
+									<ul id="messageArea">
+									</ul>
+									<form id="messageForm" name="messageForm"
+										nameForm="messageForm">
+										<div class="form-group">
+											<div class="input-group clearfix">
+												<input type="text" id="message"
+													placeholder="Votre message..." autocomplete="off"
+													class="form-control col-8" />
+												<button type="submit" class="btn btn-outline-primary col-3">Envoyer</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+
+						</div>
+
+					</div>
+					<!-- CHATROOM CARD -->
+
 				</div>
+				<!-- END CHATROOM CARD -->
+
+
 			</div>
+			<!-- MAIN ROW -->
 
 
-			<!--END SOLUTION  -->
+
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+			<script src="/chatRoom.js"></script>
+
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+			<script
+				src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+			<!-- Option 1: Bootstrap Bundle with Popper -->
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+				crossorigin="anonymous"></script>
+
+
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+			<script src="/chatRoom.js"></script>
+
+
+			<!-- END MAIN CARD -->
+
+			<!-- END content div -->
 		</div>
-
-
-
-
-
-	</div>
-	<!-- END MAIN ROW -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-		crossorigin="anonymous"></script>
-
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script
-		src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-	<script
-		src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-	<script
-		src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-
-
-
-	<!-- END MAIN CARD -->
-
-	<!-- END content div -->
-	</div>
-
-	<!--Navigation bar-->
-	<footer th:insert="footer.html"> </footer>
-	<!--end of Navigation bar-->
-	<!-- END page div -->
+		<!--Navigation bar-->
+		<footer th:insert="footer.html"> </footer>
+		<!--end of Navigation bar-->
+		<!-- END page div -->
 	</div>
 </body>
 </html>
