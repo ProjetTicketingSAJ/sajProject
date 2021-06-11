@@ -84,10 +84,28 @@
 									class="btn btn-outline-primary dropdown-toggle btnDownloadFile"
 									href="#" role="button" id="dropdownMenuLink"
 									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false" th:text="#{ticket.download}"> </a>
+									aria-expanded="false" > télécharger fichiers de l'aspirant</a>
 								<div class="dropdown-menu dropFile "
 									aria-labelledby="dropdownMenuLink">
 									<div th:each="file : ${files}">
+										<div th:if="${file != null}">
+											<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
+												<span th:text="${file.name}"></span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<!-- END TICKET FILE DOWNLAOD  -->
+							</div>
+							<div class="dropdown show col-12 col-md-6 col-lg-6">
+								<a
+									class="btn btn-outline-primary dropdown-toggle btnDownloadFile"
+									href="#" role="button" id="dropdownMenuLink"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false" > Télécharger mes fichiers </a>
+								<div class="dropdown-menu dropFile "
+									aria-labelledby="dropdownMenuLink">
+									<div th:each="file : ${filesIntervenant}">
 										<div th:if="${file != null}">
 											<a class="dropdown-item" th:href="@{'/file/' + ${file.id}}">
 												<span th:text="${file.name}"></span>
@@ -246,39 +264,43 @@
 			</div>
 
 			<!-- Modal SOLUTION -->
-			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-				data-bs-keyboard="false" tabindex="-1"
-				aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				<div class="modal-dialog  modal-lg">
-					<div class="modal-content">
-						<form action="envoiSoluce" method="post" class="needs-validation"
-							novalidate>
-							<div class="modal-header">
-								<h5 class="modal-title" id="staticBackdropLabel">
-									Solution Ticket n° <span class="badge rounded-pill bg-primary"
-										th:text="${ticket.id}"></span>
-								</h5>
-								<input type="hidden" th:value="${ticket.id}" name="idTicket">
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-
-							<div class="modal-body" th:object="${solution}">
-								<textarea class="form-control" id="exampleFormControlTextarea1"
-									rows="3" name="solution" required></textarea>
-								<!-- <input type="text" class="input-group input-group-lgl" -->
-								<!-- id="exampleFormControlInput1" -->
-								<!-- placeholder="Entrer votre identifiant" > -->
-							</div>
-
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal" th:text="#{ticket.close}"></button>
-								<button type="submit" class="btn btn-primary"
-									th:text="#{modal.Submit}"></button>
-							</div>
-						</form>
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog  modal-lg">
+			<div class="modal-content">
+				<form action="envoiSoluce" method="post" enctype="multipart/form-data" class="needs-validation"
+					novalidate>
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">
+							Solution Ticket n° <span class="badge rounded-pill bg-primary"
+								th:text="${ticket.id}"></span>
+						</h5>
+						<input type="hidden" th:value="${ticket.id}" name="idTicket">
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
 					</div>
+
+					<div class="modal-body" th:object="${solution}">
+						<textarea class="form-control" id="exampleFormControlTextarea1"
+							rows="3" name="solution" required></textarea>
+						<!-- 						<input type="text" class="input-group input-group-lgl" -->
+						<!-- 							id="exampleFormControlInput1" -->
+						<!-- 							placeholder="Entrer votre identifiant" > -->
+					</div>
+									<div>
+										<input class="form-control inputFile" type="file"
+											name="fileUpload" id="fileUpload"
+											accept=".doc,.docx,.pdf,.txt" multiple>
+									</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal" th:text="#{ticket.close}"></button>
+						<button type="submit" class="btn btn-primary"
+							th:text="#{modal.Submit}"></button>
+					</div>
+				</form>
+			</div>
 				</div>
 			</div>
 
@@ -320,11 +342,6 @@
 			<script src="/chatRoom.js"></script>
 
 
-
-
-
-
-			<!-- END content div -->
 		</div>
 
 		<!--Navigation bar-->

@@ -203,7 +203,7 @@ public class LoginController {
 				System.out.println("=============================listTickets EN COURS ======================");
 				System.out.println(listOffresEnCours);
 			
-				
+				 
 				
 				// Liste des offres qui ont été faites pour pour un ticket
 				for (Tickets t : listOffresOuverte) {

@@ -139,19 +139,16 @@ public class IntervenantController {
 
 	}
 
-
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
 	@RequestMapping(path = "/monTicketintervenantAvecProposition", method = RequestMethod.POST)
-	public String monTicket(Model m, HttpServletRequest request, @RequestParam String idTicket) {
-		HttpSession httpSession = request.getSession();
+	public String monTicket(Model m, HttpServletRequest request,@RequestParam String idTicket) {
+    HttpSession httpSession = request.getSession();
 		// geting profile for chatRoom
 		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
 		String userLogin = user.getLogin();
 		
-		
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
-		
 		Optional<Tickets> ticket = ticketService.findById(id);
 		String solution = new String();
 
@@ -170,20 +167,27 @@ public class IntervenantController {
 		// Recherche et envoi des fichiers liés qu ticket
 		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
 		List<FileDb> files = new ArrayList<>();
-
-		for (FileDb f : tickets.getFile()) {
-			if (f.getFichier().length > 0) {
-				files.add(f);
-			}
-		}
+		List<FileDb> filesIntervenant = new ArrayList<>();
 		
-		//attrib for chat 
-		m.addAttribute("userLogin", userLogin);
-		m.addAttribute("ticketId", id);
+		for (FileDb f : tickets.getFile()) {
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
+			files.add(f);
+			}
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+				filesIntervenant.add(f);
+			}
+			}
+		
+		
 
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
+		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("solution", solution);
+    //attrib for chat 
+		m.addAttribute("userLogin", userLogin);
+		m.addAttribute("ticketId", id);
 		return "monTicketIntervenantAvecProposition";
 
 	}
@@ -211,15 +215,21 @@ public class IntervenantController {
 		// Recherche et envoi des fichiers liés qu ticket
 		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
 		List<FileDb> files = new ArrayList<>();
-
+		List<FileDb> filesIntervenant = new ArrayList<>();
+		
 		for (FileDb f : tickets.getFile()) {
-			if (f.getFichier().length > 0) {
-				files.add(f);
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
+			files.add(f);
 			}
-		}
-
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+				filesIntervenant.add(f);
+			}
+			}
+		
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
+		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("solution", solution);
 		return "monTicketIntervenant";
 
@@ -230,7 +240,7 @@ public class IntervenantController {
 	 */
 	@RequestMapping(path = "/envoiSoluce", method = RequestMethod.POST)
 	public String envoiSoluce(Model m, @ModelAttribute("solution") String solution, BindingResult result,
-			Principal principal, @RequestParam String idTicket) {
+			Principal principal, @RequestParam Set<MultipartFile> fileUpload, @RequestParam String idTicket) {
 		// validation
 		if (result.hasErrors()) {
 			System.err.println("BINDING RESULT ERROR" + result);
@@ -270,17 +280,35 @@ public class IntervenantController {
 
 		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
 
-		// Recherche et envoi des fichiers liés qu ticket
+		// Recherche et envoi des fichiers liés au ticket
 		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
 		List<FileDb> files = new ArrayList<>();
+		List<FileDb> filesIntervenant = new ArrayList<>();
 		for (FileDb f : tickets.getFile()) {
-
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
 			files.add(f);
-		}
+			}
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+				filesIntervenant.add(f);
+			}
+			}
+		// enregistrement des fichiers joints
+				try {
+					if (fileUpload != null)
+						for (MultipartFile multi : fileUpload) {
+							fileService.save(tickets, multi,user);
+						}
+
+				} catch (IOException e) {
+					e.printStackTrace();
+					return "redirect:/ticketsInervenant";
+				}
 
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
-
+		m.addAttribute("filesIntervenant", filesIntervenant);
+		
 		return "redirect:/ticketsInervenant";
 
 	}
@@ -422,20 +450,6 @@ public class IntervenantController {
 			os.close();
 		}
 
-	}
-
-	@RequestMapping("/chatRoom")
-	public String chatRoom(Model m,HttpServletRequest request, @RequestParam("ticketId") String ticketId) {
-		HttpSession httpSession = request.getSession();
-		Integer id = Integer.parseInt(ticketId);
-		System.err.println(id);
-//		String idTicket = String.valueOf(ticketId);
-		
-		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
-		String userLogin = user.getLogin();
-		m.addAttribute("userLogin", userLogin);
-		m.addAttribute("ticketId",  id);
-		return "chatRoom";
 	}
 
 	public static Offre findOffer(Integer idTicket, Integer idIntervenant) {

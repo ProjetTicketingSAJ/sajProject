@@ -169,7 +169,7 @@ public class AspirantController {
 			}
 			offreService.save(o);
 		}
-
+	
 		model.addAttribute("offresTickets", offresTickets);
 
 		return "mesOffres";
@@ -242,7 +242,7 @@ public class AspirantController {
 		LocalDateTime now = LocalDateTime.now();
 		Date date = convertToDateViaSqlTimestamp(now);
 		Integer id = (Integer) httpSession.getAttribute("aspirantId");
-
+		UserProfile user = userService.findById(id).get();		
 		// Création nouvelle liste pour gérer
 		List<String> newList = new ArrayList<String>();
 
@@ -295,7 +295,7 @@ public class AspirantController {
 		try {
 			if (fileUpload != null)
 				for (MultipartFile multi : fileUpload) {
-					fileService.save(tickets, multi);
+					fileService.save(tickets, multi,user);
 				}
 
 		} catch (IOException e) {
@@ -345,13 +345,20 @@ public class AspirantController {
 		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
 
 		List<FileDb> files = new ArrayList<>();
+		List<FileDb> filesIntervenant = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
-			if (f.getFichier().length > 0) {
+			if(f!=null) {
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")) {
+			filesIntervenant.add(f);
+			}
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")){
 				files.add(f);
 			}
+			}
 		}
-
 		m.addAttribute("files", files);
+		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("listLibrary", listLibrary);
 		System.out.println(ticket);
 
@@ -377,15 +384,22 @@ public class AspirantController {
 		ticket.ifPresent(tick -> m.addAttribute("ticket", tick));
 
 		List<FileDb> files = new ArrayList<>();
+		List<FileDb> filesIntervenant = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
-
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
 			files.add(f);
-		}
+			}
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+				filesIntervenant.add(f);
+			}
+			}
 		// Incrémentation de la colonne nb-likes dans la db
 		ticketSoluce.setLikes(ticketSoluce.getLikes() + 1);
 		System.err.println("ticketSoluce.getLikes()--------------------------------- : " + ticketSoluce.getLikes());
 		ticketService.save(ticketSoluce);
 		m.addAttribute("files", files);
+		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("listLibrary", listLibrary);
 		System.out.println(ticket);
 
@@ -427,13 +441,15 @@ public class AspirantController {
 
 	/* Visualisation d'un ticket avec la soluce */
 	@RequestMapping(path = "/VoirSoluce", method = RequestMethod.GET)
-	public String VoirSoluce(Model m, HttpServletRequest request, @RequestParam String idTicket) {
-		HttpSession httpSession = request.getSession();
+	public String VoirSoluce(Model m,HttpServletRequest request, @RequestParam String idTicket) {
+	HttpSession httpSession = request.getSession();
 
 		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
 		String userLogin = user.getLogin();
-
+	
+    
 		Integer id = Integer.parseInt(idTicket);
+	
 		// Recherche du ticket à afficher
 		Optional<Tickets> ticket = ticketService.findById(id);
 
@@ -455,17 +471,24 @@ public class AspirantController {
 
 		m.addAttribute("intervention", intervention);
 		List<FileDb> files = new ArrayList<>();
+		List<FileDb> filesIntervenant = new ArrayList<>();
 		for (FileDb f : ticket.get().getFile()) {
-
+			UserProfile userProfile = f.getUser();
+			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
 			files.add(f);
-		}
+			}
+			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+				filesIntervenant.add(f);
+			}
+			}
 		intervention.setSolutionRecue(false);
 		interventionService.save(intervention);
-		//attrib for chat 
+
+    //attrib for chat 
 		m.addAttribute("userLogin", userLogin);
 		m.addAttribute("ticketId", id);
-
 		m.addAttribute("files", files);
+		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("listLibrary", listLibrary);
 		System.out.println(ticket);
 
