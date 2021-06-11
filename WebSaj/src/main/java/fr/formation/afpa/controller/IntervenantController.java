@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.controller;
 
 import java.io.IOException;
@@ -377,35 +378,34 @@ public class IntervenantController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-	/* Profil Intervenant */
+		/* Profil Intervenant */
 	@RequestMapping(path = "profilIntervenant", method = RequestMethod.GET)
 	public String profilIntervenant(ModelAndView mav, Model model, HttpServletRequest request)
 			throws UnsupportedEncodingException {
 		HttpSession httpSession = request.getSession();
 		Integer idIntervenant = (Integer) httpSession.getAttribute("aspirantId");
-		System.err.println(idIntervenant);
+
 		UserProfile user = userService.findById(idIntervenant).orElse(null);
 
-		System.err.println(user.getCodingLanguage());
+		model.addAttribute("userLangFindAll", codingLanguageService.findAll());
 		model.addAttribute("userLang", user.getCodingLanguage());
 		model.addAttribute("user", user);
 		return "profilIntervenant";
 	}
 
 	/*
-	 * Update du profil
+	 * Update du profil info
 	 */
 	@RequestMapping(path = "/upDate", method = RequestMethod.POST)
 	public String upDate(Model m, @ModelAttribute("user") UserProfile userProfile, Principal principal, Model model,
 			HttpServletRequest request, @RequestParam Set<MultipartFile> fileUpload) {
 
+		System.err.println("===============================profilIntervenant========================================");
+
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		String userInfo = loginedUser.getUsername();
 		UserProfile user = userService.findByLogin(userInfo);
-
-//		UserProfile userPro = userService.findById(user.getId()).orElse(null);
-//		model.addAttribute("userLang", user.getCodingLanguage());
-//		model.addAttribute("user", userPro);
+		List<CodingLanguage> langList = codingLanguageService.findAll();
 
 		user.setPrenom(userProfile.getPrenom());
 		user.setNom(userProfile.getNom());
@@ -414,21 +414,66 @@ public class IntervenantController {
 		user.setDateNaiss(userProfile.getDateNaiss());
 
 		try {
-			if (fileUpload != null)
+			if (fileUpload != null && !fileUpload.isEmpty()) {
+
 				for (MultipartFile multi : fileUpload) {
-					pservice.save(user, multi);
+
+					if (multi.getBytes().length > 0) {
+						System.err.println("--------fileUpload-------- : " + multi.getBytes().length);
+						System.err.println("--------fileUpload-------- : " + fileUpload.isEmpty());
+						pservice.save(user, multi);
+					}
 				}
+
+			} else {
+				System.err.println("ELSE MOFOOOOOOOOOOOOO");
+
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "redirect:/";
 		}
 
+		model.addAttribute("langList", langList);
 		userService.save(user);
 
 		return "redirect:/profilIntervenant";
 	}
 
+	/*
+	 * Update du profil info
+	 */
+	@RequestMapping(path = "/upDateLanguage", method = RequestMethod.POST)
+	public String upDateLanguage(Model m, Principal principal, Model model, HttpServletRequest request,
+			@RequestParam(value = "idChecked", required = false) Set<CodingLanguage> listLang) {
+
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		String userInfo = loginedUser.getUsername();
+		UserProfile user = userService.findByLogin(userInfo);
+		List<CodingLanguage> langList = codingLanguageService.findAll();
+		System.err.println("--++--++--++--++--++--++--++--++--++--++--++ : " + langList);
+		user.setCodingLanguage(listLang);
+
+		userService.save(user);
+
+		return "redirect:/profilIntervenant";
+	}
+
+	@RequestMapping(path = "/upDateCv", method = RequestMethod.POST)
+	public String upDateCv(Model m, Principal principal, Model model, HttpServletRequest request,
+			@RequestParam String cv) {
+
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		String userInfo = loginedUser.getUsername();
+		UserProfile user = userService.findByLogin(userInfo);
+
+		user.setCv(cv);
+
+		userService.save(user);
+
+		return "redirect:/profilIntervenant";
+	}
 	/* Lecture et téléchargement du fichier */
 	@GetMapping("/file/{id}")
 	public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
@@ -529,3 +574,4 @@ public class IntervenantController {
 	}
 	
 }
+

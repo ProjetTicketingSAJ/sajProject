@@ -31,6 +31,8 @@ public class PictureService implements IPictureService {
 			System.err.println("------------------findByUserProfileLike-------------------");
 			checkPdb = dao.findByUserProfileLike(userProfile);
 			checkPdb.setImage(file.getBytes());
+			checkPdb.setName(fileName);
+			checkPdb.setType(file.getContentType());
 			return dao.save(checkPdb);
 		} else {
 			System.err.println("------------------Else-------------------");

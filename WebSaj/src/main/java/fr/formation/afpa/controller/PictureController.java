@@ -13,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import fr.formation.afpa.domain.PictureDb;
 import fr.formation.afpa.domain.UserProfile;
@@ -31,13 +30,6 @@ public class PictureController {
 	public PictureController(PictureService pservice, UserService userService) {
 		this.pservice = pservice;
 		this.userService = userService;
-	}
-
-	@RequestMapping(value = "/home")
-	public ModelAndView home() throws IOException {
-		ModelAndView view = new ModelAndView("index");
-		view.addObject("image_id", 1);
-		return view;
 	}
 
 	@RequestMapping(value = "/image/{image_id}", produces = MediaType.IMAGE_PNG_VALUE)

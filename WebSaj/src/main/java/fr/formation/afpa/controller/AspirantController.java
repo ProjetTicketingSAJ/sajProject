@@ -1,3 +1,4 @@
+
 package fr.formation.afpa.controller;
 
 import java.io.IOException;
@@ -576,3 +577,4 @@ public class AspirantController {
 	
 
 }
+

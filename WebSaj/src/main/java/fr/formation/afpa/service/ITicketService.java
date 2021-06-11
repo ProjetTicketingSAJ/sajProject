@@ -38,13 +38,11 @@ public interface ITicketService {
 			Set languageLibrary);
 
 	public List<Tickets> findDistinctByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
-  
-    public List<Tickets> findTicketsToModifierOffer(@Param("idIntervenant") Integer idIntervenant);
-	
-	public List<Tickets> findByIntervenantIdLikeAndStatutLike(Integer intervenantid, String statut);
-	
-	public Integer countDistinctByStatutAndIntervenantId(String statut,Integer intervenantId);
 
+	public List<Tickets> findTicketsToModifierOffer(@Param("idIntervenant") Integer idIntervenant);
+
+	public List<Tickets> findByIntervenantIdLikeAndStatutLike(Integer intervenantid, String statut);
+
+	public Integer countDistinctByStatutAndIntervenantId(String statut, Integer intervenantId);
 
 }
-

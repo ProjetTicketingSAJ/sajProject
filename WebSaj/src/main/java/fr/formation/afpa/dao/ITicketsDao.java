@@ -42,15 +42,15 @@ public interface ITicketsDao extends JpaRepository<Tickets, Integer> {
 	public List<Tickets> findDistinctByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary);
 
 	public List<Tickets> findDistinctTop3ByLanguageLibraryInOrderByLikesDesc(Set languageLibrary);
-	
-  @Query(value="select * from offre inner join tickets on tickets.id = offre.id_ticket where tickets.Statut='O' and id_intervenant= :idIntervenant group by tickets.ID",nativeQuery=true)
+
+	@Query(value = "select * from offre inner join tickets on tickets.id = offre.id_ticket where tickets.Statut='O' and id_intervenant= :idIntervenant group by tickets.ID", nativeQuery = true)
 	public List<Tickets> findTicketsToModifierOffer(@Param("idIntervenant") Integer idIntervenant);
 
-  public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
+	public List<Tickets> findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(String statut,
 			Set languageLibrary);
-  
-  public List<Tickets> findByIntervenantIdLikeAndStatutLike(Integer intervenantid, String statut);
-  
-  public Integer countDistinctByStatutAndIntervenantId(String statut,Integer intervenantId);
-}
 
+	public List<Tickets> findByIntervenantIdLikeAndStatutLike(Integer intervenantid, String statut);
+
+	public Integer countDistinctByStatutAndIntervenantId(String statut, Integer intervenantId);
+
+}
