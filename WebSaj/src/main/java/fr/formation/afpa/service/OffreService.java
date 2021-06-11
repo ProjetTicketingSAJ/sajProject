@@ -55,9 +55,4 @@ public class OffreService implements IOffreService {
 		return dao.findTicketsOuvertsEtNonPerimes(idIntervenant);
 	}
 
-	
-
-	
-	
-
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.afpa.dao.ICodingLanguageDao;
 import fr.formation.afpa.domain.CodingLanguage;
+import fr.formation.afpa.domain.UserProfile;
 
 @Service
 @Transactional
@@ -27,5 +28,9 @@ public class CodingLanguageService implements ICodingLanguageService {
 		return list;
 	}
 
-	
+	@Override
+	public List<CodingLanguage> findTop5ByUsersLike(UserProfile userprofile) {
+		return dao.findTop5ByUsersLike(userprofile);
+	}
+
 }

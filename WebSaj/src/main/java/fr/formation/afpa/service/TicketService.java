@@ -86,7 +86,7 @@ public class TicketService implements ITicketService {
 	}
 
 	@Override
-	public List<Tickets> findDistinctByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary){
+	public List<Tickets> findDistinctByStatutLikeAndLanguageLibraryIn(String statut, Set languageLibrary) {
 
 		return dao.findDistinctByStatutLikeAndLanguageLibraryIn(statut, languageLibrary);
 	}
@@ -96,9 +96,10 @@ public class TicketService implements ITicketService {
 			Set languageLibrary) {
 		return dao.findDistinctTop3ByStatutLikeAndLanguageLibraryInOrderByLikesDesc(statut, languageLibrary);
 	}
-  @Override
+
+	@Override
 	public List<Tickets> findTicketsToModifierOffer(Integer idIntervenant) {
-		return dao.findTicketsToModifierOffer(idIntervenant) ;
+		return dao.findTicketsToModifierOffer(idIntervenant);
 	}
 
 	@Override

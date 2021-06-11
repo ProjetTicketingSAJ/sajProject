@@ -90,7 +90,7 @@ public class AspirantController {
 	/* Atterrissage sur la page des tickets aspirant */
 	@RequestMapping(path = "/ticketsAspirant", method = RequestMethod.GET)
 	public String ticketsAspirant(Model m, HttpServletRequest request) {
-	
+
 		System.out.println(
 				"++++++++++++++++++++++++++++++++++++++++++ ticketsAspirant +++++++++++++++++++++++++++++++++++++++++++++++");
 		HttpSession httpSession = request.getSession();
@@ -103,25 +103,23 @@ public class AspirantController {
 		// Liste des offres qui ont été faites pour pour un ticket
 		for (Tickets t : listOffresOuverte) {
 			int i = 0;
-			for(Offre o : t.getOffres()) {
-				
+			for (Offre o : t.getOffres()) {
+
 				try {
-					if(compareDateOffer(o.getDatePeremption())==false) {
+					if (compareDateOffer(o.getDatePeremption()) == false) {
 						System.err.println("je suis dans le if");
-					//	Integer nbOffres = offreService.findNbOffres(t.getId());
-						i=i+1;
+						// Integer nbOffres = offreService.findNbOffres(t.getId());
+						i = i + 1;
 						t.setNbOffres(i);
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 			}
-			
-			
-			
-			System.err.println("JE SUIS I " +i);
+
+			System.err.println("JE SUIS I " + i);
 			ticketService.save(t);
-			
+
 		}
 
 		m.addAttribute("user", user);
@@ -149,19 +147,18 @@ public class AspirantController {
 		Tickets ticket = ticketService.findById(idTicket).orElse(null);
 		System.err.println(ticket);
 
-		/*Récupérer toutes les offres d'un ticket*/
+		/* Récupérer toutes les offres d'un ticket */
 		Set<Offre> offresTickets = ticket.getOffres();
 //		List<Offre> listOffres = offreService.findByTickets(ticket);
 		System.err.println(offresTickets);
 		Iterator<Offre> it = offresTickets.iterator();
-		while( it.hasNext() ) {
-			 
+		while (it.hasNext()) {
+
 			Offre o = it.next();
 			try {
-				if(compareDateOffer(o.getDatePeremption())==false) {
-			   o.setTicketVu(true);
-				}
-				else {
+				if (compareDateOffer(o.getDatePeremption()) == false) {
+					o.setTicketVu(true);
+				} else {
 					it.remove();
 				}
 			} catch (ParseException e) {
@@ -215,7 +212,6 @@ public class AspirantController {
 		// Liste des coding language
 		List<CodingLanguage> languageList = codingLanguageService.findAll();
 
-		System.out.println(languageList);
 		List<String> tagsArecherche = new ArrayList<String>();
 		m.addAttribute("tickets", new Tickets());
 		m.addAttribute("languageList", languageList);
@@ -227,15 +223,16 @@ public class AspirantController {
 
 	/* Enregistrement ticket aspirant en bdd */
 	@RequestMapping(path = "/createTicket", method = RequestMethod.POST)
-
 	public String createTicket(Model m, HttpServletRequest request, @Valid @ModelAttribute Tickets tickets,
-			BindingResult result, @RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput) {
+			BindingResult result, @RequestParam Set<MultipartFile> fileUpload, @RequestParam List<String> tagsinput,
+			@ModelAttribute CodingLanguage codingLanguage) {
 		if (result.hasErrors()) {
 			List<CodingLanguage> languageList = codingLanguageService.findAll();
 			m.addAttribute("languageList", languageList);
 			System.err.println("BINDING RESULT ERROR" + result);
 			return "creationTicket";
 		}
+
 		System.err.println("NO BINDING RESULT ERROR");
 
 		HttpSession httpSession = request.getSession();
@@ -280,7 +277,6 @@ public class AspirantController {
 		}
 
 		tickets.setDateCreation(date);
-
 		tickets.setStatut(statutOuvert);
 		tickets.setLanguageLibrary(set);
 		tickets.setAspirantId(id);
@@ -511,38 +507,32 @@ public class AspirantController {
 
 		return "redirect:/ticketsAspirant";
 	}
-	
 
-	//savoir si une offre est périmée ou non
-		public static boolean compareDateOffer(Date datePeremp) throws ParseException {
-			 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			 String datePeremption = dateFormat.format(datePeremp);
-			if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
-			    return true;
-			}
-			else {
+	// savoir si une offre est périmée ou non
+	public static boolean compareDateOffer(Date datePeremp) throws ParseException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String datePeremption = dateFormat.format(datePeremp);
+		if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
+			return true;
+		} else {
 
 			return false;
-			}
-			
 		}
 
-	
+	}
+
 	@RequestMapping("/chatRoomAspirant")
-	public String chatRoom(Model m,HttpServletRequest request, @RequestParam String ticketId) {
+	public String chatRoom(Model m, HttpServletRequest request, @RequestParam String ticketId) {
 		HttpSession httpSession = request.getSession();
 		Integer id = Integer.parseInt(ticketId);
 		System.err.println(id);
 //		String idTicket = String.valueOf(ticketId);
 
-		
 		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
 		String userLogin = user.getLogin();
 		m.addAttribute("userLogin", userLogin);
 		m.addAttribute("ticketId", id);
 		return "chatRoom";
 	}
-	
-	
 
 }
