@@ -39,12 +39,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import fr.formation.afpa.domain.CodingLanguage;
 import fr.formation.afpa.domain.FileDb;
 import fr.formation.afpa.domain.Intervention;
 import fr.formation.afpa.domain.LanguageLibrary;
 import fr.formation.afpa.domain.Offre;
 import fr.formation.afpa.domain.Tickets;
 import fr.formation.afpa.domain.UserProfile;
+import fr.formation.afpa.service.CodingLanguageService;
 import fr.formation.afpa.service.FileService;
 import fr.formation.afpa.service.InterventionService;
 import fr.formation.afpa.service.LanguageLibraryService;
@@ -62,6 +64,7 @@ public class IntervenantController {
 	FileService fileService;
 	InterventionService interventionService;
 	PictureService pservice;
+	CodingLanguageService codingLanguageService;
 	String statut = "O";
 	String statutEncours = "E";
 	String statutFerme = "F";
@@ -73,7 +76,7 @@ public class IntervenantController {
 
 	public IntervenantController(LanguageLibraryService languageLibraryService, TicketService ticketService,
 			OffreService offreService, UserService userService, FileService fileService,
-			InterventionService interventionService, PictureService pservice) {
+			InterventionService interventionService, PictureService pservice,CodingLanguageService codingLanguageService) {
 
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
@@ -82,6 +85,7 @@ public class IntervenantController {
 		this.fileService = fileService;
 		this.interventionService = interventionService;
 		this.pservice = pservice;
+		this.codingLanguageService =  codingLanguageService;
 	}
 
 	/* Atterrissage sur la page zone tickets intervenant */
