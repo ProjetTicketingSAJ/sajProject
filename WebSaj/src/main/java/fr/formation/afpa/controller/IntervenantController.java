@@ -69,6 +69,7 @@ public class IntervenantController {
 	String statutEncours = "E";
 	String statutFerme = "F";
 	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
 	public IntervenantController() {
 	}
 
@@ -76,7 +77,8 @@ public class IntervenantController {
 
 	public IntervenantController(LanguageLibraryService languageLibraryService, TicketService ticketService,
 			OffreService offreService, UserService userService, FileService fileService,
-			InterventionService interventionService, PictureService pservice,CodingLanguageService codingLanguageService) {
+			InterventionService interventionService, PictureService pservice,
+			CodingLanguageService codingLanguageService) {
 
 		this.languageLibraryService = languageLibraryService;
 		this.ticketService = ticketService;
@@ -85,7 +87,7 @@ public class IntervenantController {
 		this.fileService = fileService;
 		this.interventionService = interventionService;
 		this.pservice = pservice;
-		this.codingLanguageService =  codingLanguageService;
+		this.codingLanguageService = codingLanguageService;
 	}
 
 	/* Atterrissage sur la page zone tickets intervenant */
@@ -102,18 +104,19 @@ public class IntervenantController {
 		// liste globale
 		listTicketsOuverts.removeAll(listTickets);
 
-		
-		
-		//trouver les offres encore ouvertes sur lesquelles l'intervenant est positionné
+		// trouver les offres encore ouvertes sur lesquelles l'intervenant est
+		// positionné
 		List<Offre> offres = offreService.findTicketsOuvertsEtNonPerimes(user.getId());
-		//Ajouter à une liste de tickets, toutes les offres qui ne sont pas encore périmées
+		// Ajouter à une liste de tickets, toutes les offres qui ne sont pas encore
+		// périmées
 		List<Tickets> tickets = new ArrayList<>();
-		for (Offre o :offres) {
+		for (Offre o : offres) {
 			try {
-				//renvoie false lorsque la date du jour est supérieure à la date de péremption pour chaque offre
-				//le ticket n'est donc pas encore périmé
-				if(compareDateOffer(o.getDatePeremption())==false) {
-				tickets.add(o.getTickets());
+				// renvoie false lorsque la date du jour est supérieure à la date de péremption
+				// pour chaque offre
+				// le ticket n'est donc pas encore périmé
+				if (compareDateOffer(o.getDatePeremption()) == false) {
+					tickets.add(o.getTickets());
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -146,12 +149,12 @@ public class IntervenantController {
 
 	/* Visualisation d'un ticket spécifique après avoir cliqué dessus */
 	@RequestMapping(path = "/monTicketintervenantAvecProposition", method = RequestMethod.POST)
-	public String monTicket(Model m, HttpServletRequest request,@RequestParam String idTicket) {
-    HttpSession httpSession = request.getSession();
+	public String monTicket(Model m, HttpServletRequest request, @RequestParam String idTicket) {
+		HttpSession httpSession = request.getSession();
 		// geting profile for chatRoom
 		UserProfile user = userService.findById((Integer) httpSession.getAttribute("aspirantId")).get();
 		String userLogin = user.getLogin();
-		
+
 		System.out.println(idTicket);
 		Integer id = Integer.parseInt(idTicket);
 		Optional<Tickets> ticket = ticketService.findById(id);
@@ -173,27 +176,24 @@ public class IntervenantController {
 		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
 		List<FileDb> files = new ArrayList<>();
 		List<FileDb> filesIntervenant = new ArrayList<>();
-		
+
 		for (FileDb f : tickets.getFile()) {
 			UserProfile userProfile = f.getUser();
-			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
-			files.add(f);
-			}
-			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+			if (f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
+				files.add(f);
+			} else if (f.getFichier().length > 0 && userProfile.getTitle().equals("I")) {
 				filesIntervenant.add(f);
 			}
-			}
-		
-		
+		}
 
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
 		m.addAttribute("filesIntervenant", filesIntervenant);
 		m.addAttribute("solution", solution);
-    //attrib for chat 
+		// attrib for chat
 		m.addAttribute("userLogin", userLogin);
 		m.addAttribute("ticketId", id);
-		return "monTicketIntervenantAvecProposition";
+		return "InspectionMesTickets";
 
 	}
 
@@ -221,17 +221,16 @@ public class IntervenantController {
 		Tickets tickets = ticketService.findById(ticket.get().getId()).orElse(null);
 		List<FileDb> files = new ArrayList<>();
 		List<FileDb> filesIntervenant = new ArrayList<>();
-		
+
 		for (FileDb f : tickets.getFile()) {
 			UserProfile userProfile = f.getUser();
-			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
-			files.add(f);
-			}
-			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+			if (f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
+				files.add(f);
+			} else if (f.getFichier().length > 0 && userProfile.getTitle().equals("I")) {
 				filesIntervenant.add(f);
 			}
-			}
-		
+		}
+
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
 		m.addAttribute("filesIntervenant", filesIntervenant);
@@ -268,7 +267,7 @@ public class IntervenantController {
 		System.out.println("*******************intervention******************* : " + intervention);
 
 		intervention.setSolution(solution);
-		//Indiquer que la solution a été envoyée
+		// Indiquer que la solution a été envoyée
 		intervention.setSolutionRecue(true);
 		interventionService.save(intervention);
 		// envoi des données pour la page d'après
@@ -291,29 +290,28 @@ public class IntervenantController {
 		List<FileDb> filesIntervenant = new ArrayList<>();
 		for (FileDb f : tickets.getFile()) {
 			UserProfile userProfile = f.getUser();
-			if(f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
-			files.add(f);
-			}
-			else if(f.getFichier().length > 0 && userProfile.getTitle().equals("I")){
+			if (f.getFichier().length > 0 && userProfile.getTitle().equals("A")) {
+				files.add(f);
+			} else if (f.getFichier().length > 0 && userProfile.getTitle().equals("I")) {
 				filesIntervenant.add(f);
 			}
-			}
+		}
 		// enregistrement des fichiers joints
-				try {
-					if (fileUpload != null)
-						for (MultipartFile multi : fileUpload) {
-							fileService.save(tickets, multi,user);
-						}
-
-				} catch (IOException e) {
-					e.printStackTrace();
-					return "redirect:/ticketsInervenant";
+		try {
+			if (fileUpload != null)
+				for (MultipartFile multi : fileUpload) {
+					fileService.save(tickets, multi, user);
 				}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "redirect:/ticketsInervenant";
+		}
 
 		m.addAttribute("listLibrary", listLibrary);
 		m.addAttribute("files", files);
 		m.addAttribute("filesIntervenant", filesIntervenant);
-		
+
 		return "redirect:/ticketsInervenant";
 
 	}
@@ -325,19 +323,18 @@ public class IntervenantController {
 		// Date création ticket
 		HttpSession httpSession = request.getSession();
 		LocalDateTime now = LocalDateTime.now();
-		
-		
+
 		Date date = convertToDateViaSqlTimestamp(now);
 		// convert date to calendar
-	    Calendar c = Calendar.getInstance();
-	    c.setTime(date);
-	    
-	    // manipulate date
-	    c.add(Calendar.DATE, 2);
-		
-	 // convert calendar to date
-        Date currentDatePlusTwo = c.getTime();
-	    System.err.println("CECI EST LA DATE: " +currentDatePlusTwo);
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+
+		// manipulate date
+		c.add(Calendar.DATE, 2);
+
+		// convert calendar to date
+		Date currentDatePlusTwo = c.getTime();
+		System.err.println("CECI EST LA DATE: " + currentDatePlusTwo);
 		// Recherche du ticket par id
 		Integer id = Integer.parseInt(idTick);
 		Optional<Tickets> ticket = ticketService.findById(id);
@@ -369,7 +366,6 @@ public class IntervenantController {
 		return "redirect:/zoneTickets";
 
 	}
-	
 
 	public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
 		return java.sql.Timestamp.valueOf(dateToConvert);
@@ -382,7 +378,7 @@ public class IntervenantController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-		/* Profil Intervenant */
+	/* Profil Intervenant */
 	@RequestMapping(path = "profilIntervenant", method = RequestMethod.GET)
 	public String profilIntervenant(ModelAndView mav, Model model, HttpServletRequest request)
 			throws UnsupportedEncodingException {
@@ -478,6 +474,7 @@ public class IntervenantController {
 
 		return "redirect:/profilIntervenant";
 	}
+
 	/* Lecture et téléchargement du fichier */
 	@GetMapping("/file/{id}")
 	public void downloadFile(@PathVariable Integer id, HttpServletResponse resp) throws IOException {
@@ -544,13 +541,13 @@ public class IntervenantController {
 		return "redirect:/zoneTickets";
 
 	}
-	
+
 	@RequestMapping(path = "/MesStats", method = RequestMethod.GET)
-	public String mesStat(Model m,HttpServletRequest request) {
+	public String mesStat(Model m, HttpServletRequest request) {
 		HttpSession httpSession = request.getSession();
 		Integer intervenantId = (Integer) httpSession.getAttribute("aspirantId");
 		UserProfile user = userService.findById(intervenantId).get();
-	    Integer nbInterventions = interventionService.countDistinctByUsers(user);
+		Integer nbInterventions = interventionService.countDistinctByUsers(user);
 		Integer nbOffres = offreService.countDistinctByIntervenant(user);
 		Integer totalTicketsResolus = ticketService.countDistinctByStatutAndIntervenantId(statutFerme, intervenantId);
 		Integer nbDetachements = interventionService.countDistinctByUsersAndDetache(user, true);
@@ -558,24 +555,21 @@ public class IntervenantController {
 		m.addAttribute("nbOffres", nbOffres);
 		m.addAttribute("nbDetachements", nbDetachements);
 		m.addAttribute("totalTicketsResolus", totalTicketsResolus);
-	
-		
+
 		return "page_mes_statistiques_Intervenant";
 	}
-	
-	//savoir si une offre est périmée ou non
+
+	// savoir si une offre est périmée ou non
 	public static boolean compareDateOffer(Date datePeremp) throws ParseException {
-		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		 String datePeremption = dateFormat.format(datePeremp);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String datePeremption = dateFormat.format(datePeremp);
 		if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
-		    return true;
-		}
-		else {
+			return true;
+		} else {
 
-		return false;
+			return false;
 		}
-		
+
 	}
-	
-}
 
+}

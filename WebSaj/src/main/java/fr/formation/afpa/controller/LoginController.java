@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -165,22 +164,23 @@ public class LoginController {
 				// liste globale
 				listTicketsOuverts.removeAll(listTickets);
 
-				
-				//trouver les offres encore ouvertes sur lesquelles l'intervenant est positionné
-				List<Offre> offres = offreService.findTicketsOuvertsEtNonPerimes(user.getId());				
-				//Ajouter à une liste de tickets, toutes les offres qui ne sont pas encore périmées
+				// trouver les offres encore ouvertes sur lesquelles l'intervenant est
+				// positionné
+				List<Offre> offres = offreService.findTicketsOuvertsEtNonPerimes(user.getId());
+				// Ajouter à une liste de tickets, toutes les offres qui ne sont pas encore
+				// périmées
 				List<Tickets> tickets = new ArrayList<>();
-				for (Offre o :offres) {
+				for (Offre o : offres) {
 					try {
-						//renvoie false lorsque la date du jour est supérieure à la date de péremption pour chaque offre
-						if(compareDateOffer(o.getDatePeremption())==false) {
-						tickets.add(o.getTickets());
+						// renvoie false lorsque la date du jour est supérieure à la date de péremption
+						// pour chaque offre
+						if (compareDateOffer(o.getDatePeremption()) == false) {
+							tickets.add(o.getTickets());
 						}
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
 				}
-				
 
 				httpSession.setAttribute("title", user.getTitle());
 				httpSession.setAttribute("login", user.getLogin());
@@ -202,33 +202,28 @@ public class LoginController {
 				System.out.println(listOffresOuverte);
 				System.out.println("=============================listTickets EN COURS ======================");
 				System.out.println(listOffresEnCours);
-			
-				 
-				
+
 				// Liste des offres qui ont été faites pour pour un ticket
 				for (Tickets t : listOffresOuverte) {
 					int i = 0;
-					for(Offre o : t.getOffres()) {
-						
+					for (Offre o : t.getOffres()) {
+
 						try {
-							if(compareDateOffer(o.getDatePeremption())==false) {
+							if (compareDateOffer(o.getDatePeremption()) == false) {
 								System.err.println("je suis dans le if");
-							//	Integer nbOffres = offreService.findNbOffres(t.getId());
-								i=i+1;
+								// Integer nbOffres = offreService.findNbOffres(t.getId());
+								i = i + 1;
 								t.setNbOffres(i);
 							}
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
 					}
-					
-					
-					
-					System.err.println("JE SUIS I " +i);
+
+					System.err.println("JE SUIS I " + i);
 					ticketService.save(t);
-					
+
 				}
-				
 
 				m.addAttribute("user", user);
 				m.addAttribute("listOffresOuverte", listOffresOuverte);
@@ -271,17 +266,17 @@ public class LoginController {
 		}
 		return "403Page";
 	}
-	//savoir si une offre est périmée ou non
-	public static boolean compareDateOffer(Date datePeremp) throws ParseException {
-		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		 String datePeremption = dateFormat.format(datePeremp);
-		if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
-		    return true;
-		}
-		else {
 
-		return false;
+	// savoir si une offre est périmée ou non
+	public static boolean compareDateOffer(Date datePeremp) throws ParseException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String datePeremption = dateFormat.format(datePeremp);
+		if (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datePeremption).before(new Date())) {
+			return true;
+		} else {
+
+			return false;
 		}
-		
+
 	}
 }
