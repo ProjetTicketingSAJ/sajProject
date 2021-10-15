@@ -11,11 +11,7 @@
 	</parent>
 	<groupId>fr.formation.afpa</groupId>
 	<artifactId>WebSaj</artifactId>
-<<<<<<< HEAD
-	<packaging>jar</packaging>
-=======
 	 <packaging>jar</packaging>
->>>>>>> e0a0a2171d13959103a7168cbca90dd896df6407
 	<version>0.0.1-SNAPSHOT</version>
 	<name>WebSaj</name>
 	<description>Demo project for Spring Boot</description>
